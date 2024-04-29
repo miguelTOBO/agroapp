@@ -49,16 +49,23 @@ class _listadosState extends State<listados> {
                         filled:true,
                         fillColor: Color.fromARGB(217, 217, 217, 217),
                         labelText: 'Usuario',
-                        prefixIcon:Icon(Icons.person),
+                        labelStyle: TextStyle(
+                          color:Colors.black,
+                        ),
+                        floatingLabelStyle: TextStyle(
+                          color:Colors.black,
+                          fontSize: 21,
+                        ),
+                        prefixIcon:Icon(Icons.person,
+                          color:Colors.black,
+                        ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(22)),
                           borderSide: BorderSide(color: Color.fromARGB(217, 217, 217, 217)),
-
                         ),
                         enabledBorder: UnderlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(22)),
                           borderSide: BorderSide(color: Color.fromARGB(217, 217, 217, 217)),
-
                         ),
                       ),
                     ),
@@ -69,11 +76,21 @@ class _listadosState extends State<listados> {
                     width: 300,
                     child: TextField(
                       controller: null,
+                      obscureText:true,
                       decoration: InputDecoration(
                           filled:true,
                           fillColor: Color.fromARGB(217, 217, 217, 217),
                           labelText: 'Contraseña',
-                          prefixIcon:Icon(Icons.lock),
+                          labelStyle: TextStyle(
+                            color:Colors.black,
+                          ),
+                          floatingLabelStyle: TextStyle(
+                            color:Colors.black,
+                            fontSize: 21,
+                          ),
+                          prefixIcon:Icon(Icons.lock,
+                            color: Colors.black,
+                          ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(22)),
                             borderSide: BorderSide(color: Color.fromARGB(217, 217, 217, 217)),

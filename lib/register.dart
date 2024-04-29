@@ -44,7 +44,16 @@ class register extends StatelessWidget {
                         filled:true,
                         fillColor: Color.fromARGB(217, 217, 217, 217),
                         labelText: 'Nombre Usuario',
-                        prefixIcon:Icon(Icons.person),
+                        labelStyle: TextStyle(
+                          color:Colors.black,
+                        ),
+                        floatingLabelStyle: TextStyle(
+                          color:Colors.black,
+                          fontSize: 21,
+                        ),
+                        prefixIcon:Icon(Icons.person,
+                          color:Colors.black,
+                        ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(22)),
                           borderSide: BorderSide(color: Color.fromARGB(217, 217, 217, 217)),
@@ -66,7 +75,16 @@ class register extends StatelessWidget {
                           filled:true,
                           fillColor: Color.fromARGB(217, 217, 217, 217),
                           labelText: 'Email',
-                          prefixIcon:Icon(Icons.email_sharp),
+                          labelStyle: TextStyle(
+                            color:Colors.black,
+                          ),
+                          floatingLabelStyle: TextStyle(
+                            color:Colors.black,
+                            fontSize: 21,
+                          ),
+                          prefixIcon:Icon(Icons.email_sharp,
+                            color:Colors.black,
+                          ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(22)),
                             borderSide: BorderSide(color: Color.fromARGB(217, 217, 217, 217)),
@@ -84,11 +102,21 @@ class register extends StatelessWidget {
                     width: 300,
                     child: TextField(
                       controller: null,
+                      obscureText:true,
                       decoration: InputDecoration(
                           filled:true,
                           fillColor: Color.fromARGB(217, 217, 217, 217),
                           labelText: 'Contraseña',
-                          prefixIcon:Icon(Icons.lock),
+                          labelStyle: TextStyle(
+                            color:Colors.black,
+                          ),
+                          floatingLabelStyle: TextStyle(
+                            color:Colors.black,
+                            fontSize: 21,
+                          ),
+                          prefixIcon:Icon(Icons.lock,
+                            color:Colors.black,
+                          ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(22)),
                             borderSide: BorderSide(color: Color.fromARGB(217, 217, 217, 217)),
@@ -106,11 +134,21 @@ class register extends StatelessWidget {
                     width: 300,
                     child: TextField(
                       controller: null,
+                      obscureText:true,
                       decoration: InputDecoration(
                           filled:true,
                           fillColor: Color.fromARGB(217, 217, 217, 217),
                           labelText: 'Confirmar Contraseña',
-                          prefixIcon:Icon(Icons.lock),
+                          labelStyle: TextStyle(
+                            color:Colors.black,
+                          ),
+                          floatingLabelStyle: TextStyle(
+                            color:Colors.black,
+                            fontSize: 21,
+                          ),
+                          prefixIcon:Icon(Icons.lock,
+                            color:Colors.black,
+                          ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(22)),
                             borderSide: BorderSide(color: Color.fromARGB(217, 217, 217, 217)),

@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:lottie/lottie.dart';
-import 'package:splash/listados.dart';
+import 'package:splash/iniciar_sesion.dart';
 
 void main() {
   runApp(const vistauno());
