@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:splash/register.dart';
+import 'package:splash/principal.dart';
 
 class listados extends StatefulWidget {
   const listados({super.key});
@@ -107,7 +108,7 @@ class _listadosState extends State<listados> {
                     height: 50,
                     width: 300,
                     child:TextButton(onPressed: (){
-                      print("Button pressed");
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) =>principal()));
                     },
                       child: Text('Iniciar Sesión',
                         style: TextStyle(

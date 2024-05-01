@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:splash/principal.dart';
 
 class register extends StatelessWidget {
   const register({super.key});
@@ -165,7 +166,7 @@ class register extends StatelessWidget {
                       height: 50,
                       width: 300,
                       child:TextButton(onPressed: (){
-                        print("Button pressed");
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) =>principal()));
                       },
                         child: Text('Ingresar',
                           style: TextStyle(
