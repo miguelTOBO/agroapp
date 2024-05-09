@@ -217,17 +217,18 @@ class principal extends StatelessWidget {
           )
         ),
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Color.fromARGB(255, 39, 76, 119),
+          backgroundColor: Color.fromARGB(255, 28, 62, 44),
           type: BottomNavigationBarType.fixed,
           iconSize: 35,
-          selectedItemColor: Colors.deepOrange,
+          selectedItemColor:Color.fromARGB(255, 107, 187, 67),
 
           items: [
             BottomNavigationBarItem(
                 icon:Icon(Icons.shopping_cart_outlined,
-                  color: Colors.white,
+                  color:Color.fromARGB(255, 107, 187, 67),
                 ),
               label: 'Carro',
+
             ),
             BottomNavigationBarItem(
               icon:Icon(Icons.message,

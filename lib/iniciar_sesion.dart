@@ -16,7 +16,7 @@ class _listadosState extends State<listados> {
   bool isCkec=false;
   @override
   Widget build(BuildContext context) {
-    final size=MediaQuery.of(context).size;
+    //final size=MediaQuery.of(context).size;
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -49,9 +49,8 @@ class _listadosState extends State<listados> {
                         margin: EdgeInsets.all(15),
 
                       ),
-                      Positioned(
-                        left: 10,
-                        right: 10,
+                      Padding(
+                        padding: EdgeInsets.all(1.0),
                         child: Container(
                           width: double.infinity,
                           height: 510,
@@ -189,12 +188,10 @@ class _listadosState extends State<listados> {
                                     ),
                                   ),
                                 ),
-                                Stack(
-                                  alignment: Alignment.center,
+                                Column(
                                   children: [
-
                                     Container(
-                                        height: 50,
+                                        height: 44,
                                         width: 300,
                                         child:TextButton(onPressed: (){
                                           Navigator.of(context).push(MaterialPageRoute(builder: (context) =>register()));
@@ -203,6 +200,7 @@ class _listadosState extends State<listados> {
                                             style: TextStyle(
                                               color:Color.fromARGB(255, 28, 62, 44),
                                               fontSize: 22,
+                                              fontWeight: FontWeight.bold
                                             ),
                                           ),
                                           style:TextButton.styleFrom(
@@ -212,14 +210,12 @@ class _listadosState extends State<listados> {
                                         )
                                     ),
                                     Center(
-
-                                      child:  Container(
-                                        margin:EdgeInsets.only(top:30),
+                                      child: Container(
                                         height: 2,
                                         width: 112,
                                         color: Color.fromARGB(255, 28, 62, 44),
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
 
