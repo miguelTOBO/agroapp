@@ -15,9 +15,9 @@ class vistauno extends StatelessWidget {
   Widget build(BuildContext context) {
     return
       AnimatedSplashScreen(
-      splash:Lottie.asset('imagenes/Boceto.json'),
+      splash:Lottie.asset('imagenes/logito.json'),
       nextScreen: listados(),
-      duration: 4100,
+      duration: 4000,
       splashIconSize: 300,
       splashTransition: SplashTransition.rotationTransition,
     );
