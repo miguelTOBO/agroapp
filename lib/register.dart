@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:splash/iniciar_sesion.dart';
 import 'package:splash/principal.dart';
 
 class register extends StatefulWidget {
@@ -114,7 +115,7 @@ class _registerState extends State<register> {
                                   decoration: InputDecoration(
                                     filled:true,
                                     fillColor: Colors.transparent,
-                                    hintText: 'Contraseña',
+                                    hintText: 'Correo',
                                     hintStyle: TextStyle(
                                       color:Colors.black,
                                     ),
@@ -140,7 +141,7 @@ class _registerState extends State<register> {
                                   decoration: InputDecoration(
                                     filled:true,
                                     fillColor: Colors.transparent,
-                                    hintText: 'Contraseña',
+                                    hintText: 'Numero',
                                     hintStyle: TextStyle(
                                       color:Colors.black,
                                     ),
@@ -238,7 +239,7 @@ class _registerState extends State<register> {
                                       height: 50,
                                       width: 300,
                                       child:TextButton(onPressed: (){
-                                        Navigator.of(context).push(MaterialPageRoute(builder: (context) =>register()));
+                                        Navigator.of(context).push(MaterialPageRoute(builder: (context) =>listados()));
                                       },
                                         child: Text('Iniciar Sesion',
                                           style: TextStyle(
