@@ -11,7 +11,9 @@ class _CuentaState extends State<Cuenta> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text('pagionas 2'),
+      child: Center(child:Text('Pagiona 2',
+        style: TextStyle(fontSize: 30),
+      )),
     );
   }
 }

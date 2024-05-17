@@ -12,7 +12,9 @@ class _NotificarState extends State<Notificar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text('pagionas 4'),
+      child: Center(child:Text('Pagiona 4',
+        style: TextStyle(fontSize: 30),
+      )),
     );
   }
 }

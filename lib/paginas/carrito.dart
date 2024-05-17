@@ -11,7 +11,9 @@ class _CarritoState extends State<Carrito> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text('pagionas 5'),
+      child: Center(child:Text('Pagiona 5',
+        style: TextStyle(fontSize: 30),
+      )),
     );
   }
 }
