@@ -3,7 +3,7 @@ import 'dart:io' as io;
 
 
 class Publicar extends StatefulWidget {
-  const Publicar({super.key});
+  //const Publicar({super.key});
 
   @override
   State<Publicar> createState() => _PublicarState();
