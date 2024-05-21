@@ -11,10 +11,34 @@ class Notificar extends StatefulWidget {
 class _NotificarState extends State<Notificar> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(child:Text('Pagiona 4',
-        style: TextStyle(fontSize: 30),
-      )),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 28, 62, 44),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'AGRO',
+              style: TextStyle(
+                fontFamily: 'Barlow',
+                fontWeight: FontWeight.w900,
+                fontSize: 25,
+                color: Colors.white,
+              ),
+            ),
+            Text(
+              'APP',
+              style: TextStyle(
+                fontFamily: 'Barlow',
+                fontWeight: FontWeight.w900,
+                fontSize: 25,
+                color: Color.fromARGB(255, 255, 201, 25),
+              ),
+            ),
+          ],
+        ),
+      ),
+
     );
   }
 }
