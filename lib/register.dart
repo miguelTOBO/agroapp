@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:splash/iniciar_sesion.dart';
 import 'package:splash/principal.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:splash/login/login.dart';
 
 class register extends StatefulWidget {
   const register({super.key});
@@ -11,8 +13,15 @@ class register extends StatefulWidget {
 }
 
 class _registerState extends State<register> {
+  RegistroUsuarioLogin mial = RegistroUsuarioLogin();
   @override
+  final frm = GlobalKey<FormState>();
+  /*late String _usuaController;
+  late String _numeroController;*/
+  late String _emailController;
+  late String _passwordController;
   bool isCheckid=false;
+
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -81,7 +90,7 @@ class _registerState extends State<register> {
                                   )
                               ),
                               SizedBox(height: 15),
-                              Container(
+                              /*Container(
                                 height: 60,
                                 width: 300,
                                 child:TextFormField(
@@ -103,13 +112,21 @@ class _registerState extends State<register> {
                                       borderSide: BorderSide(color: Colors.black,width:2 ),
                                     ),
                                   ),
+                                  validator: (value) {
+                                    if (value!.isEmpty)
+                                      return 'ingrese su Usuario';
+                                    return null;
+                                  },
+                                  onSaved: (value) {
+                                    _usuaController = value!;
+                                  },
                                 ),
-                              ),
+                              ),*/
                               SizedBox(height: 15),
                               Container(
                                 height: 60,
                                 width: 300,
-                                child: TextField(
+                                child: TextFormField(
                                   controller: null,
                                   obscureText:true,
                                   decoration: InputDecoration(
@@ -129,13 +146,21 @@ class _registerState extends State<register> {
                                       borderSide: BorderSide(color: Colors.black,width:2 ),
                                     ),
                                   ),
+                                  validator: (value) {
+                                    if (value!.isEmpty)
+                                      return 'ingrese su Correo';
+                                    return null;
+                                  },
+                                  onSaved: (value) {
+                                    _emailController = value!;
+                                  },
                                 ),
                               ),
                               SizedBox(height: 15),
-                              Container(
+                              /*Container(
                                 height: 60,
                                 width: 300,
-                                child: TextField(
+                                child: TextFormField(
                                   controller: null,
                                   obscureText:true,
                                   decoration: InputDecoration(
@@ -155,13 +180,21 @@ class _registerState extends State<register> {
                                       borderSide: BorderSide(color: Colors.black,width:2 ),
                                     ),
                                   ),
+                                  validator: (value) {
+                                    if (value!.isEmpty)
+                                      return 'ingrese su Numero';
+                                    return null;
+                                  },
+                                  onSaved: (value) {
+                                    _numeroController = value!;
+                                  },
                                 ),
-                              ),
+                              ),*/
                               SizedBox(height: 15),
                               Container(
                                 height: 60,
                                 width: 300,
-                                child: TextField(
+                                child: TextFormField(
                                   controller: null,
                                   obscureText:true,
                                   decoration: InputDecoration(
@@ -181,6 +214,14 @@ class _registerState extends State<register> {
                                       borderSide: BorderSide(color: Colors.black,width:2 ),
                                     ),
                                   ),
+                                  validator: (value) {
+                                    if (value!.isEmpty)
+                                      return 'ingrese su Contraseña';
+                                    return null;
+                                  },
+                                  onSaved: (value) {
+                                    _passwordController = value!;
+                                  },
                                 ),
                               ),
                               Padding(
@@ -217,8 +258,32 @@ class _registerState extends State<register> {
                               Container(
                                   height: 45,
                                   width: 300,
-                                  child:TextButton(onPressed: (){
-                                    Navigator.of(context).push(MaterialPageRoute(builder: (context) =>principal()));
+                                  child:TextButton(onPressed: () async{
+                                    if (frm.currentState!.validate()) {
+                                      frm.currentState!.save();
+                                      var dato = mial.registroUsuario(
+                                          _emailController, _passwordController /*_usuaController, _numeroController*/);
+                                      if (dato == 1) {
+                                        Fluttertoast.showToast(msg: 'nivel de seguridad debil',
+                                            toastLength: Toast.LENGTH_LONG
+                                        );
+                                      } else if (dato == 2) {
+                                        Fluttertoast.showToast(msg: 'email ya esta registrado',
+                                            toastLength: Toast.LENGTH_LONG
+                                        );
+                                      }/*else if (dato == 3) {
+                                        Fluttertoast.showToast(msg: 'usuario ya esta registrado',
+                                            toastLength: Toast.LENGTH_LONG
+                                        );
+                                      }*/ else if (dato != null) {
+                                        Navigator.push(context,
+                                            MaterialPageRoute(builder: (context)=> principal())
+                                        );
+                                        Fluttertoast.showToast(msg: 'usuario registrado',
+                                            toastLength: Toast.LENGTH_LONG
+                                        );
+                                      }
+                                    }
                                   },
                                     child: Text('Registrarse',
                                       style: TextStyle(

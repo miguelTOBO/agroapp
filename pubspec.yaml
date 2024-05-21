@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.3.0 <4.0.0'
+  sdk: '3.2.6'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -33,6 +33,9 @@ dependencies:
   animated_splash_screen: ^1.3.0
   lottie: ^3.1.0
   flutter_launcher_icons: "^0.13.1"
+  firebase_core: ^2.27.0
+  cloud_firestore: ^4.15.8
+  firebase_auth: ^4.17.8
 flutter_launcher_icons:
   android: "launcher_icons"
   ios: true
@@ -43,12 +46,18 @@ flutter_launcher_icons:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
+  firebase_auth:
+  cloud_firestore:
+  firebase_core: ^2.31.0
+  firebase_storage:
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   image_picker: ^0.8.4+4
   path:
+  fluttertoast:
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
