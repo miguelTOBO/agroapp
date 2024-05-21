@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 
 class Notificar extends StatefulWidget {
-  const Notificar({super.key});
+  //const Notificar({super.key});
 
   @override
   State<Notificar> createState() => _NotificarState();

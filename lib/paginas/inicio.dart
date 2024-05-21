@@ -140,7 +140,7 @@ class _InicioState extends State<Inicio> {
   }
 }
 class PrimeraSeccion extends StatelessWidget {
-  const PrimeraSeccion({super.key});
+  //const PrimeraSeccion({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -528,7 +528,7 @@ class PrimeraSeccion extends StatelessWidget {
 }
 
 class SegundaSeccion extends StatelessWidget {
-  const SegundaSeccion({super.key});
+  //const SegundaSeccion({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -729,7 +729,7 @@ class SegundaSeccion extends StatelessWidget {
 }
 
 class TerceraSeccion extends StatelessWidget {
-  const TerceraSeccion({super.key});
+  //const TerceraSeccion({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -1304,7 +1304,7 @@ class TerceraSeccion extends StatelessWidget {
 }
 
 class CuartaSeccion extends StatelessWidget {
-  const CuartaSeccion({super.key});
+  //const CuartaSeccion({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -2066,7 +2066,7 @@ class CuartaSeccion extends StatelessWidget {
 }
 
 class QuintaSeccion extends StatelessWidget {
-  const QuintaSeccion({super.key});
+  //const QuintaSeccion({super.key});
 
   @override
   Widget build(BuildContext context) {

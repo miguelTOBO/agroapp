@@ -6,7 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:splash/login/login.dart';
 
 class register extends StatefulWidget {
-  const register({super.key});
+
 
   @override
   State<register> createState() => _registerState();
@@ -15,9 +15,7 @@ class register extends StatefulWidget {
 class _registerState extends State<register> {
   RegistroUsuarioLogin mial = RegistroUsuarioLogin();
   @override
-  final frm = GlobalKey<FormState>();
-  /*late String _usuaController;
-  late String _numeroController;*/
+  final formKey = GlobalKey<FormState>();
   late String _emailController;
   late String _passwordController;
   bool isCheckid=false;
@@ -62,7 +60,7 @@ class _registerState extends State<register> {
                           ),
                         ),
                         child: Form(
-                          key:null,
+                          key:formKey,
                           child:
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -127,8 +125,6 @@ class _registerState extends State<register> {
                                 height: 60,
                                 width: 300,
                                 child: TextFormField(
-                                  controller: null,
-                                  obscureText:true,
                                   decoration: InputDecoration(
                                     filled:true,
                                     fillColor: Colors.transparent,
@@ -136,7 +132,7 @@ class _registerState extends State<register> {
                                     hintStyle: TextStyle(
                                       color:Colors.black,
                                     ),
-                                    prefixIcon:Icon(Icons.lock,
+                                    prefixIcon:Icon(Icons.email_sharp,
                                       color: Colors.black,
                                     ),
                                     focusedBorder: UnderlineInputBorder(
@@ -149,7 +145,6 @@ class _registerState extends State<register> {
                                   validator: (value) {
                                     if (value!.isEmpty)
                                       return 'ingrese su Correo';
-                                    return null;
                                   },
                                   onSaved: (value) {
                                     _emailController = value!;
@@ -195,7 +190,6 @@ class _registerState extends State<register> {
                                 height: 60,
                                 width: 300,
                                 child: TextFormField(
-                                  controller: null,
                                   obscureText:true,
                                   decoration: InputDecoration(
                                     filled:true,
@@ -217,7 +211,6 @@ class _registerState extends State<register> {
                                   validator: (value) {
                                     if (value!.isEmpty)
                                       return 'ingrese su Contraseña';
-                                    return null;
                                   },
                                   onSaved: (value) {
                                     _passwordController = value!;
@@ -258,11 +251,14 @@ class _registerState extends State<register> {
                               Container(
                                   height: 45,
                                   width: 300,
-                                  child:TextButton(onPressed: () async{
-                                    if (frm.currentState!.validate()) {
-                                      frm.currentState!.save();
+                                  child:ElevatedButton(onPressed: () async{
+                                    if (formKey.currentState!.validate()) {
+                                      formKey.currentState!.save();
                                       var dato = mial.registroUsuario(
                                           _emailController, _passwordController /*_usuaController, _numeroController*/);
+                                      Fluttertoast.showToast(msg: 'dato $dato',
+                                          toastLength: Toast.LENGTH_LONG
+                                      );
                                       if (dato == 1) {
                                         Fluttertoast.showToast(msg: 'nivel de seguridad debil',
                                             toastLength: Toast.LENGTH_LONG

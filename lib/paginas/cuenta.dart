@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Cuenta extends StatefulWidget {
-  const Cuenta({super.key});
+  //const Cuenta({super.key});
 
   @override
   State<Cuenta> createState() => _CuentaState();

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class Carrito extends StatefulWidget {
-  const Carrito({super.key});
 
   @override
   State<Carrito> createState() => _CarritoState();
@@ -103,7 +102,7 @@ class _CarritoState extends State<Carrito> {
   }
 }
 class PrimeSeccion extends StatelessWidget {
-  const PrimeSeccion({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -185,7 +184,6 @@ class PrimeSeccion extends StatelessWidget {
   }
 }
 class SegunSeccion extends StatelessWidget {
-  const SegunSeccion({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -266,7 +264,7 @@ class SegunSeccion extends StatelessWidget {
   }
 }
 class TercerSeccion extends StatelessWidget {
-  const TercerSeccion({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -279,7 +277,7 @@ class TercerSeccion extends StatelessWidget {
 }
 
 class CuarSeccion extends StatelessWidget {
-  const CuarSeccion ({super.key});
+
 
   @override
   Widget build(BuildContext context) {

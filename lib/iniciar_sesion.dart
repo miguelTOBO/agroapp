@@ -6,7 +6,6 @@ import 'package:splash/register.dart';
 import 'package:splash/principal.dart';
 
 class listados extends StatefulWidget {
-  const listados({super.key});
 
   @override
   State<listados> createState() => _listadosState();
