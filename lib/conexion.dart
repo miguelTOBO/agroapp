@@ -18,7 +18,7 @@ class _MyHomePageState extends State<MyHome> {
   }
 
   Future<QuerySnapshot>getData() async{
-    return FirebaseFirestore.instance.collection('vendedor').get();
+    return FirebaseFirestore.instance.collection('usuario').get();
   }
 
 

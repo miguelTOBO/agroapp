@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:splash/iniciar_sesion.dart';
-import 'package:splash/principal.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:splash/login/login.dart';
 
 class register extends StatefulWidget {
-
 
   @override
   State<register> createState() => _registerState();
@@ -14,12 +12,14 @@ class register extends StatefulWidget {
 
 class _registerState extends State<register> {
   RegistroUsuarioLogin mial = RegistroUsuarioLogin();
-  @override
-  final formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   late String _emailController;
   late String _passwordController;
+  late String _confirmPasswordController;
+  late String _rol;
   bool isCheckid=false;
 
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -60,9 +60,8 @@ class _registerState extends State<register> {
                           ),
                         ),
                         child: Form(
-                          key:formKey,
-                          child:
-                          Column(
+                          key:_formKey,
+                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Container(
@@ -87,39 +86,6 @@ class _registerState extends State<register> {
                                       )
                                   )
                               ),
-                              SizedBox(height: 15),
-                              /*Container(
-                                height: 60,
-                                width: 300,
-                                child:TextFormField(
-                                  controller: null,
-                                  decoration: InputDecoration(
-                                    filled:true,
-                                    fillColor: Colors.transparent,
-                                    hintText:'Usuario',
-                                    hintStyle:TextStyle(
-                                      color:Colors.black,
-                                    ),
-                                    prefixIcon:Icon(Icons.person,
-                                      color:Colors.black,
-                                    ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.black,width:2),
-                                    ),
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.black,width:2 ),
-                                    ),
-                                  ),
-                                  validator: (value) {
-                                    if (value!.isEmpty)
-                                      return 'ingrese su Usuario';
-                                    return null;
-                                  },
-                                  onSaved: (value) {
-                                    _usuaController = value!;
-                                  },
-                                ),
-                              ),*/
                               SizedBox(height: 15),
                               Container(
                                 height: 60,
@@ -185,7 +151,6 @@ class _registerState extends State<register> {
                                   },
                                 ),
                               ),*/
-                              SizedBox(height: 15),
                               Container(
                                 height: 60,
                                 width: 300,
@@ -209,11 +174,90 @@ class _registerState extends State<register> {
                                     ),
                                   ),
                                   validator: (value) {
-                                    if (value!.isEmpty)
+                                    if (value!.isEmpty) {
                                       return 'ingrese su Contraseña';
+                                    }
                                   },
                                   onSaved: (value) {
                                     _passwordController = value!;
+                                  },
+                                ),
+                              ),
+                              SizedBox(height: 15),
+                              Container(
+                                height: 60,
+                                width: 300,
+                                child: TextFormField(
+                                  obscureText:true,
+                                  decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: Colors.transparent,
+                                    hintText: 'Confirmar contraseña',
+                                    hintStyle: TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                    prefixIcon: Icon(
+                                      Icons.lock,
+                                      color: Colors.black,
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.black, width: 2),
+                                    ),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.black, width: 2),
+                                    ),
+                                  ),
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Ingrese su confirmación de contraseña';
+                                    }if (_passwordController != _confirmPasswordController) {
+                                      Fluttertoast.showToast(
+                                        msg: 'Las contraseñas no coinciden',
+                                        toastLength: Toast.LENGTH_LONG,
+                                      );
+                                    }
+                                    if (_passwordController.length <=8 || _confirmPasswordController.length <= 8) {
+                                          Fluttertoast.showToast(
+                                          msg: 'La contraseña debe tener al menos 6 caracteres',
+                                          toastLength: Toast.LENGTH_LONG,
+                                          );
+                                      }
+                                  },
+                                  onSaved: (value) {
+                                    _confirmPasswordController = value!;
+                                  },
+                                ),
+                              ),
+                              SizedBox(height: 20),
+                              Container(
+                                height: 60,
+                                width: 300,
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: Colors.transparent,
+                                    hintText: '¿Administrador o Usuario?',
+                                    hintStyle: TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                    prefixIcon: Icon(
+                                      Icons.face,
+                                      color: Colors.black,
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.black, width: 2),
+                                    ),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.black, width: 2),
+                                    ),
+                                  ),
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Escribe una opción';
+                                    }
+                                  },
+                                  onSaved: (value) {
+                                    _rol = value!;
                                   },
                                 ),
                               ),
@@ -252,32 +296,24 @@ class _registerState extends State<register> {
                                   height: 45,
                                   width: 300,
                                   child:ElevatedButton(onPressed: () async{
-                                    if (formKey.currentState!.validate()) {
-                                      formKey.currentState!.save();
+                                    if (_formKey.currentState!.validate()) {
+                                      _formKey.currentState!.save();
                                       var dato = mial.registroUsuario(
-                                          _emailController, _passwordController /*_usuaController, _numeroController*/);
+                                          _emailController, _passwordController, _confirmPasswordController /*_rol*/);
                                       Fluttertoast.showToast(msg: 'dato $dato',
                                           toastLength: Toast.LENGTH_LONG
                                       );
                                       if (dato == 1) {
-                                        Fluttertoast.showToast(msg: 'nivel de seguridad debil',
-                                            toastLength: Toast.LENGTH_LONG
-                                        );
+                                        print('nivel de seguridad debil');
                                       } else if (dato == 2) {
-                                        Fluttertoast.showToast(msg: 'email ya esta registrado',
-                                            toastLength: Toast.LENGTH_LONG
-                                        );
-                                      }/*else if (dato == 3) {
-                                        Fluttertoast.showToast(msg: 'usuario ya esta registrado',
-                                            toastLength: Toast.LENGTH_LONG
-                                        );
-                                      }*/ else if (dato != null) {
-                                        Navigator.push(context,
-                                            MaterialPageRoute(builder: (context)=> principal())
-                                        );
+                                        print('email ya esta registrado');
+                                      }else if (dato == 3) {
+                                        print('usuario ya esta registrado');
+                                      } else if (dato != null) {
                                         Fluttertoast.showToast(msg: 'usuario registrado',
-                                            toastLength: Toast.LENGTH_LONG
-                                        );
+                                            toastLength: Toast.LENGTH_LONG);
+                                        Navigator.pushReplacement(context,
+                                            MaterialPageRoute(builder: (context)=> listados()));
                                       }
                                     }
                                   },
@@ -329,9 +365,7 @@ class _registerState extends State<register> {
                           ),
                         ),
                       ),
-                    )
-
-
+                    ),
                   ]
               )
           ),

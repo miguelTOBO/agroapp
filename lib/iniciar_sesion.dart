@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:splash/register.dart';
 import 'package:splash/principal.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:splash/login/login.dart';
 
 class listados extends StatefulWidget {
 
@@ -12,8 +15,13 @@ class listados extends StatefulWidget {
 }
 
 class _listadosState extends State<listados> {
+  RegistroUsuarioLogin mial = RegistroUsuarioLogin();
+  final formKey=GlobalKey<FormState>();
+  late String _emailController;
+  late String _passwordController;
   bool isCkec=false;
   @override
+
   Widget build(BuildContext context) {
     //final size=MediaQuery.of(context).size;
 
@@ -31,7 +39,6 @@ class _listadosState extends State<listados> {
             body:SingleChildScrollView(
                 child:Column(
                     children: [
-
                       Center(
                         child:Container(
                           margin:EdgeInsets.only(top:50),
@@ -46,7 +53,6 @@ class _listadosState extends State<listados> {
                       ),
                       Container(
                         margin: EdgeInsets.all(15),
-
                       ),
                       Padding(
                         padding: EdgeInsets.all(1.0),
@@ -61,7 +67,7 @@ class _listadosState extends State<listados> {
                             ),
                           ),
                           child: Form(
-                            key:null,
+                            key:formKey,
                             child:
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -86,7 +92,7 @@ class _listadosState extends State<listados> {
                                     decoration: InputDecoration(
                                       filled:true,
                                       fillColor: Colors.transparent,
-                                      hintText:'Usuario',
+                                      hintText:'Usuario o correo',
                                       hintStyle:TextStyle(
                                         color:Colors.black,
                                       ),
@@ -100,13 +106,23 @@ class _listadosState extends State<listados> {
                                         borderSide: BorderSide(color: Colors.black,width:2 ),
                                       ),
                                     ),
+                                    validator: (value){
+                                      if(value==null || value.isEmpty){
+                                        return 'Ingresar Usuario o correo';
+                                      } else{
+                                        return null;
+                                      }
+                                    },
+                                    onSaved: (value){
+                                      _emailController=value!;
+                                    },
                                   ),
                                 ),
                                 SizedBox(height: 20,),
                                 Container(
                                   height: 60,
                                   width: 300,
-                                  child: TextField(
+                                  child: TextFormField(
                                     controller: null,
                                     obscureText:true,
                                     decoration: InputDecoration(
@@ -126,14 +142,45 @@ class _listadosState extends State<listados> {
                                         borderSide: BorderSide(color: Colors.black,width:2 ),
                                       ),
                                     ),
+                                    validator: (value){
+                                      if(value==null || value.isEmpty){
+                                        return 'Ingresar contraseña';
+                                      } else{
+                                        return null;
+                                      }
+                                    },
+                                    onSaved: (value){
+                                      _passwordController=value!;
+                                    },
                                   ),
                                 ),
                                 SizedBox(height: 40,),
                                 Container(
                                     height: 50,
                                     width: 300,
-                                    child:TextButton(onPressed: (){
-                                      Navigator.of(context).push(MaterialPageRoute(builder: (context) =>principal()));
+                                    child:ElevatedButton(onPressed: () async {
+                                      if(formKey.currentState!.validate()){
+                                        formKey.currentState!.save();
+                                        var dato = mial.LoginUsuario(
+                                            _emailController, _passwordController /*_usuaController, _numeroController*/);
+                                        if (dato == 1) {
+                                          Fluttertoast.showToast(msg: 'usuario o contraseña no encontrados',
+                                              toastLength: Toast.LENGTH_LONG
+                                          );
+                                        }if (dato == 2) {
+                                          Fluttertoast.showToast(msg: 'usuario o contraseña incorrecta',
+                                              toastLength: Toast.LENGTH_LONG
+                                          );
+                                        } else if (dato != null) {
+                                          /*bool auth = await Autenticacion.authentication();*/
+                                          Fluttertoast.showToast(msg: 'Inicio de sesion exitoso',
+                                              toastLength: Toast.LENGTH_LONG
+                                          );
+                                          Navigator.push(context,
+                                              MaterialPageRoute(builder: (context) => principal())
+                                          );
+                                        }
+                                      }
                                     },
                                       child: Text('Iniciar Sesión',
                                         style: TextStyle(
@@ -223,13 +270,27 @@ class _listadosState extends State<listados> {
                           ),
                         ),
                       )
-
-
                     ]
                 )
             ),
         ),
       ),
     );
+  }
+  void guardardatos() async{
+    FirebaseFirestore.instance.collection('vendedor').add({
+      'correo': _emailController,
+      'contraseña': _passwordController
+    }).then((value){
+      Fluttertoast.showToast(
+        msg: 'los datos guardados.',
+        gravity: ToastGravity.CENTER,
+      );
+    }).catchError((error){
+      Fluttertoast.showToast(
+        msg: 'Los datos no se guardaron.',
+        gravity: ToastGravity.CENTER,
+      );
+    });
   }
 }

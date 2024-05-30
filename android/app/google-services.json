@@ -12,16 +12,13 @@
           "package_name": "com.example.splash"
         }
       },
-<<<<<<< HEAD
       "oauth_client": [],
-=======
       "oauth_client": [
         {
           "client_id": "634042798565-iu6v7l6jsmsktu76si0acgf49gm4e6c7.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
->>>>>>> origin/master
       "api_key": [
         {
           "current_key": "AIzaSyAJvGWPJ_rZ_eAKVw-Q6nu36mjS3yYTKpk"
@@ -29,9 +26,7 @@
       ],
       "services": {
         "appinvite_service": {
-<<<<<<< HEAD
-          "other_platform_oauth_client": []
-=======
+          "other_platform_oauth_client": [],
           "other_platform_oauth_client": [
             {
               "client_id": "634042798565-iu6v7l6jsmsktu76si0acgf49gm4e6c7.apps.googleusercontent.com",
@@ -45,7 +40,6 @@
               }
             }
           ]
->>>>>>> origin/master
         }
       }
     }
