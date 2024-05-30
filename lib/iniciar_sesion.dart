@@ -19,7 +19,7 @@ class _listadosState extends State<listados> {
   final formKey=GlobalKey<FormState>();
   late String _emailController;
   late String _passwordController;
-  bool isCkec=false;
+  bool isCheckid=false;
   @override
 
   Widget build(BuildContext context) {
@@ -199,18 +199,18 @@ class _listadosState extends State<listados> {
                                     children: [
                                       SizedBox(height: 20),
                                       Checkbox(
-                                        value: isCkec,
+                                        value: isCheckid,
                                         activeColor: Color.fromARGB(255, 28, 62, 44),
                                         onChanged: (value){
                                           setState(() {
-                                            isCkec=value!;
+                                            isCheckid=value!;
                                           });
                                         },
                                       ),
                                       GestureDetector(
                                         onTap: (){
                                           setState(() {
-                                            isCkec=!isCkec;
+                                            isCheckid=!isCheckid;
                                           });
                                         },
                                         child:Text('Acepta terminos y condiciones',
