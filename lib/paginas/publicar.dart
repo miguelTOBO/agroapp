@@ -122,9 +122,9 @@ class _PublicarState extends State<Publicar> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(8),
                   child: TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         hintText:'Precio'
                     ),
                     validator: (value){
@@ -137,7 +137,7 @@ class _PublicarState extends State<Publicar> {
                   ),
                 ),
                 imagen_updated !=null?Image.file(imagen_updated!):Container(
-                  margin: EdgeInsets.all(15),
+                  margin: const EdgeInsets.all(15),
                   height: 200,
                   width: 275,
                   child:  ElevatedButton(
