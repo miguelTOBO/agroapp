@@ -318,10 +318,28 @@ class _registerState extends State<register> {
                                     width: 300,
                                     child:ElevatedButton(onPressed: () async{
                                       if (_formKey.currentState!.validate()) {
-                                          Fluttertoast.showToast(msg: 'usuario registrado',
-                                              toastLength: Toast.LENGTH_LONG);
-                                          Navigator.pushReplacement(context,
-                                              MaterialPageRoute(builder: (context)=> regis2img()));
+                                        _formKey.currentState!.save();
+                                        var dato = mial.registroUsuario(
+                                              _emailController.text, _passwordController.text, _confirmPasswordController.text, _rol.text);
+                                          Fluttertoast.showToast(msg: 'dato $dato',
+                                          toastLength: Toast.LENGTH_LONG
+                                          );
+                                          if (dato == 1) {
+                                            print('nivel de seguridad debil');
+                                          } else if (dato == 2) {
+                                            print('email ya esta registrado');
+                                          }else if (dato == 3) {
+                                            print('usuario ya esta registrado');
+                                          } else if (dato != null) {
+                                            if(_confirmPasswordController.text!=_passwordController.text){
+                                              print('no se puede iniciar registro');
+                                            }else {
+                                              Fluttertoast.showToast(
+                                                  msg: 'usuario registrado', toastLength: Toast.LENGTH_LONG);
+                                                  Navigator.pushReplacement(context,
+                                                    MaterialPageRoute(builder: (context) => regis2img()));
+                                            }
+                                        }
                                       }
                                     },
                                       child: Text('Continuar con el registro',

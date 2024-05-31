@@ -90,7 +90,7 @@ class _recuperarconState extends State<recuperarcon> {
                                 }
                               },
                               onSaved: (value){
-                                _emailController=value! as TextEditingController;
+                                _emailController.text =value!;
                               },
                             ),
                           ),
@@ -167,18 +167,13 @@ class _recuperarconState extends State<recuperarcon> {
     );
   }
   var acs = ActionCodeSettings(
-    // URL you want to redirect back to. The domain (www.example.com) for this
-    // URL must be whitelisted in the Firebase Console.
-      url: 'https://com.example.splash/finishSignUp?cartId=1234',
-      // This must be true
+      url: 'https://agroapp-d94c0.web.app',
       handleCodeInApp: true,
-      iOSBundleId: 'com.example.ios',
-      androidPackageName: 'com.example.splash',
-      // installIfNotAvailable
+      androidPackageName: 'com.example.splash.android',
       androidInstallApp: true,
-      // minimumVersion
-      androidMinimumVersion: '12'
+      androidMinimumVersion: '15'
   );
+
   void _enviarcorreo(String correo) async {
     try {
       var emailAuth;

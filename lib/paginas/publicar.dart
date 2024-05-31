@@ -158,10 +158,8 @@ class _PublicarState extends State<Publicar> {
                       padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                       backgroundColor: Color.fromARGB(125, 71, 142, 59),
                     ),
-
                   ),
                 ),
-
                 Container(
                     margin: EdgeInsets.all(10),
                     height: 50,
