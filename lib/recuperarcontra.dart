@@ -166,12 +166,25 @@ class _recuperarconState extends State<recuperarcon> {
       ),
     );
   }
-
-  void _enviarcorreo(String email) async {
+  var acs = ActionCodeSettings(
+    // URL you want to redirect back to. The domain (www.example.com) for this
+    // URL must be whitelisted in the Firebase Console.
+      url: 'https://com.example.splash/finishSignUp?cartId=1234',
+      // This must be true
+      handleCodeInApp: true,
+      iOSBundleId: 'com.example.ios',
+      androidPackageName: 'com.example.splash',
+      // installIfNotAvailable
+      androidInstallApp: true,
+      // minimumVersion
+      androidMinimumVersion: '12'
+  );
+  void _enviarcorreo(String correo) async {
     try {
-      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      var emailAuth;
+      await FirebaseAuth.instance.sendSignInLinkToEmail(email: emailAuth, actionCodeSettings: acs);
       Fluttertoast.showToast(
-        msg: 'Se ha enviado un correo electrónico de recuperación a $email',
+        msg: 'Se ha enviado un correo electrónico de recuperación a $correo',
         toastLength: Toast.LENGTH_LONG,
       );
     } catch (e) {

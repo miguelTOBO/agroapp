@@ -3,20 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:splash/iniciar_sesion.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:splash/login/login.dart';
+import 'package:splash/register2.dart';
 
 class register extends StatefulWidget {
 
   @override
   State<register> createState() => _registerState();
+
 }
 
 class _registerState extends State<register> {
   RegistroUsuarioLogin mial = RegistroUsuarioLogin();
   final _formKey = GlobalKey<FormState>();
-  var _emailController=TextEditingController();
-  var _passwordController=TextEditingController();
-  var _confirmPasswordController=TextEditingController();
-  late String _rol;
+  final _emailController=TextEditingController();
+  final _passwordController=TextEditingController();
+  final _confirmPasswordController=TextEditingController();
+  final _rol=TextEditingController();
   bool isCheckid=false;
 
   @override
@@ -122,7 +124,7 @@ class _registerState extends State<register> {
                                       }
                                     },
                                     onSaved: (value) {
-                                      _emailController = value! as TextEditingController;
+                                      _emailController.text = value!;
                                     },
                                   ),
                                 ),
@@ -193,7 +195,7 @@ class _registerState extends State<register> {
                                       }
                                     },
                                     onSaved: (value) {
-                                      _passwordController = value! as TextEditingController;
+                                      _passwordController.text = value!;
                                     },
                                   ),
                                 ),
@@ -241,7 +243,7 @@ class _registerState extends State<register> {
                                       return null;
                                     },
                                     onSaved: (value) {
-                                      _confirmPasswordController = value! as TextEditingController;
+                                      _confirmPasswordController.text = value!;
                                     },
                                   ),
                                 ),
@@ -276,7 +278,7 @@ class _registerState extends State<register> {
                                       }
                                     },
                                     onSaved: (value) {
-                                      _rol = value!;
+                                      _rol.text = value!;
                                     },
                                   ),
                                 ),
@@ -316,30 +318,13 @@ class _registerState extends State<register> {
                                     width: 300,
                                     child:ElevatedButton(onPressed: () async{
                                       if (_formKey.currentState!.validate()) {
-                                        _formKey.currentState!.save();
-                                        var dato = mial.registroUsuario(
-                                            _emailController as String, _passwordController as String, _confirmPasswordController as String, _rol);
-                                        Fluttertoast.showToast(msg: 'dato $dato',
-                                            toastLength: Toast.LENGTH_LONG
-                                        );
-                                        setState(() {
-                                          isCheckid = true;
-                                        });
-                                        if (dato == 1) {
-                                          print('nivel de seguridad debil');
-                                        } else if (dato == 2) {
-                                          print('email ya esta registrado');
-                                        }else if (dato == 3) {
-                                          print('usuario ya esta registrado');
-                                        } else if (dato != null) {
                                           Fluttertoast.showToast(msg: 'usuario registrado',
                                               toastLength: Toast.LENGTH_LONG);
                                           Navigator.pushReplacement(context,
-                                              MaterialPageRoute(builder: (context)=> listados()));
-                                        }
+                                              MaterialPageRoute(builder: (context)=> regis2img()));
                                       }
                                     },
-                                      child: Text('Registrarse',
+                                      child: Text('Continuar con el registro',
                                         style: TextStyle(
                                           color:Colors.white,
                                           fontSize: 20,

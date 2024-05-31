@@ -1,10 +1,14 @@
-import 'package:flutter/material.dart';
-import 'package:local_auth/local_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:splash/principal.dart';
+import 'package:local_auth/local_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:splash/register.dart';
+import 'package:splash/principal.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:splash/login/login.dart';
+import 'package:splash/recuperarcontra.dart';
 import 'package:flutter/services.dart';
 
 class listados extends StatefulWidget {
@@ -16,14 +20,15 @@ class listados extends StatefulWidget {
 class _listadosState extends State<listados> {
   RegistroUsuarioLogin mial = RegistroUsuarioLogin();
   final formKey=GlobalKey<FormState>();
-  late String _emailController;
-  late String _passwordController;
+  var _emailController=TextEditingController();
+  var _passwordController=TextEditingController();
   bool isCheckid=false;
-  final LocalAuthentication _auth=LocalAuthentication();
   late LocalAuthentication _localAth;
+  final LocalAuthentication _auth=LocalAuthentication();
   bool _isBiometric=false;
   bool _finger=false;
   bool _authfinger=false;
+
   @override
   void initState(){
     super.initState();
@@ -98,7 +103,7 @@ class _listadosState extends State<listados> {
                                     height: 60,
                                     width: 300,
                                     child:TextFormField(
-                                      controller: null,
+                                      controller: _emailController,
                                       decoration: InputDecoration(
                                         filled:true,
                                         fillColor: Colors.transparent,
@@ -106,7 +111,7 @@ class _listadosState extends State<listados> {
                                         hintStyle:TextStyle(
                                           color:Colors.black,
                                         ),
-                                        prefixIcon:Icon(Icons.person,
+                                        prefixIcon:Icon(Icons.email_sharp,
                                           color:Colors.black,
                                         ),
                                         focusedBorder: UnderlineInputBorder(
@@ -124,7 +129,7 @@ class _listadosState extends State<listados> {
                                         }
                                       },
                                       onSaved: (value){
-                                        _emailController=value!;
+                                        _emailController=value! as TextEditingController;
                                       },
                                     ),
                                   ),
@@ -133,7 +138,7 @@ class _listadosState extends State<listados> {
                                     height: 60,
                                     width: 300,
                                     child: TextFormField(
-                                      controller: null,
+                                      controller: _passwordController,
                                       obscureText:true,
                                       decoration: InputDecoration(
                                         filled:true,
@@ -160,11 +165,41 @@ class _listadosState extends State<listados> {
                                         }
                                       },
                                       onSaved: (value){
-                                        _passwordController=value!;
+                                        _passwordController=value! as TextEditingController;
                                       },
                                     ),
                                   ),
-                                  SizedBox(height: 40,),
+                                  SizedBox(height: 15,),
+                                  Column(
+                                    children: [
+                                      Container(
+                                        height: 44,
+                                        width: 300,
+                                        child:TextButton(onPressed: (){
+                                          Navigator.of(context).push(MaterialPageRoute(builder: (context) =>recuperarcon()));
+                                        },
+                                          child: Text('Recuperar contraseña',
+                                            style: TextStyle(
+                                                color:Color.fromARGB(255, 28, 62, 44),
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold
+                                            ),
+                                          ),
+                                          style:TextButton.styleFrom(
+                                              backgroundColor: Colors.transparent
+                                          ),
+                                        )
+                                      ),
+                                      Center(
+                                        child: Container(
+                                          height: 2,
+                                          width: 190,
+                                          color: Color.fromARGB(255, 28, 62, 44),
+                                        ),
+                                      ),
+                                    ]
+                                  ),
+                                  SizedBox(height: 15,),
                                   Container(
                                       height: 50,
                                       width: 300,
@@ -172,7 +207,10 @@ class _listadosState extends State<listados> {
                                         if(formKey.currentState!.validate()){
                                           formKey.currentState!.save();
                                           var dato = mial.LoginUsuario(
-                                              _emailController, _passwordController /*_usuaController, _numeroController*/);
+                                              _emailController as String, _passwordController as String);
+                                          setState(() {
+                                            isCheckid = true;
+                                          });
                                           if (dato == 1) {
                                             Fluttertoast.showToast(msg: 'usuario o contraseña no encontrados',
                                                 toastLength: Toast.LENGTH_LONG
@@ -182,10 +220,10 @@ class _listadosState extends State<listados> {
                                                 toastLength: Toast.LENGTH_LONG
                                             );
                                           } else if (dato != null) {
-                                            /*bool auth = await Autenticacion.authentication();*/
                                             Fluttertoast.showToast(msg: 'Inicio de sesion exitoso',
                                                 toastLength: Toast.LENGTH_LONG
                                             );
+                                            guardardatos();
                                             Navigator.push(context,
                                                 MaterialPageRoute(builder: (context) => principal())
                                             );
@@ -254,15 +292,14 @@ class _listadosState extends State<listados> {
                                           },
                                             child: Text('Registrarse',
                                               style: TextStyle(
-                                                  color:Color.fromARGB(255, 28, 62, 44),
-                                                  fontSize: 22,
-                                                  fontWeight: FontWeight.bold
+                                                color:Color.fromARGB(255, 28, 62, 44),
+                                                fontSize: 22,
+                                                fontWeight: FontWeight.bold
                                               ),
                                             ),
                                             style:TextButton.styleFrom(
                                                 backgroundColor: Colors.transparent
                                             ),
-
                                           )
                                       ),
                                       Center(
@@ -274,16 +311,12 @@ class _listadosState extends State<listados> {
                                       ),
                                     ],
                                   ),
-                                  IconButton(
-                                      onPressed: iniciarAuth,
-                                      icon: Icon(Icons.fingerprint),
-                                      iconSize:30
-                                  )
+
                                 ],
                               ),
                             ),
                           ),
-                        )
+                        ),
                       )
                     ]
                 )
@@ -292,9 +325,8 @@ class _listadosState extends State<listados> {
       ),
     );
   }
-
   void guardardatos() async{
-    FirebaseFirestore.instance.collection('vendedor').add({
+    FirebaseFirestore.instance.collection('usuario').add({
       'correo': _emailController,
       'contraseña': _passwordController
     }).then((value){
@@ -309,7 +341,6 @@ class _listadosState extends State<listados> {
       );
     });
   }
-
   void _checkBiometric()async{
     try{
       final bio=await _auth.canCheckBiometrics;
