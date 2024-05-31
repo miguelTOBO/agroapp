@@ -129,7 +129,7 @@ class _listadosState extends State<listados> {
                                         }
                                       },
                                       onSaved: (value){
-                                        _emailController=value! as TextEditingController;
+                                        _emailController.text=value!;
                                       },
                                     ),
                                   ),
@@ -165,87 +165,16 @@ class _listadosState extends State<listados> {
                                         }
                                       },
                                       onSaved: (value){
-                                        _passwordController=value! as TextEditingController;
+                                        _passwordController.text=value!;
                                       },
                                     ),
                                   ),
-                                  SizedBox(height: 15,),
-                                  Column(
-                                    children: [
-                                      Container(
-                                        height: 44,
-                                        width: 300,
-                                        child:TextButton(onPressed: (){
-                                          Navigator.of(context).push(MaterialPageRoute(builder: (context) =>recuperarcon()));
-                                        },
-                                          child: Text('Recuperar contraseña',
-                                            style: TextStyle(
-                                                color:Color.fromARGB(255, 28, 62, 44),
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold
-                                            ),
-                                          ),
-                                          style:TextButton.styleFrom(
-                                              backgroundColor: Colors.transparent
-                                          ),
-                                        )
-                                      ),
-                                      Center(
-                                        child: Container(
-                                          height: 2,
-                                          width: 190,
-                                          color: Color.fromARGB(255, 28, 62, 44),
-                                        ),
-                                      ),
-                                    ]
-                                  ),
-                                  SizedBox(height: 15,),
-                                  Container(
-                                      height: 50,
-                                      width: 300,
-                                      child:ElevatedButton(onPressed: () async {
-                                        if(formKey.currentState!.validate()){
-                                          formKey.currentState!.save();
-                                          var dato = mial.LoginUsuario(
-                                              _emailController as String, _passwordController as String);
-                                          setState(() {
-                                            isCheckid = true;
-                                          });
-                                          if (dato == 1) {
-                                            Fluttertoast.showToast(msg: 'usuario o contraseña no encontrados',
-                                                toastLength: Toast.LENGTH_LONG
-                                            );
-                                          }if (dato == 2) {
-                                            Fluttertoast.showToast(msg: 'usuario o contraseña incorrecta',
-                                                toastLength: Toast.LENGTH_LONG
-                                            );
-                                          } else if (dato != null) {
-                                            Fluttertoast.showToast(msg: 'Inicio de sesion exitoso',
-                                                toastLength: Toast.LENGTH_LONG
-                                            );
-                                            guardardatos();
-                                            Navigator.push(context,
-                                                MaterialPageRoute(builder: (context) => principal())
-                                            );
-                                          }
-                                        }
-                                      },
-                                        child: Text('Iniciar Sesión',
-                                          style: TextStyle(
-                                            color:Colors.white,
-                                            fontSize: 20,
-                                          ),
-                                        ),
-                                        style:TextButton.styleFrom(
-                                          backgroundColor: Color.fromARGB(255, 28, 62, 44),
-                                        ),
-                                      )
-                                  ),
                                   Padding(
-                                    padding: EdgeInsets.all(15),
+                                    padding: EdgeInsets.all(5),
                                     child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
-                                        SizedBox(height: 20),
+                                        SizedBox(height: 10),
                                         Checkbox(
                                           value: isCheckid,
                                           activeColor: Color.fromARGB(255, 28, 62, 44),
@@ -272,11 +201,84 @@ class _listadosState extends State<listados> {
                                       ],
                                     ),
                                   ),
+
+                                  Column(
+                                    children: [
+                                      Container(
+                                        height: 35,
+                                        width: 300,
+                                        child:TextButton(onPressed: (){
+                                          Navigator.of(context).push(MaterialPageRoute(builder: (context) =>recuperarcon()));
+                                        },
+                                          child: Text('Recuperar contraseña',
+                                            style: TextStyle(
+                                                color:Color.fromARGB(255, 28, 62, 44),
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold
+                                            ),
+                                          ),
+                                          style:TextButton.styleFrom(
+                                              backgroundColor: Colors.transparent
+                                          ),
+                                        )
+                                      ),
+                                      Center(
+                                        child: Container(
+                                          height: 2,
+                                          width: 150,
+                                          color: Color.fromARGB(255, 28, 62, 44),
+                                        ),
+                                      ),
+                                    ]
+                                  ),
+                                  SizedBox(height: 15,),
+                                  Container(
+                                      height: 40,
+                                      width: 300,
+                                      child:ElevatedButton(onPressed: () async {
+                                        if(formKey.currentState!.validate()){
+                                          formKey.currentState!.save();
+                                          var dato = mial.LoginUsuario(
+                                              _emailController.text, _passwordController.text);
+                                          setState(() {
+                                            isCheckid = true;
+                                          });
+                                          if (dato == 1) {
+                                            Fluttertoast.showToast(msg: 'usuario o contraseña no encontrados',
+                                                toastLength: Toast.LENGTH_LONG
+                                            );
+                                          }if (dato == 2) {
+                                            Fluttertoast.showToast(msg: 'usuario o contraseña incorrecta',
+                                                toastLength: Toast.LENGTH_LONG
+                                            );
+                                          } else if (dato != null) {
+                                            Fluttertoast.showToast(msg: 'Inicio de sesion exitoso',
+                                                toastLength: Toast.LENGTH_LONG
+                                            );
+                                            guardardatos();
+                                            Navigator.push(context,
+                                                MaterialPageRoute(builder: (context) => principal())
+                                            );
+                                          }
+                                        }
+                                      },
+                                        child: Text('Iniciar Sesión',
+                                          style: TextStyle(
+                                            color:Colors.white,
+                                            fontSize: 17,
+                                          ),
+                                        ),
+                                        style:TextButton.styleFrom(
+                                          backgroundColor: Color.fromARGB(255, 28, 62, 44),
+                                        ),
+                                      )
+                                  ),
+                                  SizedBox(height: 15,),
                                   Padding(
                                     padding: EdgeInsets.all(1),
                                     child: Text('¿No tienes cuenta?',
                                       style: TextStyle(
-                                        fontSize: 17,
+                                        fontSize: 15,
                                         fontWeight: FontWeight.w500,
                                         color: Colors.black,
                                       ),
@@ -285,7 +287,7 @@ class _listadosState extends State<listados> {
                                   Column(
                                     children: [
                                       Container(
-                                          height: 44,
+                                          height: 40,
                                           width: 300,
                                           child:TextButton(onPressed: (){
                                             Navigator.of(context).push(MaterialPageRoute(builder: (context) =>register()));
@@ -293,7 +295,7 @@ class _listadosState extends State<listados> {
                                             child: Text('Registrarse',
                                               style: TextStyle(
                                                 color:Color.fromARGB(255, 28, 62, 44),
-                                                fontSize: 22,
+                                                fontSize: 18,
                                                 fontWeight: FontWeight.bold
                                               ),
                                             ),
@@ -309,6 +311,11 @@ class _listadosState extends State<listados> {
                                           color: Color.fromARGB(255, 28, 62, 44),
                                         ),
                                       ),
+                                      IconButton(
+                                          onPressed: iniciarAuth,
+                                          icon: Icon(Icons.fingerprint),
+                                          iconSize:40
+                                      )
                                     ],
                                   ),
 

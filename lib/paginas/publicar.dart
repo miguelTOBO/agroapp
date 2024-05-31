@@ -124,6 +124,7 @@ class _PublicarState extends State<Publicar> {
                 Padding(
                   padding: const EdgeInsets.all(8),
                   child: TextFormField(
+                    keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
                         hintText:'Precio'
                     ),
@@ -136,10 +137,41 @@ class _PublicarState extends State<Publicar> {
                     },
                   ),
                 ),
+                Padding(
+                  padding: EdgeInsets.all(8),
+                  child: TextFormField(
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                        hintText:'Cantidad'
+                    ),
+                    validator: (value){
+                      if(value!.isEmpty)
+                        return'ingrese una Cantidad';
+                    },
+                    onSaved: (value){
+                      _descripcion=value!;
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(8),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                        hintText:'Categoria'
+                    ),
+                    validator: (value){
+                      if(value!.isEmpty)
+                        return'ingrese una Categoria';
+                    },
+                    onSaved: (value){
+                      _descripcion=value!;
+                    },
+                  ),
+                ),
                 imagen_updated !=null?Image.file(imagen_updated!):Container(
                   margin: const EdgeInsets.all(15),
-                  height: 200,
-                  width: 275,
+                  height: 160,
+                  width: 180,
                   child:  ElevatedButton(
                     onPressed: ()async{
                       final imagen=await imageeen();
@@ -147,7 +179,7 @@ class _PublicarState extends State<Publicar> {
                         imagen_updated=File(imagen!.path);
                       });
                     },
-                    child: Icon(Icons.add_box_outlined,
+                    child: Icon(Icons.camera,
                       color: Colors.white,
                       size: 80,
                     ),
@@ -199,7 +231,7 @@ class _PublicarState extends State<Publicar> {
     String img = await snapshot.ref.getDownloadURL();
     FirebaseFirestore.instance.collection('producto').add({
       'titulo': _titulo,
-      'decripcion': _descripcion,
+      'descripcion': _descripcion,
       'precio': _precio
     }).then((value){
       Fluttertoast.showToast(
