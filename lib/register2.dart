@@ -1,26 +1,23 @@
-/*import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io' as io;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class Formulariopublicacion extends StatefulWidget{
+class regis2img extends StatefulWidget{
   /*const Formulariopublicacion({super.key});*/
-  /*final Insertardatos insertardatos=insertardatos();*/
 
   @override
-  State<Formulariopublicacion> createState() => _FormulariopublicacionState();
+  State<regis2img> createState() => _regis2imgState();
 }
 
-class _FormulariopublicacionState extends State<Formulariopublicacion>{
+class _regis2imgState extends State<regis2img>{
 
   final String defaultimg='img/';
   late io.File? imagen=io.File('img/');
   final picker=ImagePicker();
-  final frm=GlobalKey<FormState>();
-  late String _documento;
-  late String _nombre;
+  final _formKey=GlobalKey<FormState>();
 
   Future<void> obtenerimagen()async{
     final imgurl=await picker.pickImage(source: ImageSource.gallery);
@@ -41,7 +38,7 @@ class _FormulariopublicacionState extends State<Formulariopublicacion>{
         child: Padding(
           padding: EdgeInsets.all(14),
           child: Form(
-            key: frm,
+            key: _formKey,
             child: Column(
               children: [
                 Center(
@@ -52,43 +49,21 @@ class _FormulariopublicacionState extends State<Formulariopublicacion>{
                 ElevatedButton(
                     onPressed: obtenerimagen, child: Text('Seleccionar')
                 ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    labelText: 'Documento',
-                  ),
-                  validator: (value){
-                    if(value==null || value.isEmpty){
-                      return 'Ingresar documento';
-                    } else{
-                      return null;
-                    }
-                  },
-                  onSaved: (value){
-                    _documento=value!;
-                  },
-                ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    labelText: 'nombre',
-                  ),
-                  validator: (value){
-                    if(value==null || value.isEmpty){
-                      return 'Ingresar nombre';
-                    } else{
-                      return null;
-                    }
-                  },
-                  onSaved: (value){
-                    _nombre=value!;
-                  },
-                ),
                 ElevatedButton(onPressed: () {
-                  if(frm.currentState!.validate()){
-                    frm.currentState!.save();
-                    guardardatos();
+                  if(_formKey.currentState!.validate()){
+                    _formKey.currentState!.save();
+                    guardarimg();
                   }
                 },
-                    child: Text('guardar')
+                  child: Text('Subir foto de perfil',
+                    style: TextStyle(
+                      color:Colors.white,
+                      fontSize: 20,
+                    ),
+                  ),
+                  style:TextButton.styleFrom(
+                    backgroundColor: Color.fromARGB(255, 28, 62, 44),
+                  ),
                 ),
               ],
             ),
@@ -97,15 +72,13 @@ class _FormulariopublicacionState extends State<Formulariopublicacion>{
       ),
     );
   }
-  void guardardatos() async{
+  void guardarimg() async{
     FirebaseStorage storage =FirebaseStorage.instance;
     Reference ref=storage.ref().child('imagenes/${DateTime.now(). toString()}');
     UploadTask uploadTask=ref.putFile(imagen!);
     TaskSnapshot snapshot=await uploadTask.whenComplete(() => ()=>null);
     String img = await snapshot.ref.getDownloadURL();
-    FirebaseFirestore.instance.collection('cliente').add({
-      'documento': _documento,
-      'nombre': _nombre
+    FirebaseFirestore.instance.collection('usuario').add({
     }).then((value){
       Fluttertoast.showToast(
         msg: 'los datos guardados.',
@@ -118,4 +91,4 @@ class _FormulariopublicacionState extends State<Formulariopublicacion>{
       );
     });
   }
-}*/
+}

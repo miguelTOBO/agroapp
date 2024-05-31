@@ -4,7 +4,6 @@ import 'package:splash/iniciar_sesion.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:splash/login/login.dart';
 
-
 class register extends StatefulWidget {
 
   @override
@@ -14,9 +13,9 @@ class register extends StatefulWidget {
 class _registerState extends State<register> {
   RegistroUsuarioLogin mial = RegistroUsuarioLogin();
   final _formKey = GlobalKey<FormState>();
-  late String _emailController;
-  late String _passwordController;
-  late String _confirmPasswordController;
+  var _emailController=TextEditingController();
+  var _passwordController=TextEditingController();
+  var _confirmPasswordController=TextEditingController();
   late String _rol;
   bool isCheckid=false;
 
@@ -94,6 +93,7 @@ class _registerState extends State<register> {
                                   height: 60,
                                   width: 300,
                                   child: TextFormField(
+                                    controller: _emailController,
                                     decoration: InputDecoration(
                                       filled:true,
                                       fillColor: Colors.transparent,
@@ -112,52 +112,59 @@ class _registerState extends State<register> {
                                       ),
                                     ),
                                     validator: (value) {
-                                      if (value!.isEmpty)
+                                      if (value!.isEmpty) {
                                         return 'ingrese su Correo';
+                                      }
+                                      if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(value)) {
+                                        return ("Por favor un correo valido");
+                                      }else {
+                                        return null;
+                                      }
                                     },
                                     onSaved: (value) {
-                                      _emailController = value!;
+                                      _emailController = value! as TextEditingController;
                                     },
                                   ),
                                 ),
                                 SizedBox(height: 15),
                                 /*Container(
-                                height: 60,
-                                width: 300,
-                                child: TextFormField(
-                                  controller: null,
-                                  obscureText:true,
-                                  decoration: InputDecoration(
-                                    filled:true,
-                                    fillColor: Colors.transparent,
-                                    hintText: 'Numero',
-                                    hintStyle: TextStyle(
-                                      color:Colors.black,
+                                  height: 60,
+                                  width: 300,
+                                  child: TextFormField(
+                                    controller: null,
+                                    obscureText:true,
+                                    decoration: InputDecoration(
+                                      filled:true,
+                                      fillColor: Colors.transparent,
+                                      hintText: 'Numero',
+                                      hintStyle: TextStyle(
+                                        color:Colors.black,
+                                      ),
+                                      prefixIcon:Icon(Icons.lock,
+                                        color: Colors.black,
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: Colors.black,width:2),
+                                      ),
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: Colors.black,width:2 ),
+                                      ),
                                     ),
-                                    prefixIcon:Icon(Icons.lock,
-                                      color: Colors.black,
-                                    ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.black,width:2),
-                                    ),
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.black,width:2 ),
-                                    ),
+                                    validator: (value) {
+                                      if (value!.isEmpty)
+                                        return 'ingrese su Numero';
+                                      return null;
+                                    },
+                                    onSaved: (value) {
+                                      _numeroController = value!;
+                                    },
                                   ),
-                                  validator: (value) {
-                                    if (value!.isEmpty)
-                                      return 'ingrese su Numero';
-                                    return null;
-                                  },
-                                  onSaved: (value) {
-                                    _numeroController = value!;
-                                  },
-                                ),
-                              ),*/
+                                ),*/
                                 Container(
                                   height: 60,
                                   width: 300,
                                   child: TextFormField(
+                                    controller: _passwordController,
                                     obscureText:true,
                                     decoration: InputDecoration(
                                       filled:true,
@@ -177,12 +184,16 @@ class _registerState extends State<register> {
                                       ),
                                     ),
                                     validator: (value) {
-                                      if (value!.isEmpty) {
+                                      if (value!.isEmpty)
                                         return 'ingrese su Contraseña';
+                                      if (!RegExp(r'^.{6,}$').hasMatch(value)) {
+                                        return ("por favor una contraseña de 6 caracteres");
+                                      } else {
+                                        return null;
                                       }
                                     },
                                     onSaved: (value) {
-                                      _passwordController = value!;
+                                      _passwordController = value! as TextEditingController;
                                     },
                                   ),
                                 ),
@@ -191,8 +202,8 @@ class _registerState extends State<register> {
                                   height: 60,
                                   width: 300,
                                   child: TextFormField(
+                                    controller: _confirmPasswordController,
                                     obscureText:true,
-
                                     decoration: InputDecoration(
                                       filled: true,
                                       fillColor: Colors.transparent,
@@ -214,21 +225,23 @@ class _registerState extends State<register> {
                                     validator: (value) {
                                       if (value!.isEmpty) {
                                         return 'Ingrese su confirmación de contraseña';
-                                      }if (_passwordController!= _confirmPasswordController) {
+                                      }  if (!RegExp(r'^.{6,}$').hasMatch(value)) {
+                                        return ("por favor una contraseña de 6 caracteres");
+                                      } else if (_passwordController.text != _confirmPasswordController.text) {
                                         Fluttertoast.showToast(
                                           msg: 'Las contraseñas no coinciden',
                                           toastLength: Toast.LENGTH_LONG,
                                         );
-                                      }
-                                      if (_passwordController.length <=8 || _confirmPasswordController.length <= 8) {
+                                      } else {
                                         Fluttertoast.showToast(
-                                          msg: 'La contraseña debe tener al menos 6 caracteres',
+                                          msg: 'Las contraseñas coinciden',
                                           toastLength: Toast.LENGTH_LONG,
                                         );
                                       }
+                                      return null;
                                     },
                                     onSaved: (value) {
-                                      _confirmPasswordController = value!;
+                                      _confirmPasswordController = value! as TextEditingController;
                                     },
                                   ),
                                 ),
@@ -258,6 +271,8 @@ class _registerState extends State<register> {
                                     validator: (value) {
                                       if (value!.isEmpty) {
                                         return 'Escribe una opción';
+                                      }else {
+                                        return null;
                                       }
                                     },
                                     onSaved: (value) {
@@ -303,10 +318,13 @@ class _registerState extends State<register> {
                                       if (_formKey.currentState!.validate()) {
                                         _formKey.currentState!.save();
                                         var dato = mial.registroUsuario(
-                                            _emailController, _passwordController, _confirmPasswordController /*_rol*/);
+                                            _emailController as String, _passwordController as String, _confirmPasswordController as String, _rol);
                                         Fluttertoast.showToast(msg: 'dato $dato',
                                             toastLength: Toast.LENGTH_LONG
                                         );
+                                        setState(() {
+                                          isCheckid = true;
+                                        });
                                         if (dato == 1) {
                                           print('nivel de seguridad debil');
                                         } else if (dato == 2) {
@@ -369,7 +387,7 @@ class _registerState extends State<register> {
                             ),
                           ),
                         ),
-                      )
+                      ),
                     ),
                   ]
               )

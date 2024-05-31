@@ -5,7 +5,7 @@ class RegistroUsuarioLogin{
   final FirebaseAuth _fa =FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future registroUsuario(String correo, String password, String conpassword/* String rol*/)async{
+  Future registroUsuario(String correo, String password, String conpassword, String rol)async{
     try{
       UserCredential uc=await FirebaseAuth.instance.createUserWithEmailAndPassword(email: correo, password: password);
       print(uc.user);

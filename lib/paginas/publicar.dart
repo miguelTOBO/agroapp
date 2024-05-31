@@ -21,7 +21,7 @@ Future<XFile?> imageeen()async{
 }
 class _PublicarState extends State<Publicar> {
   File? imagen_updated;
-  final frm=GlobalKey<FormState>();
+  final _formKey=GlobalKey<FormState>();
   late String _titulo;
   late String _descripcion;
   late String _precio;
@@ -59,7 +59,7 @@ class _PublicarState extends State<Publicar> {
         child: Padding(
           padding: EdgeInsets.all(5),
           child: Form(
-            key: frm,
+            key: _formKey,
             child: Column(
               children: [
 
@@ -168,8 +168,8 @@ class _PublicarState extends State<Publicar> {
                     width: 200,
                     child: ElevatedButton(
                       onPressed: (){
-                        if(frm.currentState!.validate()){
-                          frm.currentState!.save();
+                        if(_formKey.currentState!.validate()){
+                          _formKey.currentState!.save();
                           //guardar();
                         }
                       },
