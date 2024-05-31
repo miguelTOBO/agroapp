@@ -49,6 +49,7 @@ class _registerState extends State<register> {
                         ),
                       ),
                     ),
+
                     Padding(
                       padding: EdgeInsets.all(1.0),
                       child: Align(
