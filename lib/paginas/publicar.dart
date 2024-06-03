@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:splash/principal.dart';
 
 class Publicar extends StatefulWidget {
   //const Publicar({super.key});
@@ -22,9 +22,12 @@ Future<XFile?> imageeen()async{
 class _PublicarState extends State<Publicar> {
   File? imagen_updated;
   final _formKey=GlobalKey<FormState>();
-  late String _titulo;
-  late String _descripcion;
-  late String _precio;
+  final TextEditingController _titulo=TextEditingController();
+  final TextEditingController _descripcion=TextEditingController();
+  final TextEditingController _precio=TextEditingController();
+  final TextEditingController _cantidad=TextEditingController();
+  final TextEditingController _categoria=TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,6 +97,7 @@ class _PublicarState extends State<Publicar> {
                 Padding(
                   padding: EdgeInsets.all(8),
                   child:TextFormField(
+                    controller: _titulo,
                     decoration: InputDecoration(
                         hintText:'Titulo o Nombre'
                     ),
@@ -102,13 +106,14 @@ class _PublicarState extends State<Publicar> {
                         return'ingrese un titulo o nombre';
                     },
                     onSaved: (value){
-                      _titulo=value!;
+                      _titulo.text=value!;
                     },
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.all(8),
                   child: TextFormField(
+                    controller: _descripcion,
                     decoration: InputDecoration(
                         hintText:'Descripcion'
                     ),
@@ -117,13 +122,14 @@ class _PublicarState extends State<Publicar> {
                         return'ingrese una Descripcion';
                     },
                     onSaved: (value){
-                      _descripcion=value!;
+                      _descripcion.text=value!;
                     },
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8),
                   child: TextFormField(
+                    controller: _precio,
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
                         hintText:'Precio'
@@ -133,13 +139,14 @@ class _PublicarState extends State<Publicar> {
                         return'ingrese el precio ';
                     },
                     onSaved: (value){
-                      _precio=value!;
+                      _precio.text=value!;
                     },
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.all(8),
                   child: TextFormField(
+                    controller: _cantidad,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                         hintText:'Cantidad'
@@ -149,13 +156,14 @@ class _PublicarState extends State<Publicar> {
                         return'ingrese una Cantidad';
                     },
                     onSaved: (value){
-                      _descripcion=value!;
+                      _cantidad.text=value!;
                     },
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.all(8),
                   child: TextFormField(
+                    controller: _categoria,
                     decoration: InputDecoration(
                         hintText:'Categoria'
                     ),
@@ -164,7 +172,7 @@ class _PublicarState extends State<Publicar> {
                         return'ingrese una Categoria';
                     },
                     onSaved: (value){
-                      _descripcion=value!;
+                      _categoria.text=value!;
                     },
                   ),
                 ),
@@ -175,9 +183,11 @@ class _PublicarState extends State<Publicar> {
                   child:  ElevatedButton(
                     onPressed: ()async{
                       final imagen=await imageeen();
-                      setState(() {
-                        imagen_updated=File(imagen!.path);
-                      });
+                      if(imagen!=null){
+                        setState(() {
+                          imagen_updated=File(imagen.path);
+                        });
+                      }
                     },
                     child: Icon(Icons.camera,
                       color: Colors.white,
@@ -200,7 +210,7 @@ class _PublicarState extends State<Publicar> {
                       onPressed: (){
                         if(_formKey.currentState!.validate()){
                           _formKey.currentState!.save();
-                          //guardar();
+                          guardar();
                         }
                       },
                       child: Text('Publicar',
@@ -222,20 +232,32 @@ class _PublicarState extends State<Publicar> {
     );
   }
   void guardar() async{
+    if(imagen_updated==null){
+      Fluttertoast.showToast(
+          msg: 'seleccione la imagen',
+          gravity:ToastGravity.CENTER,
+      );
+      return null;
+    }
     FirebaseStorage storage =FirebaseStorage.instance;
     Reference ref=storage.ref().child('imagenes/${DateTime.now(). toString()}');
     UploadTask uploadTask=ref.putFile(imagen_updated!);
-    TaskSnapshot snapshot=await uploadTask.whenComplete(() => ()=>null);
-    String img = await snapshot.ref.getDownloadURL();
-    FirebaseFirestore.instance.collection('producto').add({
-      'titulo': _titulo,
-      'descripcion': _descripcion,
-      'precio': _precio
+    TaskSnapshot snapshot=await uploadTask.whenComplete(()=>null);
+    String imga = await snapshot.ref.getDownloadURL();
+    FirebaseFirestore.instance.collection('productos').add({
+      'titulo': _titulo.text,
+      'descripcion': _descripcion.text,
+      'precio': _precio.text,
+      'cantidad': _cantidad.text,
+      'categoria': _categoria.text,
+      'imagen':imga,
     }).then((value){
       Fluttertoast.showToast(
         msg: 'los datos se guardados.',
         gravity: ToastGravity.CENTER,
       );
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => principal()));
     }).catchError((error){
       Fluttertoast.showToast(
         msg: 'Los datos no se guardaron.',

@@ -64,9 +64,6 @@ class _principalState extends State<principal> {
           ],
         ),
       ),
-    );;
+    );
   }
 }
-
-
-
