@@ -374,11 +374,196 @@ class SegundaSeccion extends StatelessWidget {
           itemCount: snapshot.data!.docs.length,
           itemBuilder: (context, index) {
             var producto = snapshot.data!.docs[index];
-            return ListTile(
-              title: Text(producto['titulo']),
-              subtitle: Text(producto['descripcion']),
-              leading: Image.network(producto['imagen']),
-              // Agregar botones y funcionalidad necesaria
+            return Column(
+              children: [
+                Container(
+                  margin: EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 241, 241, 241),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset: Offset(0, 3), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  height: 290,
+                  width: 340,
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.all(10),
+                            height: 50,
+                            width: 50,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.all(Radius.circular(50)
+                              ),
+                              child: Image.asset(
+                                'imagenes/persona.jpg',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          Container(
+                              child: Center(
+                                child: Text('User065416515',
+                                  style: TextStyle(
+                                    fontFamily: 'Barlow',
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 17,
+                                    color: Color.fromARGB(255, 28, 62, 44),
+                                  ),
+                                ),
+                              )
+                          ),
+                          IconButton(
+                              onPressed: (){},
+                              icon: Icon(Icons.scatter_plot,
+                                size: 25,
+                                color: Color.fromARGB(255, 28, 62, 44),
+                              )
+                          ),
+                          IconButton(
+                              onPressed: (){},
+                              icon: Icon(Icons.cancel,
+                                size: 25,
+                                color: Color.fromARGB(255, 28, 62, 44),
+                              )
+                          ),
+                        ],
+                      ),
+                      Container(
+                        height: 2,
+                        width: double.infinity,
+                        color: Color.fromARGB(255, 28, 62, 44),
+                      ),
+                      Container(
+                        margin: EdgeInsets.all(5),
+                        child: Text('${producto['descripcion']} - ${producto['titulo']}',
+                          style: TextStyle(
+                            fontFamily: 'Barlow',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 17,
+                            color: Color.fromARGB(255, 28, 62, 44),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.all(5),
+                        height: 100,
+                        width: 220,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(15)
+                          ),
+                          child: Image.network(
+                            producto['imagen'],
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              IconButton(
+                                  onPressed: (){},
+                                  icon: Icon(Icons.library_add_check,
+                                    size: 28,
+                                    color: Color.fromARGB(255, 28, 62, 44),
+                                  )),
+                              Container(
+                                margin: EdgeInsets.only(top:45),
+                                child: Text('Me gusta',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                          Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              IconButton(
+                                  onPressed: (){},
+                                  icon: Icon(Icons.comment,
+                                    size: 28,
+                                    color: Color.fromARGB(255, 28, 62, 44),
+                                  )),
+                              Container(
+                                margin: EdgeInsets.only(top:45),
+                                child: Text('Comentarios',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+
+                          Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              IconButton(
+                                  onPressed: (){},
+                                  icon: Icon(Icons.link,
+                                    size: 28,
+                                    color: Color.fromARGB(255, 28, 62, 44),
+                                  )),
+                              Container(
+                                margin: EdgeInsets.only(top:45),
+                                child: Text('Compartir',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                          Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              IconButton(
+                                  onPressed: (){},
+                                  icon: Icon(Icons.shopping_cart,
+                                    size: 28,
+                                    color: Color.fromARGB(255, 28, 62, 44),
+                                  )),
+                              Container(
+                                margin: EdgeInsets.only(top:45),
+                                child: Text('Añadir',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ],
             );
           },
         );
@@ -392,46 +577,92 @@ class TerceraSeccion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          Container(
-            margin: EdgeInsets.all(15),
-            decoration: BoxDecoration(
-              color: Color.fromARGB(255, 241, 241, 241),
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: Offset(0, 3), // changes position of shadow
-                ),
-              ],
-            ),
-            height: 290,
-            width: 340,
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      height: 50,
-                      width: 50,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(50)
+      return StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance.collection('productos').where('categoria', isEqualTo: 'Vegetales').snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          }
+          return ListView.builder(
+            shrinkWrap: true,
+            itemCount: snapshot.data!.docs.length,
+            itemBuilder: (context, index) {
+              var producto = snapshot.data!.docs[index];
+              return Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.all(15),
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 241, 241, 241),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset: Offset(0, 3), // changes position of shadow
                         ),
-                        child: Image.asset(
-                          'imagenes/persona.jpg',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+                      ],
                     ),
-                    Container(
-                        child: Center(
-                          child: Text('User065416515',
+                    height: 290,
+                    width: 340,
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.all(10),
+                              height: 50,
+                              width: 50,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.all(Radius.circular(50)
+                                ),
+                                child: Image.asset(
+                                  'imagenes/persona.jpg',
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            Container(
+                                child: Center(
+                                  child: Text('User065416515',
+                                    style: TextStyle(
+                                      fontFamily: 'Barlow',
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 17,
+                                      color: Color.fromARGB(255, 28, 62, 44),
+                                    ),
+                                  ),
+                                )
+                            ),
+                            IconButton(
+                                onPressed: (){},
+                                icon: Icon(Icons.scatter_plot,
+                                  size: 25,
+                                  color: Color.fromARGB(255, 28, 62, 44),
+                                )
+                            ),
+                            IconButton(
+                                onPressed: (){},
+                                icon: Icon(Icons.cancel,
+                                  size: 25,
+                                  color: Color.fromARGB(255, 28, 62, 44),
+                                )
+                            ),
+                          ],
+                        ),
+                        Container(
+                          height: 2,
+                          width: double.infinity,
+                          color: Color.fromARGB(255, 28, 62, 44),
+                        ),
+                        Container(
+                          margin: EdgeInsets.all(5),
+                          child: Text('${producto['descripcion']} - ${producto['titulo']}',
                             style: TextStyle(
                               fontFamily: 'Barlow',
                               fontWeight: FontWeight.w500,
@@ -439,527 +670,123 @@ class TerceraSeccion extends StatelessWidget {
                               color: Color.fromARGB(255, 28, 62, 44),
                             ),
                           ),
-                        )
-                    ),
-                    IconButton(
-                        onPressed: (){},
-                        icon: Icon(Icons.scatter_plot,
-                          size: 25,
-                          color: Color.fromARGB(255, 28, 62, 44),
-                        )
-                    ),
-                    IconButton(
-                        onPressed: (){},
-                        icon: Icon(Icons.cancel,
-                          size: 25,
-                          color: Color.fromARGB(255, 28, 62, 44),
-                        )
-                    ),
-                  ],
-                ),
-                Container(
-                  height: 2,
-                  width: double.infinity,
-                  color: Color.fromARGB(255, 28, 62, 44),
-                ),
-                Container(
-                  margin: EdgeInsets.all(5),
-                  child: Text('Un bulto de papa para palmara',
-                    style: TextStyle(
-                      fontFamily: 'Barlow',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 17,
-                      color: Color.fromARGB(255, 28, 62, 44),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.all(5),
-                  height: 100,
-                  width: 220,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(15)
-                    ),
-                    child: Image.asset(
-                      'imagenes/papa.jpg',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: (){},
-                            icon: Icon(Icons.library_add_check,
-                              size: 28,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            )),
+                        ),
                         Container(
-                          margin: EdgeInsets.only(top:45),
-                          child: Text('Me gusta',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
+                          margin: EdgeInsets.all(5),
+                          height: 100,
+                          width: 220,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(15)
+                            ),
+                            child: Image.network(
+                              producto['imagen'],
+                              fit: BoxFit.cover,
                             ),
                           ),
-                        )
-                      ],
-                    ),
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: (){},
-                            icon: Icon(Icons.comment,
-                              size: 28,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            )),
-                        Container(
-                          margin: EdgeInsets.only(top:45),
-                          child: Text('Comentarios',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                IconButton(
+                                    onPressed: (){},
+                                    icon: Icon(Icons.library_add_check,
+                                      size: 28,
+                                      color: Color.fromARGB(255, 28, 62, 44),
+                                    )),
+                                Container(
+                                  margin: EdgeInsets.only(top:45),
+                                  child: Text('Me gusta',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
-                          ),
-                        )
-                      ],
-                    ),
+                            Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                IconButton(
+                                    onPressed: (){},
+                                    icon: Icon(Icons.comment,
+                                      size: 28,
+                                      color: Color.fromARGB(255, 28, 62, 44),
+                                    )),
+                                Container(
+                                  margin: EdgeInsets.only(top:45),
+                                  child: Text('Comentarios',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
 
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: (){},
-                            icon: Icon(Icons.link,
-                              size: 28,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            )),
-                        Container(
-                          margin: EdgeInsets.only(top:45),
-                          child: Text('Compartir',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
+                            Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                IconButton(
+                                    onPressed: (){},
+                                    icon: Icon(Icons.link,
+                                      size: 28,
+                                      color: Color.fromARGB(255, 28, 62, 44),
+                                    )),
+                                Container(
+                                  margin: EdgeInsets.only(top:45),
+                                  child: Text('Compartir',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
-                          ),
+                            Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                IconButton(
+                                    onPressed: (){},
+                                    icon: Icon(Icons.shopping_cart,
+                                      size: 28,
+                                      color: Color.fromARGB(255, 28, 62, 44),
+                                    )),
+                                Container(
+                                  margin: EdgeInsets.only(top:45),
+                                  child: Text('Añadir',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            )
+                          ],
                         )
                       ],
-                    ),
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: (){},
-                            icon: Icon(Icons.shopping_cart,
-                              size: 28,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            )),
-                        Container(
-                          margin: EdgeInsets.only(top:45),
-                          child: Text('Añadir',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                )
-              ],
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.all(15),
-            decoration: BoxDecoration(
-              color: Color.fromARGB(255, 241, 241, 241),
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: Offset(0, 3), // changes position of shadow
-                ),
-              ],
-            ),
-            height: 290,
-            width: 340,
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      height: 50,
-                      width: 50,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(50)
-                        ),
-                        child: Image.asset(
-                          'imagenes/persona.jpg',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    Container(
-                        child: Center(
-                          child: Text('User065416515',
-                            style: TextStyle(
-                              fontFamily: 'Barlow',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 17,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            ),
-                          ),
-                        )
-                    ),
-                    IconButton(
-                        onPressed: (){},
-                        icon: Icon(Icons.scatter_plot,
-                          size: 25,
-                          color: Color.fromARGB(255, 28, 62, 44),
-                        )
-                    ),
-                    IconButton(
-                        onPressed: (){},
-                        icon: Icon(Icons.cancel,
-                          size: 25,
-                          color: Color.fromARGB(255, 28, 62, 44),
-                        )
-                    ),
-                  ],
-                ),
-                Container(
-                  height: 2,
-                  width: double.infinity,
-                  color: Color.fromARGB(255, 28, 62, 44),
-                ),
-                Container(
-                  margin: EdgeInsets.all(5),
-                  child: Text('Un bulto de papa para palmara',
-                    style: TextStyle(
-                      fontFamily: 'Barlow',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 17,
-                      color: Color.fromARGB(255, 28, 62, 44),
                     ),
                   ),
-                ),
-                Container(
-                  margin: EdgeInsets.all(5),
-                  height: 100,
-                  width: 220,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(15)
-                    ),
-                    child: Image.asset(
-                      'imagenes/papa.jpg',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: (){},
-                            icon: Icon(Icons.library_add_check,
-                              size: 28,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            )),
-                        Container(
-                          margin: EdgeInsets.only(top:45),
-                          child: Text('Me gusta',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: (){},
-                            icon: Icon(Icons.comment,
-                              size: 28,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            )),
-                        Container(
-                          margin: EdgeInsets.only(top:45),
-                          child: Text('Comentarios',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: (){},
-                            icon: Icon(Icons.link,
-                              size: 28,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            )),
-                        Container(
-                          margin: EdgeInsets.only(top:45),
-                          child: Text('Compartir',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: (){},
-                            icon: Icon(Icons.shopping_cart,
-                              size: 28,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            )),
-                        Container(
-                          margin: EdgeInsets.only(top:45),
-                          child: Text('Añadir',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                )
-              ],
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.all(15),
-            decoration: BoxDecoration(
-              color: Color.fromARGB(255, 241, 241, 241),
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: Offset(0, 3), // changes position of shadow
-                ),
-              ],
-            ),
-            height: 290,
-            width: 340,
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      height: 50,
-                      width: 50,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(50)
-                        ),
-                        child: Image.asset(
-                          'imagenes/persona.jpg',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    Container(
-                        child: Center(
-                          child: Text('User065416515',
-                            style: TextStyle(
-                              fontFamily: 'Barlow',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 17,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            ),
-                          ),
-                        )
-                    ),
-                    IconButton(
-                        onPressed: (){},
-                        icon: Icon(Icons.scatter_plot,
-                          size: 25,
-                          color: Color.fromARGB(255, 28, 62, 44),
-                        )
-                    ),
-                    IconButton(
-                        onPressed: (){},
-                        icon: Icon(Icons.cancel,
-                          size: 25,
-                          color: Color.fromARGB(255, 28, 62, 44),
-                        )
-                    ),
-                  ],
-                ),
-                Container(
-                  height: 2,
-                  width: double.infinity,
-                  color: Color.fromARGB(255, 28, 62, 44),
-                ),
-                Container(
-                  margin: EdgeInsets.all(5),
-                  child: Text('Un bulto de papa para palmara',
-                    style: TextStyle(
-                      fontFamily: 'Barlow',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 17,
-                      color: Color.fromARGB(255, 28, 62, 44),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.all(5),
-                  height: 100,
-                  width: 220,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(15)
-                    ),
-                    child: Image.asset(
-                      'imagenes/papa.jpg',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: (){},
-                            icon: Icon(Icons.library_add_check,
-                              size: 28,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            )),
-                        Container(
-                          margin: EdgeInsets.only(top:45),
-                          child: Text('Me gusta',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: (){},
-                            icon: Icon(Icons.comment,
-                              size: 28,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            )),
-                        Container(
-                          margin: EdgeInsets.only(top:45),
-                          child: Text('Comentarios',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: (){},
-                            icon: Icon(Icons.link,
-                              size: 28,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            )),
-                        Container(
-                          margin: EdgeInsets.only(top:45),
-                          child: Text('Compartir',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: (){},
-                            icon: Icon(Icons.shopping_cart,
-                              size: 28,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            )),
-                        Container(
-                          margin: EdgeInsets.only(top:45),
-                          child: Text('Añadir',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                )
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+                ],
+              );
+            },
+          );
+        },
+      );
+    }
 }
 
 class CuartaSeccion extends StatelessWidget {
@@ -967,759 +794,214 @@ class CuartaSeccion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          Container(
-            margin: EdgeInsets.all(15),
-            decoration: BoxDecoration(
-              color: Color.fromARGB(255, 241, 241, 241),
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: Offset(0, 3), // changes position of shadow
-                ),
-              ],
-            ),
-            height: 290,
-            width: 340,
-            child: Column(
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance.collection('productos').where('categoria', isEqualTo: 'Fertilizantes').snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        }
+        if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        }
+        return ListView.builder(
+          shrinkWrap: true,
+          itemCount: snapshot.data!.docs.length,
+          itemBuilder: (context, index) {
+            var producto = snapshot.data!.docs[index];
+            return Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      height: 50,
-                      width: 50,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(50)
-                        ),
-                        child: Image.asset(
-                          'imagenes/persona.jpg',
-                          fit: BoxFit.cover,
+                Container(
+                  margin: EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 241, 241, 241),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset: Offset(0, 3), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  height: 290,
+                  width: 340,
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.all(10),
+                            height: 50,
+                            width: 50,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.all(Radius.circular(50)
+                              ),
+                              child: Image.asset(
+                                'imagenes/persona.jpg',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          Container(
+                              child: Center(
+                                child: Text('User065416515',
+                                  style: TextStyle(
+                                    fontFamily: 'Barlow',
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 17,
+                                    color: Color.fromARGB(255, 28, 62, 44),
+                                  ),
+                                ),
+                              )
+                          ),
+                          IconButton(
+                              onPressed: (){},
+                              icon: Icon(Icons.scatter_plot,
+                                size: 25,
+                                color: Color.fromARGB(255, 28, 62, 44),
+                              )
+                          ),
+                          IconButton(
+                              onPressed: (){},
+                              icon: Icon(Icons.cancel,
+                                size: 25,
+                                color: Color.fromARGB(255, 28, 62, 44),
+                              )
+                          ),
+                        ],
+                      ),
+                      Container(
+                        height: 2,
+                        width: double.infinity,
+                        color: Color.fromARGB(255, 28, 62, 44),
+                      ),
+                      Container(
+                        margin: EdgeInsets.all(5),
+                        child: Text('${producto['descripcion']} - ${producto['titulo']}',
+                          style: TextStyle(
+                            fontFamily: 'Barlow',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 17,
+                            color: Color.fromARGB(255, 28, 62, 44),
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                        child: Center(
-                          child: Text('User065416515',
-                            style: TextStyle(
-                              fontFamily: 'Barlow',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 17,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            ),
-                          ),
-                        )
-                    ),
-                    IconButton(
-                        onPressed: (){},
-                        icon: Icon(Icons.scatter_plot,
-                          size: 25,
-                          color: Color.fromARGB(255, 28, 62, 44),
-                        )
-                    ),
-                    IconButton(
-                        onPressed: (){},
-                        icon: Icon(Icons.cancel,
-                          size: 25,
-                          color: Color.fromARGB(255, 28, 62, 44),
-                        )
-                    ),
-                  ],
-                ),
-                Container(
-                  height: 2,
-                  width: double.infinity,
-                  color: Color.fromARGB(255, 28, 62, 44),
-                ),
-                Container(
-                  margin: EdgeInsets.all(5),
-                  child: Text('Un bulto de papa para palmara',
-                    style: TextStyle(
-                      fontFamily: 'Barlow',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 17,
-                      color: Color.fromARGB(255, 28, 62, 44),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.all(5),
-                  height: 100,
-                  width: 220,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(15)
-                    ),
-                    child: Image.asset(
-                      'imagenes/papa.jpg',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: (){},
-                            icon: Icon(Icons.library_add_check,
-                              size: 28,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            )),
-                        Container(
-                          margin: EdgeInsets.only(top:45),
-                          child: Text('Me gusta',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: (){},
-                            icon: Icon(Icons.comment,
-                              size: 28,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            )),
-                        Container(
-                          margin: EdgeInsets.only(top:45),
-                          child: Text('Comentarios',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: (){},
-                            icon: Icon(Icons.link,
-                              size: 28,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            )),
-                        Container(
-                          margin: EdgeInsets.only(top:45),
-                          child: Text('Compartir',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: (){},
-                            icon: Icon(Icons.shopping_cart,
-                              size: 28,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            )),
-                        Container(
-                          margin: EdgeInsets.only(top:45),
-                          child: Text('Añadir',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                )
-              ],
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.all(15),
-            decoration: BoxDecoration(
-              color: Color.fromARGB(255, 241, 241, 241),
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: Offset(0, 3), // changes position of shadow
-                ),
-              ],
-            ),
-            height: 290,
-            width: 340,
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      height: 50,
-                      width: 50,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(50)
+                      Container(
+                        margin: EdgeInsets.all(5),
+                        height: 100,
+                        width: 220,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
                         ),
-                        child: Image.asset(
-                          'imagenes/persona.jpg',
-                          fit: BoxFit.cover,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(15)
+                          ),
+                          child: Image.network(
+                            producto['imagen'],
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                        child: Center(
-                          child: Text('User065416515',
-                            style: TextStyle(
-                              fontFamily: 'Barlow',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 17,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              IconButton(
+                                  onPressed: (){},
+                                  icon: Icon(Icons.library_add_check,
+                                    size: 28,
+                                    color: Color.fromARGB(255, 28, 62, 44),
+                                  )),
+                              Container(
+                                margin: EdgeInsets.only(top:45),
+                                child: Text('Me gusta',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
-                        )
-                    ),
-                    IconButton(
-                        onPressed: (){},
-                        icon: Icon(Icons.scatter_plot,
-                          size: 25,
-                          color: Color.fromARGB(255, 28, 62, 44),
-                        )
-                    ),
-                    IconButton(
-                        onPressed: (){},
-                        icon: Icon(Icons.cancel,
-                          size: 25,
-                          color: Color.fromARGB(255, 28, 62, 44),
-                        )
-                    ),
-                  ],
-                ),
-                Container(
-                  height: 2,
-                  width: double.infinity,
-                  color: Color.fromARGB(255, 28, 62, 44),
-                ),
-                Container(
-                  margin: EdgeInsets.all(5),
-                  child: Text('Un bulto de papa para palmara',
-                    style: TextStyle(
-                      fontFamily: 'Barlow',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 17,
-                      color: Color.fromARGB(255, 28, 62, 44),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.all(5),
-                  height: 100,
-                  width: 220,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(15)
-                    ),
-                    child: Image.asset(
-                      'imagenes/papa.jpg',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: (){},
-                            icon: Icon(Icons.library_add_check,
-                              size: 28,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            )),
-                        Container(
-                          margin: EdgeInsets.only(top:45),
-                          child: Text('Me gusta',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
+                          Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              IconButton(
+                                  onPressed: (){},
+                                  icon: Icon(Icons.comment,
+                                    size: 28,
+                                    color: Color.fromARGB(255, 28, 62, 44),
+                                  )),
+                              Container(
+                                margin: EdgeInsets.only(top:45),
+                                child: Text('Comentarios',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
-                        )
-                      ],
-                    ),
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: (){},
-                            icon: Icon(Icons.comment,
-                              size: 28,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            )),
-                        Container(
-                          margin: EdgeInsets.only(top:45),
-                          child: Text('Comentarios',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
 
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: (){},
-                            icon: Icon(Icons.link,
-                              size: 28,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            )),
-                        Container(
-                          margin: EdgeInsets.only(top:45),
-                          child: Text('Compartir',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
+                          Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              IconButton(
+                                  onPressed: (){},
+                                  icon: Icon(Icons.link,
+                                    size: 28,
+                                    color: Color.fromARGB(255, 28, 62, 44),
+                                  )),
+                              Container(
+                                margin: EdgeInsets.only(top:45),
+                                child: Text('Compartir',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
-                        )
-                      ],
-                    ),
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: (){},
-                            icon: Icon(Icons.shopping_cart,
-                              size: 28,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            )),
-                        Container(
-                          margin: EdgeInsets.only(top:45),
-                          child: Text('Añadir',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                )
-              ],
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.all(15),
-            decoration: BoxDecoration(
-              color: Color.fromARGB(255, 241, 241, 241),
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: Offset(0, 3), // changes position of shadow
+                          Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              IconButton(
+                                  onPressed: (){},
+                                  icon: Icon(Icons.shopping_cart,
+                                    size: 28,
+                                    color: Color.fromARGB(255, 28, 62, 44),
+                                  )),
+                              Container(
+                                margin: EdgeInsets.only(top:45),
+                                child: Text('Añadir',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ],
-            ),
-            height: 290,
-            width: 340,
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      height: 50,
-                      width: 50,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(50)
-                        ),
-                        child: Image.asset(
-                          'imagenes/persona.jpg',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    Container(
-                        child: Center(
-                          child: Text('User065416515',
-                            style: TextStyle(
-                              fontFamily: 'Barlow',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 17,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            ),
-                          ),
-                        )
-                    ),
-                    IconButton(
-                        onPressed: (){},
-                        icon: Icon(Icons.scatter_plot,
-                          size: 25,
-                          color: Color.fromARGB(255, 28, 62, 44),
-                        )
-                    ),
-                    IconButton(
-                        onPressed: (){},
-                        icon: Icon(Icons.cancel,
-                          size: 25,
-                          color: Color.fromARGB(255, 28, 62, 44),
-                        )
-                    ),
-                  ],
-                ),
-                Container(
-                  height: 2,
-                  width: double.infinity,
-                  color: Color.fromARGB(255, 28, 62, 44),
-                ),
-                Container(
-                  margin: EdgeInsets.all(5),
-                  child: Text('Un bulto de papa para palmara',
-                    style: TextStyle(
-                      fontFamily: 'Barlow',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 17,
-                      color: Color.fromARGB(255, 28, 62, 44),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.all(5),
-                  height: 100,
-                  width: 220,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(15)
-                    ),
-                    child: Image.asset(
-                      'imagenes/papa.jpg',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: (){},
-                            icon: Icon(Icons.library_add_check,
-                              size: 28,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            )),
-                        Container(
-                          margin: EdgeInsets.only(top:45),
-                          child: Text('Me gusta',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: (){},
-                            icon: Icon(Icons.comment,
-                              size: 28,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            )),
-                        Container(
-                          margin: EdgeInsets.only(top:45),
-                          child: Text('Comentarios',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: (){},
-                            icon: Icon(Icons.link,
-                              size: 28,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            )),
-                        Container(
-                          margin: EdgeInsets.only(top:45),
-                          child: Text('Compartir',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: (){},
-                            icon: Icon(Icons.shopping_cart,
-                              size: 28,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            )),
-                        Container(
-                          margin: EdgeInsets.only(top:45),
-                          child: Text('Añadir',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                )
-              ],
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.all(15),
-            decoration: BoxDecoration(
-              color: Color.fromARGB(255, 241, 241, 241),
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: Offset(0, 3), // changes position of shadow
-                ),
-              ],
-            ),
-            height: 290,
-            width: 340,
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      height: 50,
-                      width: 50,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(50)
-                        ),
-                        child: Image.asset(
-                          'imagenes/persona.jpg',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    Container(
-                        child: Center(
-                          child: Text('User065416515',
-                            style: TextStyle(
-                              fontFamily: 'Barlow',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 17,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            ),
-                          ),
-                        )
-                    ),
-                    IconButton(
-                        onPressed: (){},
-                        icon: Icon(Icons.scatter_plot,
-                          size: 25,
-                          color: Color.fromARGB(255, 28, 62, 44),
-                        )
-                    ),
-                    IconButton(
-                        onPressed: (){},
-                        icon: Icon(Icons.cancel,
-                          size: 25,
-                          color: Color.fromARGB(255, 28, 62, 44),
-                        )
-                    ),
-                  ],
-                ),
-                Container(
-                  height: 2,
-                  width: double.infinity,
-                  color: Color.fromARGB(255, 28, 62, 44),
-                ),
-                Container(
-                  margin: EdgeInsets.all(5),
-                  child: Text('Un bulto de papa para palmara',
-                    style: TextStyle(
-                      fontFamily: 'Barlow',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 17,
-                      color: Color.fromARGB(255, 28, 62, 44),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.all(5),
-                  height: 100,
-                  width: 220,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(15)
-                    ),
-                    child: Image.asset(
-                      'imagenes/papa.jpg',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: (){},
-                            icon: Icon(Icons.library_add_check,
-                              size: 28,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            )),
-                        Container(
-                          margin: EdgeInsets.only(top:45),
-                          child: Text('Me gusta',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: (){},
-                            icon: Icon(Icons.comment,
-                              size: 28,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            )),
-                        Container(
-                          margin: EdgeInsets.only(top:45),
-                          child: Text('Comentarios',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: (){},
-                            icon: Icon(Icons.link,
-                              size: 28,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            )),
-                        Container(
-                          margin: EdgeInsets.only(top:45),
-                          child: Text('Compartir',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: (){},
-                            icon: Icon(Icons.shopping_cart,
-                              size: 28,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            )),
-                        Container(
-                          margin: EdgeInsets.only(top:45),
-                          child: Text('Añadir',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                )
-              ],
-            ),
-          ),
-        ],
-      ),
+            );
+          },
+        );
+      },
     );
   }
 }
@@ -1729,198 +1011,214 @@ class QuintaSeccion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          Container(
-            margin: EdgeInsets.all(15),
-            decoration: BoxDecoration(
-              color: Color.fromARGB(255, 241, 241, 241),
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: Offset(0, 3), // changes position of shadow
-                ),
-              ],
-            ),
-            height: 290,
-            width: 340,
-            child: Column(
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance.collection('productos').where('categoria', isEqualTo: 'Herramientas').snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        }
+        if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        }
+        return ListView.builder(
+          shrinkWrap: true,
+          itemCount: snapshot.data!.docs.length,
+          itemBuilder: (context, index) {
+            var producto = snapshot.data!.docs[index];
+            return Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      height: 50,
-                      width: 50,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(50)
-                        ),
-                        child: Image.asset(
-                          'imagenes/persona.jpg',
-                          fit: BoxFit.cover,
+                Container(
+                  margin: EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 241, 241, 241),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset: Offset(0, 3), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  height: 290,
+                  width: 340,
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.all(10),
+                            height: 50,
+                            width: 50,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.all(Radius.circular(50)
+                              ),
+                              child: Image.asset(
+                                'imagenes/persona.jpg',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          Container(
+                              child: Center(
+                                child: Text('User065416515',
+                                  style: TextStyle(
+                                    fontFamily: 'Barlow',
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 17,
+                                    color: Color.fromARGB(255, 28, 62, 44),
+                                  ),
+                                ),
+                              )
+                          ),
+                          IconButton(
+                              onPressed: (){},
+                              icon: Icon(Icons.scatter_plot,
+                                size: 25,
+                                color: Color.fromARGB(255, 28, 62, 44),
+                              )
+                          ),
+                          IconButton(
+                              onPressed: (){},
+                              icon: Icon(Icons.cancel,
+                                size: 25,
+                                color: Color.fromARGB(255, 28, 62, 44),
+                              )
+                          ),
+                        ],
+                      ),
+                      Container(
+                        height: 2,
+                        width: double.infinity,
+                        color: Color.fromARGB(255, 28, 62, 44),
+                      ),
+                      Container(
+                        margin: EdgeInsets.all(5),
+                        child: Text('${producto['descripcion']} - ${producto['titulo']}',
+                          style: TextStyle(
+                            fontFamily: 'Barlow',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 17,
+                            color: Color.fromARGB(255, 28, 62, 44),
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                        child: Center(
-                          child: Text('User065416515',
-                            style: TextStyle(
-                              fontFamily: 'Barlow',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 17,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            ),
+                      Container(
+                        margin: EdgeInsets.all(5),
+                        height: 100,
+                        width: 220,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(15)
                           ),
-                        )
-                    ),
-                    IconButton(
-                        onPressed: (){},
-                        icon: Icon(Icons.scatter_plot,
-                          size: 25,
-                          color: Color.fromARGB(255, 28, 62, 44),
-                        )
-                    ),
-                    IconButton(
-                        onPressed: (){},
-                        icon: Icon(Icons.cancel,
-                          size: 25,
-                          color: Color.fromARGB(255, 28, 62, 44),
-                        )
-                    ),
-                  ],
-                ),
-                Container(
-                  height: 2,
-                  width: double.infinity,
-                  color: Color.fromARGB(255, 28, 62, 44),
-                ),
-                Container(
-                  margin: EdgeInsets.all(5),
-                  child: Text('Un bulto de papa para palmara',
-                    style: TextStyle(
-                      fontFamily: 'Barlow',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 17,
-                      color: Color.fromARGB(255, 28, 62, 44),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.all(5),
-                  height: 100,
-                  width: 220,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(15)
-                    ),
-                    child: Image.asset(
-                      'imagenes/papa.jpg',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: (){},
-                            icon: Icon(Icons.library_add_check,
-                              size: 28,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            )),
-                        Container(
-                          margin: EdgeInsets.only(top:45),
-                          child: Text('Me gusta',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
+                          child: Image.network(
+                            producto['imagen'],
+                            fit: BoxFit.cover,
                           ),
-                        )
-                      ],
-                    ),
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: (){},
-                            icon: Icon(Icons.comment,
-                              size: 28,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            )),
-                        Container(
-                          margin: EdgeInsets.only(top:45),
-                          child: Text('Comentarios',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              IconButton(
+                                  onPressed: (){},
+                                  icon: Icon(Icons.library_add_check,
+                                    size: 28,
+                                    color: Color.fromARGB(255, 28, 62, 44),
+                                  )),
+                              Container(
+                                margin: EdgeInsets.only(top:45),
+                                child: Text('Me gusta',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
-                        )
-                      ],
-                    ),
+                          Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              IconButton(
+                                  onPressed: (){},
+                                  icon: Icon(Icons.comment,
+                                    size: 28,
+                                    color: Color.fromARGB(255, 28, 62, 44),
+                                  )),
+                              Container(
+                                margin: EdgeInsets.only(top:45),
+                                child: Text('Comentarios',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
 
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: (){},
-                            icon: Icon(Icons.link,
-                              size: 28,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            )),
-                        Container(
-                          margin: EdgeInsets.only(top:45),
-                          child: Text('Compartir',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
+                          Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              IconButton(
+                                  onPressed: (){},
+                                  icon: Icon(Icons.link,
+                                    size: 28,
+                                    color: Color.fromARGB(255, 28, 62, 44),
+                                  )),
+                              Container(
+                                margin: EdgeInsets.only(top:45),
+                                child: Text('Compartir',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
-                        )
-                      ],
-                    ),
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: (){},
-                            icon: Icon(Icons.shopping_cart,
-                              size: 28,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            )),
-                        Container(
-                          margin: EdgeInsets.only(top:45),
-                          child: Text('Añadir',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                )
+                          Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              IconButton(
+                                  onPressed: (){},
+                                  icon: Icon(Icons.shopping_cart,
+                                    size: 28,
+                                    color: Color.fromARGB(255, 28, 62, 44),
+                                  )),
+                              Container(
+                                margin: EdgeInsets.only(top:45),
+                                child: Text('Añadir',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ),
               ],
-            ),
-          ),
-        ],
-      ),
+            );
+          },
+        );
+      },
     );
   }
 }
