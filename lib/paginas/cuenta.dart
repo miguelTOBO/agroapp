@@ -83,7 +83,7 @@ class _CuentaState extends State<Cuenta> {
                                 alignment: Alignment.center,
                                 child: Container(
                                   child: Text(
-                                    producto['email'],
+                                    producto['nombre'],
                                     style: TextStyle(
                                       fontFamily: 'Barlow',
                                       color: Colors.black,
@@ -98,7 +98,7 @@ class _CuentaState extends State<Cuenta> {
                                 child: Container(
                                   margin: const EdgeInsets.only(left: 20, top: 20),
                                   child: Text(
-                                    producto['email'],
+                                    producto['correo'],
                                     style: TextStyle(
                                       fontFamily: 'Barlow',
                                       color: Colors.black,
@@ -111,7 +111,7 @@ class _CuentaState extends State<Cuenta> {
                               Container(
                                 margin: const EdgeInsets.only(left: 20, right: 20, top: 10),
                                 child: Text(
-                                  '${producto['email']}',
+                                  '${producto['descripcion']}',
                                   style: TextStyle(
                                     fontFamily: 'Barlow',
                                     color: Colors.black,
@@ -297,14 +297,17 @@ class _CuentaState extends State<Cuenta> {
                           width: 5,
                         ),
                         image: DecorationImage(
-                          image: AssetImage(producto['email']),
+                          image: NetworkImage(producto['foto']),
                           fit: BoxFit.cover,
                         ),
                       ),
                     ),
                   ),
+
                 ],
+
               );
+
             },
           ),
         ),

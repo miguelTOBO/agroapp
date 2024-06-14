@@ -298,12 +298,11 @@ class _registerState extends State<register> {
                                           } else if (dato != null) {
                                             if(_confirmPasswordController.text!=_passwordController.text){
                                               print('no se puede iniciar registro');
-                                            }else {
-                                              Fluttertoast.showToast(
-                                                  msg: 'usuario registrado', toastLength: Toast.LENGTH_LONG);
-                                                  Navigator.pushReplacement(context,
-                                                    MaterialPageRoute(builder: (context) => Regis2img(uid:dato, email: _emailController.text,)));
                                             }
+                                            Fluttertoast.showToast(msg: 'usuario registrado', toastLength: Toast.LENGTH_LONG);
+                                            Navigator.pushReplacement(context,
+                                                    MaterialPageRoute(builder: (context) => Regis2img(uid:dato, email: _emailController.text,)));
+
                                         }
                                       }
                                     },
