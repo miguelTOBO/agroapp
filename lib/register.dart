@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:splash/iniciar_sesion.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -13,7 +12,7 @@ class register extends StatefulWidget {
 }
 
 class _registerState extends State<register> {
-  RegistroUsuarioLogin mial = RegistroUsuarioLogin();
+  final RegistroUsuarioLogin _authService = RegistroUsuarioLogin();
   final _formKey = GlobalKey<FormState>();
   final _emailController=TextEditingController();
   final _passwordController=TextEditingController();
@@ -130,39 +129,6 @@ class _registerState extends State<register> {
                                   ),
                                 ),
                                 SizedBox(height: 15),
-                                /*Container(
-                                  height: 60,
-                                  width: 300,
-                                  child: TextFormField(
-                                    controller: null,
-                                    obscureText:true,
-                                    decoration: InputDecoration(
-                                      filled:true,
-                                      fillColor: Colors.transparent,
-                                      hintText: 'Numero',
-                                      hintStyle: TextStyle(
-                                        color:Colors.black,
-                                      ),
-                                      prefixIcon:Icon(Icons.lock,
-                                        color: Colors.black,
-                                      ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(color: Colors.black,width:2),
-                                      ),
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(color: Colors.black,width:2 ),
-                                      ),
-                                    ),
-                                    validator: (value) {
-                                      if (value!.isEmpty)
-                                        return 'ingrese su Numero';
-                                      return null;
-                                    },
-                                    onSaved: (value) {
-                                      _numeroController = value!;
-                                    },
-                                  ),
-                                ),*/
                                 Container(
                                   height: 60,
                                   width: 300,
@@ -320,11 +286,9 @@ class _registerState extends State<register> {
                                     child:ElevatedButton(onPressed: () async{
                                       if (_formKey.currentState!.validate()) {
                                         _formKey.currentState!.save();
-                                        var dato = mial.registroUsuario(
-                                              _emailController.text, _passwordController.text, _confirmPasswordController.text, _rol.text);
-                                          Fluttertoast.showToast(msg: 'dato $dato',
-                                          toastLength: Toast.LENGTH_LONG
-                                          );
+                                        String? dato = await _authService.registroUsuario(
+                                            _emailController.text, _passwordController.text, _confirmPasswordController.text, _rol.text
+                                        );
                                           if (dato == 1) {
                                             print('nivel de seguridad debil');
                                           } else if (dato == 2) {
@@ -338,7 +302,7 @@ class _registerState extends State<register> {
                                               Fluttertoast.showToast(
                                                   msg: 'usuario registrado', toastLength: Toast.LENGTH_LONG);
                                                   Navigator.pushReplacement(context,
-                                                    MaterialPageRoute(builder: (context) => regis2img()));
+                                                    MaterialPageRoute(builder: (context) => Regis2img(uid:dato, email: _emailController.text,)));
                                             }
                                         }
                                       }

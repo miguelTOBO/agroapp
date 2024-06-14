@@ -1,9 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:local_auth/local_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:splash/register.dart';
 import 'package:splash/principal.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -16,7 +13,6 @@ class listados extends StatefulWidget {
   @override
   State<listados> createState() => _listadosState();
 }
-
 class _listadosState extends State<listados> {
   RegistroUsuarioLogin mial = RegistroUsuarioLogin();
   final formKey=GlobalKey<FormState>();
@@ -238,7 +234,7 @@ class _listadosState extends State<listados> {
                                       child:ElevatedButton(onPressed: () async {
                                         if(formKey.currentState!.validate()){
                                           formKey.currentState!.save();
-                                          var dato = mial.LoginUsuario(
+                                          var dato = await mial.LoginUsuario(
                                               _emailController.text, _passwordController.text);
                                           setState(() {
                                             isCheckid = true;
@@ -255,7 +251,6 @@ class _listadosState extends State<listados> {
                                             Fluttertoast.showToast(msg: 'Inicio de sesion exitoso',
                                                 toastLength: Toast.LENGTH_LONG
                                             );
-                                            guardardatos();
                                             Navigator.push(context,
                                                 MaterialPageRoute(builder: (context) => principal())
                                             );
@@ -331,22 +326,6 @@ class _listadosState extends State<listados> {
         ),
       ),
     );
-  }
-  void guardardatos() async{
-    FirebaseFirestore.instance.collection('usuario').add({
-      'correo': _emailController,
-      'contraseña': _passwordController
-    }).then((value){
-      Fluttertoast.showToast(
-        msg: 'los datos guardados.',
-        gravity: ToastGravity.CENTER,
-      );
-    }).catchError((error){
-      Fluttertoast.showToast(
-        msg: 'Los datos no se guardaron.',
-        gravity: ToastGravity.CENTER,
-      );
-    });
   }
   void _checkBiometric()async{
     try{

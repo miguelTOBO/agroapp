@@ -75,10 +75,7 @@ class _InicioState extends State<Inicio> {
             ),
           ],
         ),
-        body: Container(
-          height: MediaQuery.of(context).size.height,
-          child: SingleChildScrollView(
-            child:Column(
+        body: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
@@ -132,14 +129,15 @@ class _InicioState extends State<Inicio> {
                     },
                   ),
                 ),
-                Container(
-                  child: secciones[current],
+                Expanded(
+                    child: SingleChildScrollView(
+                      child:secciones[current],
+                    ),
                 ),
+
               ],
             ),
-          )
-        )
-    );
+          );
   }
 }
 class PrimeraSeccion extends StatelessWidget {
@@ -155,6 +153,7 @@ class PrimeraSeccion extends StatelessWidget {
           return Center(child: Text('Error: ${snapshot.error}'));
         }
         return ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: snapshot.data!.docs.length,
           itemBuilder: (context, index) {
@@ -370,6 +369,7 @@ class SegundaSeccion extends StatelessWidget {
           return Center(child: Text('Error: ${snapshot.error}'));
         }
         return ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: snapshot.data!.docs.length,
           itemBuilder: (context, index) {
@@ -573,7 +573,6 @@ class SegundaSeccion extends StatelessWidget {
 }
 
 class TerceraSeccion extends StatelessWidget {
-  //const TerceraSeccion({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -587,6 +586,7 @@ class TerceraSeccion extends StatelessWidget {
             return Center(child: Text('Error: ${snapshot.error}'));
           }
           return ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (context, index) {
@@ -804,6 +804,7 @@ class CuartaSeccion extends StatelessWidget {
           return Center(child: Text('Error: ${snapshot.error}'));
         }
         return ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: snapshot.data!.docs.length,
           itemBuilder: (context, index) {
@@ -1007,7 +1008,6 @@ class CuartaSeccion extends StatelessWidget {
 }
 
 class QuintaSeccion extends StatelessWidget {
-  //const QuintaSeccion({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -1021,6 +1021,7 @@ class QuintaSeccion extends StatelessWidget {
           return Center(child: Text('Error: ${snapshot.error}'));
         }
         return ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: snapshot.data!.docs.length,
           itemBuilder: (context, index) {

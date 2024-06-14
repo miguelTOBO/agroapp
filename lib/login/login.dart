@@ -8,7 +8,6 @@ class RegistroUsuarioLogin{
   Future registroUsuario(String correo, String password, String conpassword, String rol)async{
     try{
       UserCredential uc=await FirebaseAuth.instance.createUserWithEmailAndPassword(email: correo, password: password);
-      print(uc.user);
       User? user = uc.user;
 
       if (user != null) {
@@ -18,15 +17,15 @@ class RegistroUsuarioLogin{
         });
         return user.uid;
       }
-      return(uc.user?.uid);
+      return uc.user?.uid;
     }on FirebaseAuthException catch(e){
       if(e.code=='weak-password'){
         print('el password');
         return 1;
-      }else if (e.code=='email-already--in-use'){
+      }else if (e.code=='email-already-in-use'){
         print('ya existe');
         return 2;
-      }else if (e.code=='user-already--in-use'){
+      }else if (e.code=='user-already-in-use'){
         print('ya existe');
         return 3;
       }
@@ -38,7 +37,7 @@ class RegistroUsuarioLogin{
         UserCredential uc=await _fa.signInWithEmailAndPassword(email: correo, password: password);
         final y=uc.user;
         if(y!=null){
-          return true;
+          return y.uid;
         }
       }on FirebaseAuthException catch(e){
         print('Error de autenticacion: ${e.code}');
