@@ -289,19 +289,19 @@ class _registerState extends State<register> {
                                         String? dato = await _authService.registroUsuario(
                                             _emailController.text, _passwordController.text, _confirmPasswordController.text, _rol.text
                                         );
-                                          if (dato == 1) {
-                                            print('nivel de seguridad debil');
-                                          } else if (dato == 2) {
-                                            print('email ya esta registrado');
-                                          }else if (dato == 3) {
-                                            print('usuario ya esta registrado');
-                                          } else if (dato != null) {
-                                            if(_confirmPasswordController.text!=_passwordController.text){
-                                              print('no se puede iniciar registro');
-                                            }
-                                            Fluttertoast.showToast(msg: 'usuario registrado', toastLength: Toast.LENGTH_LONG);
-                                            Navigator.pushReplacement(context,
-                                                    MaterialPageRoute(builder: (context) => Regis2img(uid:dato, email: _emailController.text,)));
+                                        if (dato == 1) {
+                                          print('nivel de seguridad debil');
+                                        } else if (dato == 2) {
+                                          print('email ya esta registrado');
+                                        }else if (dato == 3) {
+                                          print('usuario ya esta registrado');
+                                        } else if (dato != null) {
+                                          if(_confirmPasswordController.text!=_passwordController.text){
+                                            print('no se puede iniciar registro');
+                                          }
+                                          Fluttertoast.showToast(msg: 'usuario registrado', toastLength: Toast.LENGTH_LONG);
+                                          Navigator.pushReplacement(context,
+                                              MaterialPageRoute(builder: (context) => Regis2img(uid:dato, email: _emailController.text,)));
 
                                         }
                                       }

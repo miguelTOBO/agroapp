@@ -31,211 +31,211 @@ class _PublicarState extends State<Publicar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 28, 62, 44),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'AGRO',
-              style: TextStyle(
-                fontFamily: 'Barlow',
-                fontWeight: FontWeight.w900,
-                fontSize: 25,
-                color: Colors.white,
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: Color.fromARGB(255, 28, 62, 44),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'AGRO',
+                style: TextStyle(
+                  fontFamily: 'Barlow',
+                  fontWeight: FontWeight.w900,
+                  fontSize: 25,
+                  color: Colors.white,
+                ),
               ),
-            ),
-            Text(
-              'APP',
-              style: TextStyle(
-                fontFamily: 'Barlow',
-                fontWeight: FontWeight.w900,
-                fontSize: 25,
-                color: Color.fromARGB(255, 255, 201, 25),
+              Text(
+                'APP',
+                style: TextStyle(
+                  fontFamily: 'Barlow',
+                  fontWeight: FontWeight.w900,
+                  fontSize: 25,
+                  color: Color.fromARGB(255, 255, 201, 25),
+                ),
               ),
-            ),
-          ],
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(5),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-
-                Padding(
-                  padding: EdgeInsets.all(5),
-                  child:Center(
-                    child: Text(
-                      'Nueva publicacion',
-                      style: TextStyle(
-                        fontFamily: 'Barlow',
-                        fontWeight: FontWeight.w700,
-                        fontSize: 35,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(5),
-                  child:Center(
-                    child: Text(
-                      'Llena todos los campos de informacion',
-                      style: TextStyle(
-                        fontFamily: 'Barlow',
-                        fontWeight: FontWeight.w400,
-                        fontSize: 18,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(8),
-                  child:TextFormField(
-                    controller: _titulo,
-                    decoration: InputDecoration(
-                        hintText:'Titulo o Nombre'
-                    ),
-                    validator: (value){
-                      if(value!.isEmpty)
-                        return'ingrese un titulo o nombre';
-                    },
-                    onSaved: (value){
-                      _titulo.text=value!;
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(8),
-                  child: TextFormField(
-                    controller: _descripcion,
-                    decoration: InputDecoration(
-                        hintText:'Descripcion'
-                    ),
-                    validator: (value){
-                      if(value!.isEmpty)
-                        return'ingrese una Descripcion';
-                    },
-                    onSaved: (value){
-                      _descripcion.text=value!;
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: TextFormField(
-                    controller: _precio,
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                        hintText:'Precio'
-                    ),
-                    validator: (value){
-                      if(value!.isEmpty)
-                        return'ingrese el precio ';
-                    },
-                    onSaved: (value){
-                      _precio.text=value!;
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(8),
-                  child: TextFormField(
-                    controller: _cantidad,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                        hintText:'Cantidad'
-                    ),
-                    validator: (value){
-                      if(value!.isEmpty)
-                        return'ingrese una Cantidad';
-                    },
-                    onSaved: (value){
-                      _cantidad.text=value!;
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(8),
-                  child: TextFormField(
-                    controller: _categoria,
-                    decoration: InputDecoration(
-                        hintText:'Categoria'
-                    ),
-                    validator: (value){
-                      if(value!.isEmpty)
-                        return'ingrese una Categoria';
-                    },
-                    onSaved: (value){
-                      _categoria.text=value!;
-                    },
-                  ),
-                ),
-                imagen_updated !=null?Image.file(imagen_updated!):Container(
-                  margin: const EdgeInsets.all(15),
-                  height: 160,
-                  width: 180,
-                  child:  ElevatedButton(
-                    onPressed: ()async{
-                      final imagen=await imageeen();
-                      if(imagen!=null){
-                        setState(() {
-                          imagen_updated=File(imagen.path);
-                        });
-                      }
-                    },
-                    child: Icon(Icons.camera,
-                      color: Colors.white,
-                      size: 80,
-                    ),
-                    style:ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                      padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-                      backgroundColor: Color.fromARGB(125, 71, 142, 59),
-                    ),
-                  ),
-                ),
-                Container(
-                    margin: EdgeInsets.all(10),
-                    height: 50,
-                    width: 200,
-                    child: ElevatedButton(
-                      onPressed: (){
-                        if(_formKey.currentState!.validate()){
-                          _formKey.currentState!.save();
-                          guardar();
-                        }
-                      },
-                      child: Text('Publicar',
-                        style: TextStyle(
-                          color:Colors.white,
-                          fontSize: 20,
-                        ),
-                      ),
-                      style:TextButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 28, 62, 44),
-                      ),
-                    )
-                )
-              ],
-            ),
+            ],
           ),
         ),
-      )
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.all(5),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+
+                  Padding(
+                    padding: EdgeInsets.all(5),
+                    child:Center(
+                      child: Text(
+                        'Nueva publicacion',
+                        style: TextStyle(
+                          fontFamily: 'Barlow',
+                          fontWeight: FontWeight.w700,
+                          fontSize: 35,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(5),
+                    child:Center(
+                      child: Text(
+                        'Llena todos los campos de informacion',
+                        style: TextStyle(
+                          fontFamily: 'Barlow',
+                          fontWeight: FontWeight.w400,
+                          fontSize: 18,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(8),
+                    child:TextFormField(
+                      controller: _titulo,
+                      decoration: InputDecoration(
+                          hintText:'Titulo o Nombre'
+                      ),
+                      validator: (value){
+                        if(value!.isEmpty)
+                          return'ingrese un titulo o nombre';
+                      },
+                      onSaved: (value){
+                        _titulo.text=value!;
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(8),
+                    child: TextFormField(
+                      controller: _descripcion,
+                      decoration: InputDecoration(
+                          hintText:'Descripcion'
+                      ),
+                      validator: (value){
+                        if(value!.isEmpty)
+                          return'ingrese una Descripcion';
+                      },
+                      onSaved: (value){
+                        _descripcion.text=value!;
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: TextFormField(
+                      controller: _precio,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                          hintText:'Precio'
+                      ),
+                      validator: (value){
+                        if(value!.isEmpty)
+                          return'ingrese el precio ';
+                      },
+                      onSaved: (value){
+                        _precio.text=value!;
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(8),
+                    child: TextFormField(
+                      controller: _cantidad,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                          hintText:'Cantidad'
+                      ),
+                      validator: (value){
+                        if(value!.isEmpty)
+                          return'ingrese una Cantidad';
+                      },
+                      onSaved: (value){
+                        _cantidad.text=value!;
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(8),
+                    child: TextFormField(
+                      controller: _categoria,
+                      decoration: InputDecoration(
+                          hintText:'Categoria'
+                      ),
+                      validator: (value){
+                        if(value!.isEmpty)
+                          return'ingrese una Categoria';
+                      },
+                      onSaved: (value){
+                        _categoria.text=value!;
+                      },
+                    ),
+                  ),
+                  imagen_updated !=null?Image.file(imagen_updated!):Container(
+                    margin: const EdgeInsets.all(15),
+                    height: 160,
+                    width: 180,
+                    child:  ElevatedButton(
+                      onPressed: ()async{
+                        final imagen=await imageeen();
+                        if(imagen!=null){
+                          setState(() {
+                            imagen_updated=File(imagen.path);
+                          });
+                        }
+                      },
+                      child: Icon(Icons.camera,
+                        color: Colors.white,
+                        size: 80,
+                      ),
+                      style:ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                        backgroundColor: Color.fromARGB(125, 71, 142, 59),
+                      ),
+                    ),
+                  ),
+                  Container(
+                      margin: EdgeInsets.all(10),
+                      height: 50,
+                      width: 200,
+                      child: ElevatedButton(
+                        onPressed: (){
+                          if(_formKey.currentState!.validate()){
+                            _formKey.currentState!.save();
+                            guardar();
+                          }
+                        },
+                        child: Text('Publicar',
+                          style: TextStyle(
+                            color:Colors.white,
+                            fontSize: 20,
+                          ),
+                        ),
+                        style:TextButton.styleFrom(
+                          backgroundColor: Color.fromARGB(255, 28, 62, 44),
+                        ),
+                      )
+                  )
+                ],
+              ),
+            ),
+          ),
+        )
     );
   }
   void guardar() async{
     if(imagen_updated==null){
       Fluttertoast.showToast(
-          msg: 'seleccione la imagen',
-          gravity:ToastGravity.CENTER,
+        msg: 'seleccione la imagen',
+        gravity:ToastGravity.CENTER,
       );
       return null;
     }

@@ -102,8 +102,8 @@ class _Regis2imgState extends State<Regis2img>{
                         Navigator.pushReplacement(context,
                             MaterialPageRoute(
                                 builder: (context) => listados()));
-                        }
-                      },
+                      }
+                    },
                       child: Text('Terminar el registro',
                         style: TextStyle(
                           color:Colors.white,
