@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:splash/paginas/actualizar.dart';
 
 class Cuenta extends StatefulWidget {
   @override
@@ -9,7 +10,8 @@ class Cuenta extends StatefulWidget {
 
 class _CuentaState extends State<Cuenta> {
   late User _user;
-  bool _isLoading = true; // Variable to show loading state
+  bool _isLoading = true;
+  late QueryDocumentSnapshot _producto; // Cambiado el tipo aquí
 
   @override
   void initState() {
@@ -45,7 +47,7 @@ class _CuentaState extends State<Cuenta> {
           body: StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
                 .collection('usuario')
-                .where('uid', isEqualTo: _user.uid) // Filter by logged-in user ID
+                .where('uid', isEqualTo: _user.uid)
                 .snapshots(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
@@ -58,7 +60,7 @@ class _CuentaState extends State<Cuenta> {
                 return Center(child: Text('No user data found'));
               }
 
-              var producto = snapshot.data!.docs.first;
+              _producto = snapshot.data!.docs.first; // Actualización aquí
 
               return Stack(
                 children: [
@@ -66,7 +68,7 @@ class _CuentaState extends State<Cuenta> {
                     alignment: Alignment.bottomCenter,
                     child: Container(
                       width: double.infinity,
-                      height: 589,
+                      height: 550,
                       decoration: const BoxDecoration(
                         color: Color.fromARGB(255, 255, 255, 255),
                         borderRadius: BorderRadius.only(
@@ -83,7 +85,7 @@ class _CuentaState extends State<Cuenta> {
                                 alignment: Alignment.center,
                                 child: Container(
                                   child: Text(
-                                    producto['nombre'],
+                                    _producto['nombre'], // Acceso a datos aquí
                                     style: TextStyle(
                                       fontFamily: 'Barlow',
                                       color: Colors.black,
@@ -98,7 +100,7 @@ class _CuentaState extends State<Cuenta> {
                                 child: Container(
                                   margin: const EdgeInsets.only(left: 20, top: 20),
                                   child: Text(
-                                    producto['correo'],
+                                    _producto['correo'], // Acceso a datos aquí
                                     style: TextStyle(
                                       fontFamily: 'Barlow',
                                       color: Colors.black,
@@ -111,7 +113,7 @@ class _CuentaState extends State<Cuenta> {
                               Container(
                                 margin: const EdgeInsets.only(left: 20, right: 20, top: 10),
                                 child: Text(
-                                  '${producto['descripcion']}',
+                                  '${_producto['descripcion']}', // Acceso a datos aquí
                                   style: TextStyle(
                                     fontFamily: 'Barlow',
                                     color: Colors.black,
@@ -274,6 +276,74 @@ class _CuentaState extends State<Cuenta> {
                                         ),
                                       ),
                                     ),
+
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.all(15),
+                                decoration: BoxDecoration(
+                                  color: Color.fromARGB(255, 241, 241, 241),
+                                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      spreadRadius: 5,
+                                      blurRadius: 7,
+                                      offset: Offset(0, 3), // changes position of shadow
+                                    ),
+                                  ],
+                                ),
+                                height: 220,
+                                width: 340,
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.all(5),
+                                      child: Text(
+                                        'Un bulto de papa para palmara',
+                                        style: TextStyle(
+                                          fontFamily: 'Barlow',
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 17,
+                                          color: Color.fromARGB(255, 28, 62, 44),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.all(5),
+                                      height: 100,
+                                      width: 220,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                                        child: Image.asset(
+                                          'imagenes/papa.jpg',
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(padding: EdgeInsets.all(5)),
+                                    Container(
+                                      height: 50,
+                                      width: 150,
+                                      child: TextButton(
+                                        onPressed: () {},
+                                        child: Text(
+                                          'Comprar',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 22,
+                                          ),
+                                        ),
+                                        style: TextButton.styleFrom(
+                                          backgroundColor: Color.fromARGB(255, 107, 187, 67),
+                                        ),
+                                      ),
+                                    ),
+
                                   ],
                                 ),
                               ),
@@ -284,7 +354,7 @@ class _CuentaState extends State<Cuenta> {
                     ),
                   ),
                   Positioned(
-                    top: 80,
+                    top: 120,
                     left: 90,
                     child: Container(
                       height: 180,
@@ -297,21 +367,34 @@ class _CuentaState extends State<Cuenta> {
                           width: 5,
                         ),
                         image: DecorationImage(
-                          image: NetworkImage(producto['foto']),
+                          image: NetworkImage(_producto['foto']),
                           fit: BoxFit.cover,
                         ),
                       ),
                     ),
                   ),
-
                 ],
-
               );
-
             },
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Actualizar(usuario: {
+                    ..._producto.data() as Map<String, dynamic>, // Conversión necesaria aquí
+                    'id': _producto.id,
+                  }),
+                ),
+              );
+            },
+            child: Icon(Icons.edit),
+            backgroundColor: Color.fromARGB(255, 107, 187, 67),
           ),
         ),
       ),
     );
   }
 }
+

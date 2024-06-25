@@ -7,8 +7,6 @@ import 'package:splash/paginas/carrito.dart';
 
 
 class principal extends StatefulWidget {
-
-
   @override
   State<principal> createState() => _principalState();
 }
