@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Carrito extends StatefulWidget {
-
   @override
   State<Carrito> createState() => _CarritoState();
 }
@@ -16,39 +16,39 @@ class _CarritoState extends State<Carrito> {
   ];
   int current = 0;
   List<Widget> secciones = [
-    PrimeSeccion(),
-    SegunSeccion(),
-    TercerSeccion(),
-    CuarSeccion(),
+    PrimeraSeccion(),
+    SegundaSeccion(),
+    TerceraSeccion(),
+    CuartaSeccion(),
   ];
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 28, 62, 44),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'AGRO',
-              style: TextStyle(
-                fontFamily: 'Barlow',
-                fontWeight: FontWeight.w900,
-                fontSize: 25,
-                color: Colors.white,
+        appBar: AppBar(
+          backgroundColor: Color.fromARGB(255, 28, 62, 44),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'AGRO',
+                style: TextStyle(
+                  fontFamily: 'Barlow',
+                  fontWeight: FontWeight.w900,
+                  fontSize: 25,
+                  color: Colors.white,
+                ),
               ),
-            ),
-            Text(
-              'APP',
-              style: TextStyle(
-                fontFamily: 'Barlow',
-                fontWeight: FontWeight.w900,
-                fontSize: 25,
-                color: Color.fromARGB(255, 255, 201, 25),
+              Text(
+                'APP',
+                style: TextStyle(
+                  fontFamily: 'Barlow',
+                  fontWeight: FontWeight.w900,
+                  fontSize: 25,
+                  color: Color.fromARGB(255, 255, 201, 25),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
         body: Column(
           children: [
             SizedBox(
@@ -101,7 +101,7 @@ class _CarritoState extends State<Carrito> {
     );
   }
 }
-class PrimeSeccion extends StatelessWidget {
+class PrimeraSeccion extends StatelessWidget {
 
 
   @override
@@ -109,72 +109,191 @@ class PrimeSeccion extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          Container(
-            margin: EdgeInsets.all(15),
-            decoration: BoxDecoration(
-              color: Color.fromARGB(255, 241, 241, 241),
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: Offset(0, 3), // changes position of shadow
-                ),
-              ],
-            ),
-            height: 220,
-            width: 340,
-            child: Column(
+          Card(
+            margin: EdgeInsets.all(10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  margin: EdgeInsets.all(5),
-                  child: Text('Un bulto de papa para palmara',
-                    style: TextStyle(
-                      fontFamily: 'Barlow',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 17,
-                      color: Color.fromARGB(255, 28, 62, 44),
+                Image.asset("imagenes/papa.jpg", width: 150, ),
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    height: 100,
+                    child: Column(
+                      children: [
+                        Text("Bulto de papa"),
+                        Padding(padding: EdgeInsets.symmetric(vertical: 2)),
+                        Text("S. 2900"),
+                        Padding(padding: EdgeInsets.symmetric(vertical: 2)),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Container(
+                              child: IconButton(
+                                icon: Icon(Icons.remove,
+                                  size: 13,
+                                  color: Colors.white,
+                                ), onPressed: () {  },
+                              ),
+                              width: 50,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                  color: Color.fromARGB(255, 107, 187, 67),
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(30)
+                                  )
+                              ),
+                            ),
+                            Container(
+                              width: 20,
+                              child: Center(
+                                child: Text("5"),
+                              ),
+                            ),
+                            Container(
+                              child: IconButton(
+                                icon: Icon(Icons.add,
+                                  size: 13,
+                                  color: Colors.white,
+                                ), onPressed: () {  },
+                              ),
+                              width: 50,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                  color: Color.fromARGB(255, 107, 187, 67),
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(30)
+                                  )
+                              ),
+                            )
+                          ],
+                        )
+                      ],
                     ),
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.all(5),
-                  height: 100,
-                  width: 220,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(15)
-                    ),
-                    child: Image.asset(
-                      'imagenes/papa.jpg',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                Padding(
-                    padding: EdgeInsets.all(5)
-                ),
-
-                Container(
-                    height: 50,
-                    width: 150,
-                    child:TextButton(onPressed: (){
-                    },
-                      child: Text('Comprar',
-                        style: TextStyle(
-                          color:Colors.white,
-                          fontSize: 22,
+                  height: 113,
+                  color: Color.fromARGB(255, 107, 187, 67),
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(top: 20, bottom: 10),
+                        child: const Text('Total',
+                          style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white
+                          ),
                         ),
                       ),
-                      style:TextButton.styleFrom(
-                          backgroundColor: Color.fromARGB(255, 107, 187, 67)
+
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 5),
+                        child: Text("S. 14500",
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.white
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+          Card(
+            margin: EdgeInsets.all(10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Image.asset("imagenes/persona.jpg", width: 150, ),
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    height: 100,
+                    child: Column(
+                      children: [
+                        Text("Algo pa vender"),
+                        Padding(padding: EdgeInsets.symmetric(vertical: 2)),
+                        Text("S. 6000"),
+                        Padding(padding: EdgeInsets.symmetric(vertical: 2)),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Container(
+                              child: IconButton(
+                                icon: Icon(Icons.remove,
+                                  size: 13,
+                                  color: Colors.white,
+                                ), onPressed: () {  },
+                              ),
+                              width: 50,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                  color: Color.fromARGB(255, 107, 187, 67),
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(30)
+                                  )
+                              ),
+                            ),
+                            Container(
+                              width: 20,
+                              child: Center(
+                                child: Text("2"),
+                              ),
+                            ),
+                            Container(
+                              child: IconButton(
+                                icon: Icon(Icons.add,
+                                  size: 13,
+                                  color: Colors.white,
+                                ), onPressed: () {  },
+                              ),
+                              width: 50,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                  color: Color.fromARGB(255, 107, 187, 67),
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(30)
+                                  )
+                              ),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 113,
+                  color: Color.fromARGB(255, 107, 187, 67),
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(top: 20, bottom: 10),
+                        child: const Text('Total',
+                          style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white
+                          ),
+                        ),
                       ),
 
-                    )
-                ),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 5),
+                        child: Text("S. 12000",
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.white
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                )
               ],
             ),
           ),
@@ -183,108 +302,24 @@ class PrimeSeccion extends StatelessWidget {
     );
   }
 }
-class SegunSeccion extends StatelessWidget {
 
+class SegundaSeccion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          Container(
-            margin: EdgeInsets.all(15),
-            decoration: BoxDecoration(
-              color: Color.fromARGB(255, 241, 241, 241),
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: Offset(0, 3), // changes position of shadow
-                ),
-              ],
-            ),
-            height: 220,
-            width: 340,
-            child: Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.all(5),
-                  child: Text('Un bulto de papa para palmara',
-                    style: TextStyle(
-                      fontFamily: 'Barlow',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 17,
-                      color: Color.fromARGB(255, 28, 62, 44),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.all(5),
-                  height: 100,
-                  width: 220,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(15)
-                    ),
-                    child: Image.asset(
-                      'imagenes/papa.jpg',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                Padding(
-                    padding: EdgeInsets.all(5)
-                ),
-
-                Container(
-                    height: 50,
-                    width: 150,
-                    child:TextButton(onPressed: (){
-                    },
-                      child: Text('Comprar',
-                        style: TextStyle(
-                          color:Colors.white,
-                          fontSize: 22,
-                        ),
-                      ),
-                      style:TextButton.styleFrom(
-                          backgroundColor: Color.fromARGB(255, 107, 187, 67)
-                      ),
-                    )
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-class TercerSeccion extends StatelessWidget {
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 100,
-      color: Colors.orange,
-    );
+    return Container();
   }
 }
 
-class CuarSeccion extends StatelessWidget {
-
-
+class TerceraSeccion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 100,
-      color: Colors.red,
-    );
+    return Container();
+  }
+}
+
+class CuartaSeccion extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }

@@ -107,16 +107,8 @@ class _InicioState extends State<Inicio> {
             child: TextField(
               controller: _busquedaController,
               decoration: InputDecoration(
-                hintText: 'Buscar...',
-                border: InputBorder.none,
-                icon: Icon(Icons.search, color: Colors.grey),
-                suffixIcon: IconButton(
-                  icon: Icon(Icons.clear, color: Colors.grey),
-                  onPressed: () {
-                    _busquedaController.clear();
-                    searchResults();
-                  },
-                ),
+                  hintText: 'Buscar...',
+                  border: InputBorder.none
               ),
               style: TextStyle(
                 fontFamily: 'Barlow',
@@ -337,6 +329,23 @@ class _InicioState extends State<Inicio> {
 
 
 class PrimeraSeccion extends StatelessWidget {
+  void _addToCart(BuildContext context, DocumentSnapshot producto) async {
+    final user = FirebaseAuth.instance.currentUser;
+    final cartRef = FirebaseFirestore.instance.collection('carrito').doc(user!.uid).collection('items');
+
+    await cartRef.doc(producto.id).set({
+      'titulo': producto['titulo'],
+      'descripcion': producto['descripcion'],
+      'precio': producto['precio'],
+      'imagen': producto['imagen'],
+      'cantidad': 1,
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Producto añadido al carrito')),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
@@ -443,95 +452,32 @@ class PrimeraSeccion extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              IconButton(
-                                  onPressed: (){},
-                                  icon: Icon(Icons.library_add_check,
-                                    size: 28,
-                                    color: Color.fromARGB(255, 28, 62, 44),
-                                  )),
-                              Container(
-                                margin: EdgeInsets.only(top:45),
-                                child: Text('Me gusta',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black,
-                                  ),
+                      Container(
+                        padding: EdgeInsets.all(5),
+                        margin: EdgeInsets.symmetric(vertical: 5, horizontal: 58),
+                        child: TextButton(
+                          onPressed: () {
+                            _addToCart(context, producto);
+                          },
+                          child: Row(
+                              children: [
+                                Icon(Icons.add_shopping_cart,
+                                    color: Colors.white,
+                                    size: 22
                                 ),
-                              )
-                            ],
+                                Padding(padding: EdgeInsets.all(5)),
+                                Text('Añadir al carrito',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 22,
+                                  ),
+                                )
+                              ]
                           ),
-                          Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              IconButton(
-                                  onPressed: (){},
-                                  icon: Icon(Icons.comment,
-                                    size: 28,
-                                    color: Color.fromARGB(255, 28, 62, 44),
-                                  )),
-                              Container(
-                                margin: EdgeInsets.only(top:45),
-                                child: Text('Comentarios',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              )
-                            ],
+                          style: TextButton.styleFrom(
+                            backgroundColor: Color.fromARGB(255, 107, 187, 67),
                           ),
-
-                          Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              IconButton(
-                                  onPressed: (){},
-                                  icon: Icon(Icons.link,
-                                    size: 28,
-                                    color: Color.fromARGB(255, 28, 62, 44),
-                                  )),
-                              Container(
-                                margin: EdgeInsets.only(top:45),
-                                child: Text('Compartir',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                          Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              IconButton(
-                                  onPressed: (){},
-                                  icon: Icon(Icons.shopping_cart,
-                                    size: 28,
-                                    color: Color.fromARGB(255, 28, 62, 44),
-                                  )),
-                              Container(
-                                margin: EdgeInsets.only(top:45),
-                                child: Text('Añadir',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              )
-                            ],
-                          )
-                        ],
+                        ),
                       )
                     ],
                   ),
@@ -618,13 +564,6 @@ class SegundaSeccion extends StatelessWidget {
                                 color: Color.fromARGB(255, 28, 62, 44),
                               )
                           ),
-                          IconButton(
-                              onPressed: (){},
-                              icon: Icon(Icons.cancel,
-                                size: 25,
-                                color: Color.fromARGB(255, 28, 62, 44),
-                              )
-                          ),
                         ],
                       ),
                       Container(
@@ -659,95 +598,30 @@ class SegundaSeccion extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              IconButton(
-                                  onPressed: (){},
-                                  icon: Icon(Icons.library_add_check,
-                                    size: 28,
-                                    color: Color.fromARGB(255, 28, 62, 44),
-                                  )),
-                              Container(
-                                margin: EdgeInsets.only(top:45),
-                                child: Text('Me gusta',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black,
-                                  ),
+                      Container(
+                        padding: EdgeInsets.all(5),
+                        margin: EdgeInsets.symmetric(vertical: 5, horizontal: 58),
+                        child: TextButton(
+                          onPressed: () {},
+                          child: Row(
+                              children: [
+                                Icon(Icons.add_shopping_cart,
+                                    color: Colors.white,
+                                    size: 22
                                 ),
-                              )
-                            ],
+                                Padding(padding: EdgeInsets.all(5)),
+                                Text('Añadir al carrito',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 22,
+                                  ),
+                                )
+                              ]
                           ),
-                          Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              IconButton(
-                                  onPressed: (){},
-                                  icon: Icon(Icons.comment,
-                                    size: 28,
-                                    color: Color.fromARGB(255, 28, 62, 44),
-                                  )),
-                              Container(
-                                margin: EdgeInsets.only(top:45),
-                                child: Text('Comentarios',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              )
-                            ],
+                          style: TextButton.styleFrom(
+                            backgroundColor: Color.fromARGB(255, 107, 187, 67),
                           ),
-
-                          Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              IconButton(
-                                  onPressed: (){},
-                                  icon: Icon(Icons.link,
-                                    size: 28,
-                                    color: Color.fromARGB(255, 28, 62, 44),
-                                  )),
-                              Container(
-                                margin: EdgeInsets.only(top:45),
-                                child: Text('Compartir',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                          Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              IconButton(
-                                  onPressed: (){},
-                                  icon: Icon(Icons.shopping_cart,
-                                    size: 28,
-                                    color: Color.fromARGB(255, 28, 62, 44),
-                                  )),
-                              Container(
-                                margin: EdgeInsets.only(top:45),
-                                child: Text('Añadir',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              )
-                            ],
-                          )
-                        ],
+                        ),
                       )
                     ],
                   ),
@@ -835,13 +709,6 @@ class TerceraSeccion extends StatelessWidget {
                                 color: Color.fromARGB(255, 28, 62, 44),
                               )
                           ),
-                          IconButton(
-                              onPressed: (){},
-                              icon: Icon(Icons.cancel,
-                                size: 25,
-                                color: Color.fromARGB(255, 28, 62, 44),
-                              )
-                          ),
                         ],
                       ),
                       Container(
@@ -876,95 +743,30 @@ class TerceraSeccion extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              IconButton(
-                                  onPressed: (){},
-                                  icon: Icon(Icons.library_add_check,
-                                    size: 28,
-                                    color: Color.fromARGB(255, 28, 62, 44),
-                                  )),
-                              Container(
-                                margin: EdgeInsets.only(top:45),
-                                child: Text('Me gusta',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black,
-                                  ),
+                      Container(
+                        padding: EdgeInsets.all(5),
+                        margin: EdgeInsets.symmetric(vertical: 5, horizontal: 58),
+                        child: TextButton(
+                          onPressed: () {},
+                          child: Row(
+                              children: [
+                                Icon(Icons.add_shopping_cart,
+                                    color: Colors.white,
+                                    size: 22
                                 ),
-                              )
-                            ],
+                                Padding(padding: EdgeInsets.all(5)),
+                                Text('Añadir al carrito',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 22,
+                                  ),
+                                )
+                              ]
                           ),
-                          Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              IconButton(
-                                  onPressed: (){},
-                                  icon: Icon(Icons.comment,
-                                    size: 28,
-                                    color: Color.fromARGB(255, 28, 62, 44),
-                                  )),
-                              Container(
-                                margin: EdgeInsets.only(top:45),
-                                child: Text('Comentarios',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              )
-                            ],
+                          style: TextButton.styleFrom(
+                            backgroundColor: Color.fromARGB(255, 107, 187, 67),
                           ),
-
-                          Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              IconButton(
-                                  onPressed: (){},
-                                  icon: Icon(Icons.link,
-                                    size: 28,
-                                    color: Color.fromARGB(255, 28, 62, 44),
-                                  )),
-                              Container(
-                                margin: EdgeInsets.only(top:45),
-                                child: Text('Compartir',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                          Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              IconButton(
-                                  onPressed: (){},
-                                  icon: Icon(Icons.shopping_cart,
-                                    size: 28,
-                                    color: Color.fromARGB(255, 28, 62, 44),
-                                  )),
-                              Container(
-                                margin: EdgeInsets.only(top:45),
-                                child: Text('Añadir',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              )
-                            ],
-                          )
-                        ],
+                        ),
                       )
                     ],
                   ),
@@ -1053,13 +855,6 @@ class CuartaSeccion extends StatelessWidget {
                                 color: Color.fromARGB(255, 28, 62, 44),
                               )
                           ),
-                          IconButton(
-                              onPressed: (){},
-                              icon: Icon(Icons.cancel,
-                                size: 25,
-                                color: Color.fromARGB(255, 28, 62, 44),
-                              )
-                          ),
                         ],
                       ),
                       Container(
@@ -1094,95 +889,30 @@ class CuartaSeccion extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              IconButton(
-                                  onPressed: (){},
-                                  icon: Icon(Icons.library_add_check,
-                                    size: 28,
-                                    color: Color.fromARGB(255, 28, 62, 44),
-                                  )),
-                              Container(
-                                margin: EdgeInsets.only(top:45),
-                                child: Text('Me gusta',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black,
-                                  ),
+                      Container(
+                        padding: EdgeInsets.all(5),
+                        margin: EdgeInsets.symmetric(vertical: 5, horizontal: 58),
+                        child: TextButton(
+                          onPressed: () {},
+                          child: Row(
+                              children: [
+                                Icon(Icons.add_shopping_cart,
+                                    color: Colors.white,
+                                    size: 22
                                 ),
-                              )
-                            ],
+                                Padding(padding: EdgeInsets.all(5)),
+                                Text('Añadir al carrito',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 22,
+                                  ),
+                                )
+                              ]
                           ),
-                          Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              IconButton(
-                                  onPressed: (){},
-                                  icon: Icon(Icons.comment,
-                                    size: 28,
-                                    color: Color.fromARGB(255, 28, 62, 44),
-                                  )),
-                              Container(
-                                margin: EdgeInsets.only(top:45),
-                                child: Text('Comentarios',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              )
-                            ],
+                          style: TextButton.styleFrom(
+                            backgroundColor: Color.fromARGB(255, 107, 187, 67),
                           ),
-
-                          Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              IconButton(
-                                  onPressed: (){},
-                                  icon: Icon(Icons.link,
-                                    size: 28,
-                                    color: Color.fromARGB(255, 28, 62, 44),
-                                  )),
-                              Container(
-                                margin: EdgeInsets.only(top:45),
-                                child: Text('Compartir',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                          Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              IconButton(
-                                  onPressed: (){},
-                                  icon: Icon(Icons.shopping_cart,
-                                    size: 28,
-                                    color: Color.fromARGB(255, 28, 62, 44),
-                                  )),
-                              Container(
-                                margin: EdgeInsets.only(top:45),
-                                child: Text('Añadir',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              )
-                            ],
-                          )
-                        ],
+                        ),
                       )
                     ],
                   ),
@@ -1270,13 +1000,6 @@ class QuintaSeccion extends StatelessWidget {
                                   color: Color.fromARGB(255, 28, 62, 44),
                                 )
                             ),
-                            IconButton(
-                                onPressed: (){},
-                                icon: Icon(Icons.cancel,
-                                  size: 25,
-                                  color: Color.fromARGB(255, 28, 62, 44),
-                                )
-                            ),
                           ],
                         ),
                         Container(
@@ -1311,95 +1034,30 @@ class QuintaSeccion extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                IconButton(
-                                    onPressed: (){},
-                                    icon: Icon(Icons.library_add_check,
-                                      size: 28,
-                                      color: Color.fromARGB(255, 28, 62, 44),
-                                    )),
-                                Container(
-                                  margin: EdgeInsets.only(top:45),
-                                  child: Text('Me gusta',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black,
-                                    ),
+                        Container(
+                          padding: EdgeInsets.all(5),
+                          margin: EdgeInsets.symmetric(vertical: 5, horizontal: 58),
+                          child: TextButton(
+                            onPressed: () {},
+                            child: Row(
+                                children: [
+                                  Icon(Icons.add_shopping_cart,
+                                      color: Colors.white,
+                                      size: 22
                                   ),
-                                )
-                              ],
+                                  Padding(padding: EdgeInsets.all(5)),
+                                  Text('Añadir al carrito',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 22,
+                                    ),
+                                  )
+                                ]
                             ),
-                            Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                IconButton(
-                                    onPressed: (){},
-                                    icon: Icon(Icons.comment,
-                                      size: 28,
-                                      color: Color.fromARGB(255, 28, 62, 44),
-                                    )),
-                                Container(
-                                  margin: EdgeInsets.only(top:45),
-                                  child: Text('Comentarios',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                )
-                              ],
+                            style: TextButton.styleFrom(
+                              backgroundColor: Color.fromARGB(255, 107, 187, 67),
                             ),
-
-                            Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                IconButton(
-                                    onPressed: (){},
-                                    icon: Icon(Icons.link,
-                                      size: 28,
-                                      color: Color.fromARGB(255, 28, 62, 44),
-                                    )),
-                                Container(
-                                  margin: EdgeInsets.only(top:45),
-                                  child: Text('Compartir',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                            Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                IconButton(
-                                    onPressed: (){},
-                                    icon: Icon(Icons.shopping_cart,
-                                      size: 28,
-                                      color: Color.fromARGB(255, 28, 62, 44),
-                                    )),
-                                Container(
-                                  margin: EdgeInsets.only(top:45),
-                                  child: Text('Añadir',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            )
-                          ],
+                          ),
                         )
                       ],
                     ),
