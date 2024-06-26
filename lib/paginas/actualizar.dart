@@ -15,6 +15,7 @@ class Actualizar extends StatefulWidget {
 class _ActualizarState extends State<Actualizar> {
   TextEditingController nameController = TextEditingController();
   TextEditingController descripController = TextEditingController();
+  TextEditingController lugarController = TextEditingController();
 
   @override
   void initState() {
@@ -22,6 +23,7 @@ class _ActualizarState extends State<Actualizar> {
     // Inicializar el controlador con el nombre actual del usuario
     nameController.text = widget.usuario['nombre'];
     descripController.text=widget.usuario['descripcion'];
+    lugarController.text=widget.usuario['lugar'];
   }
 
   @override
@@ -42,6 +44,10 @@ class _ActualizarState extends State<Actualizar> {
               controller: descripController,
               decoration: InputDecoration(labelText: 'Descripcion'),
             ),
+            TextField(
+              controller: lugarController,
+              decoration: InputDecoration(labelText: 'Lugar'),
+            ),
             ElevatedButton(
               onPressed: () {
                 // Aquí puedes implementar la lógica para actualizar los datos en Firestore
@@ -58,11 +64,13 @@ class _ActualizarState extends State<Actualizar> {
   void actualizarDatos() {
     String nuevoNombre = nameController.text;
     String nuevaDescripcion = descripController.text;
+    String nuevoLugar = lugarController.text;
     // Ejemplo de actualización de nombre en Firestore
     FirebaseFirestore.instance.collection('usuario')
         .doc(widget.usuario['id']).update({
       'nombre': nuevoNombre,
       'descripcion': nuevaDescripcion,
+      'lugar':nuevoLugar,
       // Aquí puedes agregar más campos para actualizar según sea necesario
     })
         .then((value) {

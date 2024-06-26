@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:splash/iniciar_sesion.dart';
 
 class Inicio extends StatefulWidget {
   const Inicio({Key? key}) : super(key: key);
@@ -30,7 +32,14 @@ class _InicioState extends State<Inicio> {
     CuartaSeccion(),
     QuintaSeccion(),
   ];
-
+  void cerrarSesion()async{
+    await FirebaseAuth.instance.signOut();
+    Navigator.push(context,
+      MaterialPageRoute(
+        builder: (context) => listados(),
+      ),
+    );
+  }
   @override
   void initState() {
     getProductosStream();
@@ -149,14 +158,6 @@ class _InicioState extends State<Inicio> {
             },
             icon: Icon(
               _isSearching ? Icons.close : Icons.search,
-              color: Colors.white,
-              size: 40,
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.message,
               color: Colors.white,
               size: 40,
             ),
@@ -408,13 +409,6 @@ class PrimeraSeccion extends StatelessWidget {
                                 color: Color.fromARGB(255, 28, 62, 44),
                               )
                           ),
-                          IconButton(
-                              onPressed: (){},
-                              icon: Icon(Icons.cancel,
-                                size: 25,
-                                color: Color.fromARGB(255, 28, 62, 44),
-                              )
-                          ),
                         ],
                       ),
                       Container(
@@ -424,7 +418,7 @@ class PrimeraSeccion extends StatelessWidget {
                       ),
                       Container(
                         margin: EdgeInsets.all(5),
-                        child: Text('${producto['descripcion']} - ${producto['titulo']}',
+                        child: Text('${producto['descripcion']} - \$ ${producto['precio']}',
                           style: TextStyle(
                             fontFamily: 'Barlow',
                             fontWeight: FontWeight.w500,

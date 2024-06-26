@@ -23,6 +23,7 @@ class _Regis2imgState extends State<Regis2img>{
   late io.File? imagen=io.File('img/');
   final TextEditingController _nombre=TextEditingController();
   final TextEditingController _descripcion=TextEditingController();
+  final TextEditingController _lugar=TextEditingController();
   final picker=ImagePicker();
   final _formKey=GlobalKey<FormState>();
   late String uid='';
@@ -88,7 +89,22 @@ class _Regis2imgState extends State<Regis2img>{
                     },
                   ),
                 ),
-
+                Padding(
+                  padding: EdgeInsets.all(8),
+                  child: TextFormField(
+                    controller: _lugar,
+                    decoration: InputDecoration(
+                        hintText:'Descripcion'
+                    ),
+                    validator: (value){
+                      if(value!.isEmpty)
+                        return'ingrese una Descripcion';
+                    },
+                    onSaved: (value){
+                      _lugar.text=value!;
+                    },
+                  ),
+                ),
                 Container(
                     height: 45,
                     width: 300,
@@ -131,6 +147,7 @@ class _Regis2imgState extends State<Regis2img>{
       'nombre': _nombre.text,
       'descripcion': _descripcion.text,
       'foto':img,
+      'lugar':_lugar.text,
       'uid':widget.uid,
       'correo':widget.email
     }).then((value){

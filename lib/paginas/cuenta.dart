@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:splash/paginas/actualizar.dart';
+import 'package:splash/iniciar_sesion.dart';
 
 class Cuenta extends StatefulWidget {
   @override
@@ -11,7 +12,7 @@ class Cuenta extends StatefulWidget {
 class _CuentaState extends State<Cuenta> {
   late User _user;
   bool _isLoading = true;
-  late QueryDocumentSnapshot _producto; // Cambiado el tipo aquí
+  late QueryDocumentSnapshot _producto;
 
   @override
   void initState() {
@@ -26,7 +27,14 @@ class _CuentaState extends State<Cuenta> {
       _isLoading = false; // Stop loading once user is fetched
     });
   }
-
+  void cerrarSesion()async{
+    await FirebaseAuth.instance.signOut();
+    Navigator.push(context,
+      MaterialPageRoute(
+        builder: (context) => listados(),
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     if (_isLoading) {
@@ -43,6 +51,19 @@ class _CuentaState extends State<Cuenta> {
           ),
         ),
         child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            actions:[
+              IconButton(
+                icon: Icon(Icons.logout,
+                  color: Colors.black,
+                  size: 40,
+                ),
+                onPressed: cerrarSesion,
+              ),
+            ],
+          ),
+          
           backgroundColor: Colors.transparent,
           body: StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
@@ -159,9 +180,9 @@ class _CuentaState extends State<Cuenta> {
                                           Radius.circular(15),
                                         ),
                                       ),
-                                      child: const Center(
+                                      child: Center(
                                         child: Text(
-                                          'Funza',
+                                          _producto['lugar'],
                                           style: TextStyle(
                                             fontFamily: 'Barlow',
                                             color: Colors.white,
@@ -354,7 +375,7 @@ class _CuentaState extends State<Cuenta> {
                     ),
                   ),
                   Positioned(
-                    top: 120,
+                    top: 10,
                     left: 90,
                     child: Container(
                       height: 180,
@@ -397,4 +418,3 @@ class _CuentaState extends State<Cuenta> {
     );
   }
 }
-

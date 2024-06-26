@@ -28,6 +28,14 @@ class _PublicarState extends State<Publicar> {
   final TextEditingController _cantidad=TextEditingController();
   final TextEditingController _categoria=TextEditingController();
 
+  List<String> categorias=[
+    'Granos',
+    'Frutas',
+    'Verduras',
+    'Fertilizantes',
+    'Herramientas'
+  ];
+  String? valorCategorias;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -162,18 +170,24 @@ class _PublicarState extends State<Publicar> {
                   ),
                   Padding(
                     padding: EdgeInsets.all(8),
-                    child: TextFormField(
-                      controller: _categoria,
+                    child: DropdownButtonFormField<String>(
+                      value: valorCategorias,
                       decoration: InputDecoration(
-                          hintText:'Categoria'
+                        hintText: 'Categoria',
                       ),
-                      validator: (value){
-                        if(value!.isEmpty)
-                          return'ingrese una Categoria';
+                      onChanged: (newValue) {
+                        setState(() {
+                          valorCategorias = newValue;
+                        });
                       },
-                      onSaved: (value){
-                        _categoria.text=value!;
-                      },
+                      validator: (value) =>
+                      value == null ? 'Seleccione una categoria' : null,
+                      items: categorias.map<DropdownMenuItem<String>>((String valueItem) {
+                        return DropdownMenuItem<String>(
+                          value: valueItem,
+                          child: Text(valueItem),
+                        );
+                      }).toList(),
                     ),
                   ),
                   imagen_updated !=null?Image.file(imagen_updated!):Container(
@@ -249,7 +263,7 @@ class _PublicarState extends State<Publicar> {
       'descripcion': _descripcion.text,
       'precio': _precio.text,
       'cantidad': _cantidad.text,
-      'categoria': _categoria.text,
+      'categoria': valorCategorias,
       'imagen':imga,
     }).then((value){
       Fluttertoast.showToast(
