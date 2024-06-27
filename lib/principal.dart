@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:splash/paginas/inicio.dart';
 import 'package:splash/paginas/cuenta.dart';
 import 'package:splash/paginas/publicar.dart';
-import 'package:splash/paginas/notificar.dart';
 import 'package:splash/paginas/carrito.dart';
 
 
@@ -15,7 +14,7 @@ class _principalState extends State<principal> {
   int index=0;
   @override
   Widget build(BuildContext context) {
-    final paginas=[Inicio(),Cuenta(),Publicar(),Notificar(),Carrito()];
+    final paginas=[Inicio(),Cuenta(),Publicar(),Carrito()];
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -50,10 +49,6 @@ class _principalState extends State<principal> {
             BottomNavigationBarItem(
               icon:Icon(Icons.add_box_rounded,),
               label: 'Publicar',
-            ),
-            BottomNavigationBarItem(
-              icon:Icon(Icons.notifications,),
-              label: 'Notificar',
             ),
             BottomNavigationBarItem(
               icon:Icon(Icons.shopping_cart,),

@@ -12,7 +12,7 @@ class Cuenta extends StatefulWidget {
 class _CuentaState extends State<Cuenta> {
   late User _user;
   bool _isLoading = true;
-  late QueryDocumentSnapshot _producto;
+  late QueryDocumentSnapshot _usuario;
 
   @override
   void initState() {
@@ -27,7 +27,8 @@ class _CuentaState extends State<Cuenta> {
       _isLoading = false; // Stop loading once user is fetched
     });
   }
-  void cerrarSesion()async{
+
+  void cerrarSesion() async {
     await FirebaseAuth.instance.signOut();
     Navigator.push(context,
       MaterialPageRoute(
@@ -35,12 +36,12 @@ class _CuentaState extends State<Cuenta> {
       ),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     if (_isLoading) {
       return Center(child: CircularProgressIndicator()); // Show loading while fetching user
     }
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Container(
@@ -53,7 +54,7 @@ class _CuentaState extends State<Cuenta> {
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.transparent,
-            actions:[
+            actions: [
               IconButton(
                 icon: Icon(Icons.logout,
                   color: Colors.black,
@@ -63,7 +64,6 @@ class _CuentaState extends State<Cuenta> {
               ),
             ],
           ),
-          
           backgroundColor: Colors.transparent,
           body: StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
@@ -81,7 +81,7 @@ class _CuentaState extends State<Cuenta> {
                 return Center(child: Text('No user data found'));
               }
 
-              _producto = snapshot.data!.docs.first; // Actualización aquí
+              _usuario = snapshot.data!.docs.first;
 
               return Stack(
                 children: [
@@ -106,7 +106,7 @@ class _CuentaState extends State<Cuenta> {
                                 alignment: Alignment.center,
                                 child: Container(
                                   child: Text(
-                                    _producto['nombre'], // Acceso a datos aquí
+                                    _usuario['nombre'],
                                     style: TextStyle(
                                       fontFamily: 'Barlow',
                                       color: Colors.black,
@@ -121,7 +121,7 @@ class _CuentaState extends State<Cuenta> {
                                 child: Container(
                                   margin: const EdgeInsets.only(left: 20, top: 20),
                                   child: Text(
-                                    _producto['correo'], // Acceso a datos aquí
+                                    _usuario['correo'],
                                     style: TextStyle(
                                       fontFamily: 'Barlow',
                                       color: Colors.black,
@@ -134,7 +134,7 @@ class _CuentaState extends State<Cuenta> {
                               Container(
                                 margin: const EdgeInsets.only(left: 20, right: 20, top: 10),
                                 child: Text(
-                                  '${_producto['descripcion']}', // Acceso a datos aquí
+                                  '${_usuario['descripcion']}',
                                   style: TextStyle(
                                     fontFamily: 'Barlow',
                                     color: Colors.black,
@@ -182,7 +182,7 @@ class _CuentaState extends State<Cuenta> {
                                       ),
                                       child: Center(
                                         child: Text(
-                                          _producto['lugar'],
+                                          _usuario['lugar'],
                                           style: TextStyle(
                                             fontFamily: 'Barlow',
                                             color: Colors.white,
@@ -234,139 +234,174 @@ class _CuentaState extends State<Cuenta> {
                                   ),
                                 ),
                               ),
-                              Container(
-                                margin: EdgeInsets.all(15),
-                                decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 241, 241, 241),
-                                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.5),
-                                      spreadRadius: 5,
-                                      blurRadius: 7,
-                                      offset: Offset(0, 3), // changes position of shadow
-                                    ),
-                                  ],
-                                ),
-                                height: 220,
-                                width: 340,
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.all(5),
-                                      child: Text(
-                                        'Un bulto de papa para palmara',
-                                        style: TextStyle(
-                                          fontFamily: 'Barlow',
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 17,
-                                          color: Color.fromARGB(255, 28, 62, 44),
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.all(5),
-                                      height: 100,
-                                      width: 220,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                                      ),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                                        child: Image.asset(
-                                          'imagenes/papa.jpg',
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(padding: EdgeInsets.all(5)),
-                                    Container(
-                                      height: 50,
-                                      width: 150,
-                                      child: TextButton(
-                                        onPressed: () {},
-                                        child: Text(
-                                          'Comprar',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 22,
-                                          ),
-                                        ),
-                                        style: TextButton.styleFrom(
-                                          backgroundColor: Color.fromARGB(255, 107, 187, 67),
-                                        ),
-                                      ),
-                                    ),
+                              StreamBuilder<QuerySnapshot>(
+                                stream: FirebaseFirestore.instance
+                                    .collection('productos')
+                                    .where('uid', isEqualTo: _user.uid)
+                                    .snapshots(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState == ConnectionState.waiting) {
+                                    return Center(child: CircularProgressIndicator());
+                                  }
+                                  if (snapshot.hasError) {
+                                    return Center(child: Text('Error: ${snapshot.error}'));
+                                  }
+                                  if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                                    return Center(child: Text('Lo sentimos, el usuario no tiene productos'));
+                                  }
 
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.all(15),
-                                decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 241, 241, 241),
-                                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.5),
-                                      spreadRadius: 5,
-                                      blurRadius: 7,
-                                      offset: Offset(0, 3), // changes position of shadow
-                                    ),
-                                  ],
-                                ),
-                                height: 220,
-                                width: 340,
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.all(5),
-                                      child: Text(
-                                        'Un bulto de papa para palmara',
-                                        style: TextStyle(
-                                          fontFamily: 'Barlow',
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 17,
-                                          color: Color.fromARGB(255, 28, 62, 44),
+                                  return ListView.builder(
+                                    shrinkWrap: true,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    itemCount: snapshot.data!.docs.length,
+                                    itemBuilder: (context, index) {
+                                      var producto = snapshot.data!.docs[index];
+                                      return Container(
+                                        margin: EdgeInsets.all(15),
+                                        decoration: BoxDecoration(
+                                          color: Color.fromARGB(255, 241, 241, 241),
+                                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.grey.withOpacity(0.5),
+                                              spreadRadius: 5,
+                                              blurRadius: 7,
+                                              offset: Offset(0, 3), // changes position of shadow
+                                            ),
+                                          ],
                                         ),
-                                      ),
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.all(5),
-                                      height: 100,
-                                      width: 220,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                                      ),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                                        child: Image.asset(
-                                          'imagenes/papa.jpg',
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(padding: EdgeInsets.all(5)),
-                                    Container(
-                                      height: 50,
-                                      width: 150,
-                                      child: TextButton(
-                                        onPressed: () {},
-                                        child: Text(
-                                          'Comprar',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 22,
-                                          ),
-                                        ),
-                                        style: TextButton.styleFrom(
-                                          backgroundColor: Color.fromARGB(255, 107, 187, 67),
-                                        ),
-                                      ),
-                                    ),
+                                        height: 260,
+                                        width: 340,
+                                        child: Column(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                              children: [
+                                                IconButton(
+                                                    onPressed: (){},
+                                                    icon: Icon(Icons.scatter_plot,
+                                                      size: 25,
+                                                      color: Color.fromARGB(255, 28, 62, 44),
+                                                    )
+                                                ),
+                                                Container(
+                                                    child: Center(
+                                                      child: Text('${producto['titulo']} - ${producto['categoria']}',
+                                                        maxLines: 2,
+                                                        overflow: TextOverflow.ellipsis,
+                                                        style: TextStyle(
+                                                          fontFamily: 'Barlow',
+                                                          fontWeight: FontWeight.w500,
+                                                          fontSize: 17,
+                                                          color: Color.fromARGB(255, 28, 62, 44),
+                                                        ),
+                                                      ),
+                                                    )
+                                                ),
+                                                IconButton(
+                                                    onPressed: (){},
+                                                    icon: Icon(Icons.scatter_plot,
+                                                      size: 25,
+                                                      color: Color.fromARGB(255, 28, 62, 44),
+                                                    )
+                                                ),
+                                              ],
+                                            ),
+                                            Container(
+                                              height: 2,
+                                              width: double.infinity,
+                                              color: Color.fromARGB(255, 28, 62, 44),
+                                            ),
+                                            Container(
+                                              margin: EdgeInsets.all(5),
+                                              child: Text('${producto['descripcion']} - \$ ${producto['precio']}',
+                                                style: TextStyle(
+                                                  fontFamily: 'Barlow',
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 17,
+                                                  color: Color.fromARGB(255, 28, 62, 44),
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              margin: EdgeInsets.all(5),
+                                              height: 100,
+                                              width: 220,
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.all(Radius.circular(15)),
+                                              ),
+                                              child: ClipRRect(
+                                                borderRadius: BorderRadius.all(Radius.circular(15)
+                                                ),
+                                                child: Image.network(
+                                                  producto['imagen'],
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            ),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  padding: EdgeInsets.all(5),
+                                                  child: TextButton(
+                                                    onPressed: () {
 
-                                  ],
-                                ),
+                                                    },
+                                                    child: Row(
+                                                        children: [
+                                                          Icon(Icons.edit,
+                                                              color: Colors.white,
+                                                              size: 22
+                                                          ),
+                                                          Padding(padding: EdgeInsets.all(5)),
+                                                          Text('Editar',
+                                                            style: TextStyle(
+                                                              color: Colors.white,
+                                                              fontSize: 18,
+                                                            ),
+                                                          )
+                                                        ]
+                                                    ),
+                                                    style: TextButton.styleFrom(
+                                                      backgroundColor: Color.fromARGB(255, 107, 187, 67),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  padding: EdgeInsets.all(5),
+                                                  child: TextButton(
+                                                    onPressed: () {
+
+                                                    },
+                                                    child: Row(
+                                                        children: [
+                                                          Icon(Icons.delete,
+                                                              color: Colors.white,
+                                                              size: 22
+                                                          ),
+                                                          Padding(padding: EdgeInsets.all(5)),
+                                                          Text('Eliminar',
+                                                            style: TextStyle(
+                                                              color: Colors.white,
+                                                              fontSize: 18,
+                                                            ),
+                                                          )
+                                                        ]
+                                                    ),
+                                                    style: TextButton.styleFrom(
+                                                      backgroundColor: Colors.red,
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
                               ),
                             ],
                           ),
@@ -374,21 +409,21 @@ class _CuentaState extends State<Cuenta> {
                       ),
                     ),
                   ),
-                  Positioned(
-                    top: 10,
-                    left: 90,
+                  Align(
+                    alignment: Alignment.topCenter,
                     child: Container(
-                      height: 180,
                       width: 180,
+                      height: 180,
+                      margin: EdgeInsets.only(top: 10),
                       decoration: BoxDecoration(
-                        color: Colors.green[100],
+                        color: Colors.grey,
                         shape: BoxShape.circle,
                         border: Border.all(
                           color: const Color.fromARGB(255, 107, 187, 67),
                           width: 5,
                         ),
                         image: DecorationImage(
-                          image: NetworkImage(_producto['foto']),
+                          image: NetworkImage(_usuario['foto']),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -404,8 +439,8 @@ class _CuentaState extends State<Cuenta> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => Actualizar(usuario: {
-                    ..._producto.data() as Map<String, dynamic>, // Conversión necesaria aquí
-                    'id': _producto.id,
+                    ..._usuario.data() as Map<String, dynamic>, // Conversión necesaria aquí
+                    'id': _usuario.id,
                   }),
                 ),
               );
@@ -418,3 +453,4 @@ class _CuentaState extends State<Cuenta> {
     );
   }
 }
+

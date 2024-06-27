@@ -3,17 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io' as io;
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:splash/iniciar_sesion.dart';
 import 'package:splash/register.dart';
 
 
 class Regis2img extends StatefulWidget{
-  final String uid;
-  final String email;
-
-
-  Regis2img({required this.uid, required this.email});
+  Regis2img();
   @override
   State<Regis2img> createState() => _Regis2imgState();
 }
@@ -94,7 +91,7 @@ class _Regis2imgState extends State<Regis2img>{
                   child: TextFormField(
                     controller: _lugar,
                     decoration: InputDecoration(
-                        hintText:'Descripcion'
+                        hintText:'Lugar'
                     ),
                     validator: (value){
                       if(value!.isEmpty)
@@ -143,13 +140,15 @@ class _Regis2imgState extends State<Regis2img>{
     UploadTask uploadTask=ref.putFile(imagen!);
     TaskSnapshot snapshot=await uploadTask.whenComplete(()=>null);
     String img = await snapshot.ref.getDownloadURL();
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? currentUser = auth.currentUser;
     FirebaseFirestore.instance.collection('usuario').add({
       'nombre': _nombre.text,
       'descripcion': _descripcion.text,
       'foto':img,
       'lugar':_lugar.text,
-      'uid':widget.uid,
-      'correo':widget.email
+      'uid':currentUser!.uid,
+      'correo':currentUser.email
     }).then((value){
       Fluttertoast.showToast(
         msg: 'los datos guardados.',

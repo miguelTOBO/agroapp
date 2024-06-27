@@ -2,8 +2,8 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:splash/principal.dart';
 
@@ -26,7 +26,6 @@ class _PublicarState extends State<Publicar> {
   final TextEditingController _descripcion=TextEditingController();
   final TextEditingController _precio=TextEditingController();
   final TextEditingController _cantidad=TextEditingController();
-  final TextEditingController _categoria=TextEditingController();
 
   List<String> categorias=[
     'Granos',
@@ -258,6 +257,8 @@ class _PublicarState extends State<Publicar> {
     UploadTask uploadTask=ref.putFile(imagen_updated!);
     TaskSnapshot snapshot=await uploadTask.whenComplete(()=>null);
     String imga = await snapshot.ref.getDownloadURL();
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? currentUser = auth.currentUser;
     FirebaseFirestore.instance.collection('productos').add({
       'titulo': _titulo.text,
       'descripcion': _descripcion.text,
@@ -265,6 +266,7 @@ class _PublicarState extends State<Publicar> {
       'cantidad': _cantidad.text,
       'categoria': valorCategorias,
       'imagen':imga,
+      'uid':currentUser!.uid
     }).then((value){
       Fluttertoast.showToast(
         msg: 'los datos se guardados.',

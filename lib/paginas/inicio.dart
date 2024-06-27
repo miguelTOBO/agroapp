@@ -15,7 +15,7 @@ class _InicioState extends State<Inicio> {
   List<String> categorias = [
     'Granos',
     'Frutas',
-    'Vegetales',
+    'Verduras',
     'Fertilizantes',
     'Herramientas',
   ];
@@ -219,25 +219,69 @@ class _InicioState extends State<Inicio> {
                 return ListTile(
                   title: Column(
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.all(10),
-                            height: 50,
-                            width: 50,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.all(Radius.circular(50)),
-                              child: Image.asset(
-                                'imagenes/persona.jpg',
-                                fit: BoxFit.cover,
-                              ),
+                      Container(
+                        margin: EdgeInsets.all(15),
+                        decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 241, 241, 241),
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset: Offset(0, 3), // changes position of shadow
                             ),
-                          ),
-                          Container(
-                            child: Center(
-                              child: Text(
-                                'User065416515',
+                          ],
+                        ),
+                        height: 320,
+                        width: 340,
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.all(10),
+                                  height: 50,
+                                  width: 50,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.all(Radius.circular(50)
+                                    ),
+                                    child: Image.asset(
+                                      'imagenes/persona.jpg',
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                    child: Center(
+                                      child: Text('User065416515',
+                                        style: TextStyle(
+                                          fontFamily: 'Barlow',
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 17,
+                                          color: Color.fromARGB(255, 28, 62, 44),
+                                        ),
+                                      ),
+                                    )
+                                ),
+                                IconButton(
+                                    onPressed: (){},
+                                    icon: Icon(Icons.scatter_plot,
+                                      size: 25,
+                                      color: Color.fromARGB(255, 28, 62, 44),
+                                    )
+                                ),
+                              ],
+                            ),
+                            Container(
+                              height: 2,
+                              width: double.infinity,
+                              color: Color.fromARGB(255, 28, 62, 44),
+                            ),
+                            Container(
+                              margin: EdgeInsets.all(5),
+                              child: Text('${producto['descripcion']} - \$ ${producto['precio']}',
                                 style: TextStyle(
                                   fontFamily: 'Barlow',
                                   fontWeight: FontWeight.w500,
@@ -246,72 +290,54 @@ class _InicioState extends State<Inicio> {
                                 ),
                               ),
                             ),
-                          ),
-                          IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.scatter_plot,
-                              size: 25,
-                              color: Color.fromARGB(255, 28, 62, 44),
+                            Container(
+                              margin: EdgeInsets.all(5),
+                              height: 125,
+                              width: 220,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(15)),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.all(Radius.circular(15)
+                                ),
+                                child: Image.network(
+                                  producto['imagen'],
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                             ),
-                          ),
-                          IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.cancel,
-                              size: 25,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Container(
-                        height: 2,
-                        width: double.infinity,
-                        color: Color.fromARGB(255, 28, 62, 44),
-                      ),
-                      Container(
-                        margin: EdgeInsets.all(5),
-                        child: Text(
-                          producto['titulo'],
-                          style: TextStyle(
-                            fontFamily: 'Barlow',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 17,
-                            color: Color.fromARGB(255, 28, 62, 44),
-                          ),
+                            Container(
+                              padding: EdgeInsets.all(5),
+                              margin: EdgeInsets.symmetric(vertical: 5, horizontal: 58),
+                              child: TextButton(
+                                onPressed: () {
+                                  _addToCart(context, producto);
+                                },
+                                child: Row(
+                                    children: [
+                                      Icon(Icons.add_shopping_cart,
+                                          color: Colors.white,
+                                          size: 20
+                                      ),
+                                      Padding(padding: EdgeInsets.all(5)),
+                                      Text('Añadir al carrito',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 15,
+                                        ),
+                                      )
+                                    ]
+                                ),
+                                style: TextButton.styleFrom(
+                                  backgroundColor: Color.fromARGB(255, 107, 187, 67),
+                                ),
+                              ),
+                            )
+                          ],
                         ),
                       ),
-                      Container(
-                        margin: EdgeInsets.all(5),
-                        child: Text(
-                          producto['descripcion'],
-                          style: TextStyle(
-                            fontFamily: 'Barlow',
-                            fontWeight: FontWeight.w400,
-                            fontSize: 15,
-                            color: Color.fromARGB(255, 28, 62, 44),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.all(5),
-                        height: 100,
-                        width: 220,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                          child: Image.network(
-                            producto['imagen'],
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  subtitle: Text(producto['cantidad']),
+                    ]
+                  )
                 );
               },
             ),
@@ -326,25 +352,25 @@ class _InicioState extends State<Inicio> {
     );
   }
 }
+void _addToCart(BuildContext context, DocumentSnapshot producto) async {
+  final user = FirebaseAuth.instance.currentUser;
+  final cartRef = FirebaseFirestore.instance.collection('carrito').doc(user!.uid).collection('items');
 
+  await cartRef.doc(producto.id).set({
+    'titulo': producto['titulo'],
+    'descripcion': producto['descripcion'],
+    'precio': producto['precio'],
+    'imagen': producto['imagen'],
+    'cantidad': 1,
+  });
+
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(content: Text('Producto añadido al carrito')),
+  );
+}
 
 class PrimeraSeccion extends StatelessWidget {
-  void _addToCart(BuildContext context, DocumentSnapshot producto) async {
-    final user = FirebaseAuth.instance.currentUser;
-    final cartRef = FirebaseFirestore.instance.collection('carrito').doc(user!.uid).collection('items');
 
-    await cartRef.doc(producto.id).set({
-      'titulo': producto['titulo'],
-      'descripcion': producto['descripcion'],
-      'precio': producto['precio'],
-      'imagen': producto['imagen'],
-      'cantidad': 1,
-    });
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Producto añadido al carrito')),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -363,126 +389,119 @@ class PrimeraSeccion extends StatelessWidget {
           itemCount: snapshot.data!.docs.length,
           itemBuilder: (context, index) {
             var producto = snapshot.data!.docs[index];
-            return Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 241, 241, 241),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: Offset(0, 3), // changes position of shadow
-                      ),
-                    ],
-                  ),
-                  height: 290,
-                  width: 340,
-                  child: Column(
+            return Card(
+              color: Colors.grey[100],
+              margin: EdgeInsets.all(10),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.all(10),
-                            height: 50,
-                            width: 50,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.all(Radius.circular(50)
-                              ),
-                              child: Image.asset(
-                                'imagenes/persona.jpg',
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          Container(
-                              child: Center(
-                                child: Text('User065416515',
-                                  style: TextStyle(
-                                    fontFamily: 'Barlow',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 17,
-                                    color: Color.fromARGB(255, 28, 62, 44),
-                                  ),
-                                ),
-                              )
-                          ),
-                          IconButton(
-                              onPressed: (){},
-                              icon: Icon(Icons.scatter_plot,
-                                size: 25,
-                                color: Color.fromARGB(255, 28, 62, 44),
-                              )
-                          ),
-                        ],
-                      ),
                       Container(
-                        height: 2,
-                        width: double.infinity,
-                        color: Color.fromARGB(255, 28, 62, 44),
-                      ),
-                      Container(
-                        margin: EdgeInsets.all(5),
-                        child: Text('${producto['descripcion']} - \$ ${producto['precio']}',
-                          style: TextStyle(
-                            fontFamily: 'Barlow',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 17,
-                            color: Color.fromARGB(255, 28, 62, 44),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.all(5),
-                        height: 100,
-                        width: 220,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                        ),
+                        margin: EdgeInsets.all(10),
+                        height: 50,
+                        width: 50,
                         child: ClipRRect(
-                          borderRadius: BorderRadius.all(Radius.circular(15)
-                          ),
-                          child: Image.network(
-                            producto['imagen'],
+                          borderRadius: BorderRadius.all(Radius.circular(50)),
+                          child: Image.asset(
+                            'imagenes/persona.jpg',
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
-                      Container(
-                        padding: EdgeInsets.all(5),
-                        margin: EdgeInsets.symmetric(vertical: 5, horizontal: 58),
-                        child: TextButton(
-                          onPressed: () {
-                            _addToCart(context, producto);
-                          },
-                          child: Row(
-                              children: [
-                                Icon(Icons.add_shopping_cart,
-                                    color: Colors.white,
-                                    size: 22
-                                ),
-                                Padding(padding: EdgeInsets.all(5)),
-                                Text('Añadir al carrito',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 22,
-                                  ),
-                                )
-                              ]
-                          ),
-                          style: TextButton.styleFrom(
-                            backgroundColor: Color.fromARGB(255, 107, 187, 67),
+                      Expanded(
+                        child: Container(
+                          child: Center(
+                            child: Text(
+                              'User065416515',
+                              style: TextStyle(
+                                fontFamily: 'Barlow',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 17,
+                                color: Color.fromARGB(255, 28, 62, 44),
+                              ),
+                            ),
                           ),
                         ),
-                      )
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.scatter_plot,
+                          size: 25,
+                          color: Color.fromARGB(255, 28, 62, 44),
+                        ),
+                      ),
                     ],
                   ),
-                ),
-              ],
+                  Container(
+                    height: 2,
+                    width: double.infinity,
+                    color: Color.fromARGB(255, 28, 62, 44),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(8),
+                    child: Text(
+                      '${producto['descripcion']} - ${producto['titulo']}',
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontFamily: 'Barlow',
+                        fontWeight: FontWeight.w500,
+                        fontSize: 17,
+                        color: Color.fromARGB(255, 28, 62, 44),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(5),
+                    height: 100,
+                    width: 220,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      child: Image.network(
+                        producto['imagen'],
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(5),
+                    margin: EdgeInsets.symmetric(vertical: 5, horizontal: 58),
+                    child: TextButton(
+                      onPressed: () {
+                        _addToCart(context, producto);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.add_shopping_cart,
+                            color: Colors.white,
+                            size: 22,
+                          ),
+                          Padding(padding: EdgeInsets.all(5)),
+                          Text(
+                            'Añadir al carrito',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ],
+                      ),
+                      style: TextButton.styleFrom(
+                        backgroundColor: Color.fromARGB(255, 107, 187, 67),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             );
           },
         );
@@ -509,124 +528,119 @@ class SegundaSeccion extends StatelessWidget {
           itemCount: snapshot.data!.docs.length,
           itemBuilder: (context, index) {
             var producto = snapshot.data!.docs[index];
-            return Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 241, 241, 241),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: Offset(0, 3), // changes position of shadow
-                      ),
-                    ],
-                  ),
-                  height: 290,
-                  width: 340,
-                  child: Column(
+            return Card(
+              color: Colors.grey[100],
+              margin: EdgeInsets.all(10),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.all(10),
-                            height: 50,
-                            width: 50,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.all(Radius.circular(50)
-                              ),
-                              child: Image.asset(
-                                'imagenes/persona.jpg',
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          Container(
-                              child: Center(
-                                child: Text('User065416515',
-                                  style: TextStyle(
-                                    fontFamily: 'Barlow',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 17,
-                                    color: Color.fromARGB(255, 28, 62, 44),
-                                  ),
-                                ),
-                              )
-                          ),
-                          IconButton(
-                              onPressed: (){},
-                              icon: Icon(Icons.scatter_plot,
-                                size: 25,
-                                color: Color.fromARGB(255, 28, 62, 44),
-                              )
-                          ),
-                        ],
-                      ),
                       Container(
-                        height: 2,
-                        width: double.infinity,
-                        color: Color.fromARGB(255, 28, 62, 44),
-                      ),
-                      Container(
-                        margin: EdgeInsets.all(5),
-                        child: Text('${producto['descripcion']} - ${producto['titulo']}',
-                          style: TextStyle(
-                            fontFamily: 'Barlow',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 17,
-                            color: Color.fromARGB(255, 28, 62, 44),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.all(5),
-                        height: 100,
-                        width: 220,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                        ),
+                        margin: EdgeInsets.all(10),
+                        height: 50,
+                        width: 50,
                         child: ClipRRect(
-                          borderRadius: BorderRadius.all(Radius.circular(15)
-                          ),
-                          child: Image.network(
-                            producto['imagen'],
+                          borderRadius: BorderRadius.all(Radius.circular(50)),
+                          child: Image.asset(
+                            'imagenes/persona.jpg',
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
-                      Container(
-                        padding: EdgeInsets.all(5),
-                        margin: EdgeInsets.symmetric(vertical: 5, horizontal: 58),
-                        child: TextButton(
-                          onPressed: () {},
-                          child: Row(
-                              children: [
-                                Icon(Icons.add_shopping_cart,
-                                    color: Colors.white,
-                                    size: 22
-                                ),
-                                Padding(padding: EdgeInsets.all(5)),
-                                Text('Añadir al carrito',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 22,
-                                  ),
-                                )
-                              ]
-                          ),
-                          style: TextButton.styleFrom(
-                            backgroundColor: Color.fromARGB(255, 107, 187, 67),
+                      Expanded(
+                        child: Container(
+                          child: Center(
+                            child: Text(
+                              'User065416515',
+                              style: TextStyle(
+                                fontFamily: 'Barlow',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 17,
+                                color: Color.fromARGB(255, 28, 62, 44),
+                              ),
+                            ),
                           ),
                         ),
-                      )
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.scatter_plot,
+                          size: 25,
+                          color: Color.fromARGB(255, 28, 62, 44),
+                        ),
+                      ),
                     ],
                   ),
-                ),
-              ],
+                  Container(
+                    height: 2,
+                    width: double.infinity,
+                    color: Color.fromARGB(255, 28, 62, 44),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(8),
+                    child: Text(
+                      '${producto['descripcion']} - ${producto['titulo']}',
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontFamily: 'Barlow',
+                        fontWeight: FontWeight.w500,
+                        fontSize: 17,
+                        color: Color.fromARGB(255, 28, 62, 44),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(5),
+                    height: 100,
+                    width: 220,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      child: Image.network(
+                        producto['imagen'],
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(5),
+                    margin: EdgeInsets.symmetric(vertical: 5, horizontal: 58),
+                    child: TextButton(
+                      onPressed: () {
+                        _addToCart(context, producto);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.add_shopping_cart,
+                            color: Colors.white,
+                            size: 22,
+                          ),
+                          Padding(padding: EdgeInsets.all(5)),
+                          Text(
+                            'Añadir al carrito',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ],
+                      ),
+                      style: TextButton.styleFrom(
+                        backgroundColor: Color.fromARGB(255, 107, 187, 67),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             );
           },
         );
@@ -640,7 +654,7 @@ class TerceraSeccion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection('productos').where('categoria', isEqualTo: 'Vegetales').snapshots(),
+      stream: FirebaseFirestore.instance.collection('productos').where('categoria', isEqualTo: 'Verduras').snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
@@ -654,124 +668,119 @@ class TerceraSeccion extends StatelessWidget {
           itemCount: snapshot.data!.docs.length,
           itemBuilder: (context, index) {
             var producto = snapshot.data!.docs[index];
-            return Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 241, 241, 241),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: Offset(0, 3), // changes position of shadow
-                      ),
-                    ],
-                  ),
-                  height: 290,
-                  width: 340,
-                  child: Column(
+            return Card(
+              color: Colors.grey[100],
+              margin: EdgeInsets.all(10),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.all(10),
-                            height: 50,
-                            width: 50,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.all(Radius.circular(50)
-                              ),
-                              child: Image.asset(
-                                'imagenes/persona.jpg',
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          Container(
-                              child: Center(
-                                child: Text('User065416515',
-                                  style: TextStyle(
-                                    fontFamily: 'Barlow',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 17,
-                                    color: Color.fromARGB(255, 28, 62, 44),
-                                  ),
-                                ),
-                              )
-                          ),
-                          IconButton(
-                              onPressed: (){},
-                              icon: Icon(Icons.scatter_plot,
-                                size: 25,
-                                color: Color.fromARGB(255, 28, 62, 44),
-                              )
-                          ),
-                        ],
-                      ),
                       Container(
-                        height: 2,
-                        width: double.infinity,
-                        color: Color.fromARGB(255, 28, 62, 44),
-                      ),
-                      Container(
-                        margin: EdgeInsets.all(5),
-                        child: Text('${producto['descripcion']} - ${producto['titulo']}',
-                          style: TextStyle(
-                            fontFamily: 'Barlow',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 17,
-                            color: Color.fromARGB(255, 28, 62, 44),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.all(5),
-                        height: 100,
-                        width: 220,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                        ),
+                        margin: EdgeInsets.all(10),
+                        height: 50,
+                        width: 50,
                         child: ClipRRect(
-                          borderRadius: BorderRadius.all(Radius.circular(15)
-                          ),
-                          child: Image.network(
-                            producto['imagen'],
+                          borderRadius: BorderRadius.all(Radius.circular(50)),
+                          child: Image.asset(
+                            'imagenes/persona.jpg',
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
-                      Container(
-                        padding: EdgeInsets.all(5),
-                        margin: EdgeInsets.symmetric(vertical: 5, horizontal: 58),
-                        child: TextButton(
-                          onPressed: () {},
-                          child: Row(
-                              children: [
-                                Icon(Icons.add_shopping_cart,
-                                    color: Colors.white,
-                                    size: 22
-                                ),
-                                Padding(padding: EdgeInsets.all(5)),
-                                Text('Añadir al carrito',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 22,
-                                  ),
-                                )
-                              ]
-                          ),
-                          style: TextButton.styleFrom(
-                            backgroundColor: Color.fromARGB(255, 107, 187, 67),
+                      Expanded(
+                        child: Container(
+                          child: Center(
+                            child: Text(
+                              'User065416515',
+                              style: TextStyle(
+                                fontFamily: 'Barlow',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 17,
+                                color: Color.fromARGB(255, 28, 62, 44),
+                              ),
+                            ),
                           ),
                         ),
-                      )
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.scatter_plot,
+                          size: 25,
+                          color: Color.fromARGB(255, 28, 62, 44),
+                        ),
+                      ),
                     ],
                   ),
-                ),
-              ],
+                  Container(
+                    height: 2,
+                    width: double.infinity,
+                    color: Color.fromARGB(255, 28, 62, 44),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(8),
+                    child: Text(
+                      '${producto['descripcion']} - ${producto['titulo']}',
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontFamily: 'Barlow',
+                        fontWeight: FontWeight.w500,
+                        fontSize: 17,
+                        color: Color.fromARGB(255, 28, 62, 44),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(5),
+                    height: 100,
+                    width: 220,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      child: Image.network(
+                        producto['imagen'],
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(5),
+                    margin: EdgeInsets.symmetric(vertical: 5, horizontal: 58),
+                    child: TextButton(
+                      onPressed: () {
+                        _addToCart(context, producto);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.add_shopping_cart,
+                            color: Colors.white,
+                            size: 22,
+                          ),
+                          Padding(padding: EdgeInsets.all(5)),
+                          Text(
+                            'Añadir al carrito',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ],
+                      ),
+                      style: TextButton.styleFrom(
+                        backgroundColor: Color.fromARGB(255, 107, 187, 67),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             );
           },
         );
@@ -800,124 +809,119 @@ class CuartaSeccion extends StatelessWidget {
           itemCount: snapshot.data!.docs.length,
           itemBuilder: (context, index) {
             var producto = snapshot.data!.docs[index];
-            return Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 241, 241, 241),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: Offset(0, 3), // changes position of shadow
-                      ),
-                    ],
-                  ),
-                  height: 290,
-                  width: 340,
-                  child: Column(
+            return Card(
+              color: Colors.grey[100],
+              margin: EdgeInsets.all(10),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.all(10),
-                            height: 50,
-                            width: 50,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.all(Radius.circular(50)
-                              ),
-                              child: Image.asset(
-                                'imagenes/persona.jpg',
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          Container(
-                              child: Center(
-                                child: Text('User065416515',
-                                  style: TextStyle(
-                                    fontFamily: 'Barlow',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 17,
-                                    color: Color.fromARGB(255, 28, 62, 44),
-                                  ),
-                                ),
-                              )
-                          ),
-                          IconButton(
-                              onPressed: (){},
-                              icon: Icon(Icons.scatter_plot,
-                                size: 25,
-                                color: Color.fromARGB(255, 28, 62, 44),
-                              )
-                          ),
-                        ],
-                      ),
                       Container(
-                        height: 2,
-                        width: double.infinity,
-                        color: Color.fromARGB(255, 28, 62, 44),
-                      ),
-                      Container(
-                        margin: EdgeInsets.all(5),
-                        child: Text('${producto['descripcion']} - ${producto['titulo']}',
-                          style: TextStyle(
-                            fontFamily: 'Barlow',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 17,
-                            color: Color.fromARGB(255, 28, 62, 44),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.all(5),
-                        height: 100,
-                        width: 220,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                        ),
+                        margin: EdgeInsets.all(10),
+                        height: 50,
+                        width: 50,
                         child: ClipRRect(
-                          borderRadius: BorderRadius.all(Radius.circular(15)
-                          ),
-                          child: Image.network(
-                            producto['imagen'],
+                          borderRadius: BorderRadius.all(Radius.circular(50)),
+                          child: Image.asset(
+                            'imagenes/persona.jpg',
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
-                      Container(
-                        padding: EdgeInsets.all(5),
-                        margin: EdgeInsets.symmetric(vertical: 5, horizontal: 58),
-                        child: TextButton(
-                          onPressed: () {},
-                          child: Row(
-                              children: [
-                                Icon(Icons.add_shopping_cart,
-                                    color: Colors.white,
-                                    size: 22
-                                ),
-                                Padding(padding: EdgeInsets.all(5)),
-                                Text('Añadir al carrito',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 22,
-                                  ),
-                                )
-                              ]
-                          ),
-                          style: TextButton.styleFrom(
-                            backgroundColor: Color.fromARGB(255, 107, 187, 67),
+                      Expanded(
+                        child: Container(
+                          child: Center(
+                            child: Text(
+                              'User065416515',
+                              style: TextStyle(
+                                fontFamily: 'Barlow',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 17,
+                                color: Color.fromARGB(255, 28, 62, 44),
+                              ),
+                            ),
                           ),
                         ),
-                      )
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.scatter_plot,
+                          size: 25,
+                          color: Color.fromARGB(255, 28, 62, 44),
+                        ),
+                      ),
                     ],
                   ),
-                ),
-              ],
+                  Container(
+                    height: 2,
+                    width: double.infinity,
+                    color: Color.fromARGB(255, 28, 62, 44),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(8),
+                    child: Text(
+                      '${producto['descripcion']} - ${producto['titulo']}',
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontFamily: 'Barlow',
+                        fontWeight: FontWeight.w500,
+                        fontSize: 17,
+                        color: Color.fromARGB(255, 28, 62, 44),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(5),
+                    height: 100,
+                    width: 220,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      child: Image.network(
+                        producto['imagen'],
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(5),
+                    margin: EdgeInsets.symmetric(vertical: 5, horizontal: 58),
+                    child: TextButton(
+                      onPressed: () {
+                        _addToCart(context, producto);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.add_shopping_cart,
+                            color: Colors.white,
+                            size: 22,
+                          ),
+                          Padding(padding: EdgeInsets.all(5)),
+                          Text(
+                            'Añadir al carrito',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ],
+                      ),
+                      style: TextButton.styleFrom(
+                        backgroundColor: Color.fromARGB(255, 107, 187, 67),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             );
           },
         );
@@ -945,124 +949,119 @@ class QuintaSeccion extends StatelessWidget {
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (context, index) {
               var producto = snapshot.data!.docs[index];
-              return Column(
-                children: [
-                  Container(
-                    margin: EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 241, 241, 241),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          offset: Offset(0, 3), // changes position of shadow
-                        ),
-                      ],
-                    ),
-                    height: 290,
-                    width: 340,
-                    child: Column(
+              return Card(
+                color: Colors.grey[100],
+                margin: EdgeInsets.all(10),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.all(10),
-                              height: 50,
-                              width: 50,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.all(Radius.circular(50)
-                                ),
-                                child: Image.asset(
-                                  'imagenes/persona.jpg',
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            Container(
-                                child: Center(
-                                  child: Text('User065416515',
-                                    style: TextStyle(
-                                      fontFamily: 'Barlow',
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 17,
-                                      color: Color.fromARGB(255, 28, 62, 44),
-                                    ),
-                                  ),
-                                )
-                            ),
-                            IconButton(
-                                onPressed: (){},
-                                icon: Icon(Icons.scatter_plot,
-                                  size: 25,
-                                  color: Color.fromARGB(255, 28, 62, 44),
-                                )
-                            ),
-                          ],
-                        ),
                         Container(
-                          height: 2,
-                          width: double.infinity,
-                          color: Color.fromARGB(255, 28, 62, 44),
-                        ),
-                        Container(
-                          margin: EdgeInsets.all(5),
-                          child: Text('${producto['descripcion']} - ${producto['titulo']}',
-                            style: TextStyle(
-                              fontFamily: 'Barlow',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 17,
-                              color: Color.fromARGB(255, 28, 62, 44),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.all(5),
-                          height: 100,
-                          width: 220,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                          ),
+                          margin: EdgeInsets.all(10),
+                          height: 50,
+                          width: 50,
                           child: ClipRRect(
-                            borderRadius: BorderRadius.all(Radius.circular(15)
-                            ),
-                            child: Image.network(
-                              producto['imagen'],
+                            borderRadius: BorderRadius.all(Radius.circular(50)),
+                            child: Image.asset(
+                              'imagenes/persona.jpg',
                               fit: BoxFit.cover,
                             ),
                           ),
                         ),
-                        Container(
-                          padding: EdgeInsets.all(5),
-                          margin: EdgeInsets.symmetric(vertical: 5, horizontal: 58),
-                          child: TextButton(
-                            onPressed: () {},
-                            child: Row(
-                                children: [
-                                  Icon(Icons.add_shopping_cart,
-                                      color: Colors.white,
-                                      size: 22
-                                  ),
-                                  Padding(padding: EdgeInsets.all(5)),
-                                  Text('Añadir al carrito',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 22,
-                                    ),
-                                  )
-                                ]
-                            ),
-                            style: TextButton.styleFrom(
-                              backgroundColor: Color.fromARGB(255, 107, 187, 67),
+                        Expanded(
+                          child: Container(
+                            child: Center(
+                              child: Text(
+                                'User065416515',
+                                style: TextStyle(
+                                  fontFamily: 'Barlow',
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 17,
+                                  color: Color.fromARGB(255, 28, 62, 44),
+                                ),
+                              ),
                             ),
                           ),
-                        )
+                        ),
+                        IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.scatter_plot,
+                            size: 25,
+                            color: Color.fromARGB(255, 28, 62, 44),
+                          ),
+                        ),
                       ],
                     ),
-                  ),
-                ],
+                    Container(
+                      height: 2,
+                      width: double.infinity,
+                      color: Color.fromARGB(255, 28, 62, 44),
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(8),
+                      child: Text(
+                        '${producto['descripcion']} - ${producto['titulo']}',
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontFamily: 'Barlow',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 17,
+                          color: Color.fromARGB(255, 28, 62, 44),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(5),
+                      height: 100,
+                      width: 220,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        child: Image.network(
+                          producto['imagen'],
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(5),
+                      margin: EdgeInsets.symmetric(vertical: 5, horizontal: 58),
+                      child: TextButton(
+                        onPressed: () {
+                          _addToCart(context, producto);
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.add_shopping_cart,
+                              color: Colors.white,
+                              size: 22,
+                            ),
+                            Padding(padding: EdgeInsets.all(5)),
+                            Text(
+                              'Añadir al carrito',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ],
+                        ),
+                        style: TextButton.styleFrom(
+                          backgroundColor: Color.fromARGB(255, 107, 187, 67),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               );
             },
           );
