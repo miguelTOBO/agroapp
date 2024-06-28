@@ -3,7 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:splash/paginas/actualizar.dart';
 import 'package:splash/iniciar_sesion.dart';
-
+import 'package:splash/productos/editarProducto.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 class Cuenta extends StatefulWidget {
   @override
   State<Cuenta> createState() => _CuentaState();
@@ -13,7 +14,7 @@ class _CuentaState extends State<Cuenta> {
   late User _user;
   bool _isLoading = true;
   late QueryDocumentSnapshot _usuario;
-
+  late QueryDocumentSnapshot producto;
   @override
   void initState() {
     super.initState();
@@ -255,24 +256,13 @@ class _CuentaState extends State<Cuenta> {
                                     physics: NeverScrollableScrollPhysics(),
                                     itemCount: snapshot.data!.docs.length,
                                     itemBuilder: (context, index) {
-                                      var producto = snapshot.data!.docs[index];
-                                      return Container(
-                                        margin: EdgeInsets.all(15),
-                                        decoration: BoxDecoration(
-                                          color: Color.fromARGB(255, 241, 241, 241),
-                                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Colors.grey.withOpacity(0.5),
-                                              spreadRadius: 5,
-                                              blurRadius: 7,
-                                              offset: Offset(0, 3), // changes position of shadow
-                                            ),
-                                          ],
-                                        ),
-                                        height: 260,
-                                        width: 340,
+                                      producto = snapshot.data!.docs[index];
+                                      return Card(
+                                        color: Colors.grey[100],
+                                        margin: EdgeInsets.all(10),
+                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                                         child: Column(
+                                          mainAxisSize: MainAxisSize.min,
                                           children: [
                                             Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -284,11 +274,11 @@ class _CuentaState extends State<Cuenta> {
                                                       color: Color.fromARGB(255, 28, 62, 44),
                                                     )
                                                 ),
-                                                Container(
+                                                Expanded(
+                                                  child: Container(
                                                     child: Center(
-                                                      child: Text('${producto['titulo']} - ${producto['categoria']}',
-                                                        maxLines: 2,
-                                                        overflow: TextOverflow.ellipsis,
+                                                      child: Text(
+                                                        '${producto['titulo']?? 'Sin Descripción'}',
                                                         style: TextStyle(
                                                           fontFamily: 'Barlow',
                                                           fontWeight: FontWeight.w500,
@@ -296,14 +286,16 @@ class _CuentaState extends State<Cuenta> {
                                                           color: Color.fromARGB(255, 28, 62, 44),
                                                         ),
                                                       ),
-                                                    )
+                                                    ),
+                                                  ),
                                                 ),
                                                 IconButton(
-                                                    onPressed: (){},
-                                                    icon: Icon(Icons.scatter_plot,
-                                                      size: 25,
-                                                      color: Color.fromARGB(255, 28, 62, 44),
-                                                    )
+                                                  onPressed: () {},
+                                                  icon: Icon(
+                                                    Icons.scatter_plot,
+                                                    size: 25,
+                                                    color: Color.fromARGB(255, 28, 62, 44),
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -313,8 +305,11 @@ class _CuentaState extends State<Cuenta> {
                                               color: Color.fromARGB(255, 28, 62, 44),
                                             ),
                                             Container(
-                                              margin: EdgeInsets.all(5),
-                                              child: Text('${producto['descripcion']} - \$ ${producto['precio']}',
+                                              margin: EdgeInsets.all(8),
+                                              child: Text(
+                                                '${producto['descripcion']?? 'Sin Descripción'} - \$${producto['precio']?? 'Sin Descripción'}',
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
                                                 style: TextStyle(
                                                   fontFamily: 'Barlow',
                                                   fontWeight: FontWeight.w500,
@@ -331,10 +326,9 @@ class _CuentaState extends State<Cuenta> {
                                                 borderRadius: BorderRadius.all(Radius.circular(15)),
                                               ),
                                               child: ClipRRect(
-                                                borderRadius: BorderRadius.all(Radius.circular(15)
-                                                ),
+                                                borderRadius: BorderRadius.all(Radius.circular(15)),
                                                 child: Image.network(
-                                                  producto['imagen'],
+                                                  producto['imagen']?? 'Sin Descripción',
                                                   fit: BoxFit.cover,
                                                 ),
                                               ),
@@ -346,7 +340,15 @@ class _CuentaState extends State<Cuenta> {
                                                   padding: EdgeInsets.all(5),
                                                   child: TextButton(
                                                     onPressed: () {
-
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) => EditarProducto(producto: {
+                                                            ...producto.data() as Map<String, dynamic>, // Conversión necesaria aquí
+                                                            'id': producto.id,
+                                                          }),
+                                                        ),
+                                                      );
                                                     },
                                                     child: Row(
                                                         children: [
@@ -372,7 +374,7 @@ class _CuentaState extends State<Cuenta> {
                                                   padding: EdgeInsets.all(5),
                                                   child: TextButton(
                                                     onPressed: () {
-
+                                                      eliminarProducto(producto.id);
                                                     },
                                                     child: Row(
                                                         children: [
@@ -452,5 +454,55 @@ class _CuentaState extends State<Cuenta> {
       ),
     );
   }
+  void eliminarProducto(String productoId) async {
+    bool confirmarEliminacion = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Confirmar eliminación",
+            style: TextStyle(
+              fontSize: 20
+          ),),
+          content: Text("¿Estás seguro de que deseas eliminar este producto?"),
+          actions: [
+            TextButton(
+              child: Text("Cancelar",
+                style: TextStyle(
+                  color: Color.fromARGB(255, 28, 62, 44)
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+            ),
+            TextButton(
+              child: Text("Eliminar",
+                style: TextStyle(
+                    color: Color.fromARGB(255, 28, 62, 44)
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop(true);
+              },
+            ),
+          ],
+        );
+      },
+    );
+
+    if (confirmarEliminacion) {
+      try {
+        await FirebaseFirestore.instance.collection('productos').doc(productoId).delete();
+        Fluttertoast.showToast(msg: 'el producto se elimino con exito',
+            toastLength: Toast.LENGTH_LONG
+        );
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error al eliminar el producto: $e')),
+        );
+      }
+    }
+  }
+
 }
 

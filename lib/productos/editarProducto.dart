@@ -2,34 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class Actualizar extends StatefulWidget {
-  final Map<String, dynamic> usuario;
+class EditarProducto extends StatefulWidget {
+  final Map<String, dynamic> producto;
 
-  Actualizar({required this.usuario});
+  EditarProducto({required this.producto});
 
   @override
-  State<Actualizar> createState() => _ActualizarState();
+  State<EditarProducto> createState() => _EditarProductoState();
 }
 
-class _ActualizarState extends State<Actualizar> {
+class _EditarProductoState extends State<EditarProducto> {
   TextEditingController nameController = TextEditingController();
-  TextEditingController descripController = TextEditingController();
-  TextEditingController lugarController = TextEditingController();
-
+  TextEditingController descripcionController = TextEditingController();
+  TextEditingController precioController = TextEditingController();
   @override
   void initState() {
     super.initState();
     // Inicializar el controlador con el nombre actual del usuario
-    nameController.text = widget.usuario['nombre'];
-    descripController.text=widget.usuario['descripcion'];
-    lugarController.text=widget.usuario['lugar'];
+    nameController.text = widget.producto['titulo'];
+    descripcionController.text=widget.producto['descripcion'];
+    precioController.text=widget.producto['precio'];
   }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Editar Perfil'),
+        title: Text('Editar Producto - ${widget.producto['titulo']}'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -40,16 +37,15 @@ class _ActualizarState extends State<Actualizar> {
               decoration: InputDecoration(labelText: 'Nombre'),
             ),
             TextField(
-              controller: descripController,
+              controller: descripcionController,
               decoration: InputDecoration(labelText: 'Descripcion'),
             ),
             TextField(
-              controller: lugarController,
+              controller: precioController,
               decoration: InputDecoration(labelText: 'Lugar'),
             ),
             ElevatedButton(
               onPressed: () {
-                // Aquí puedes implementar la lógica para actualizar los datos en Firestore
                 actualizarDatos();
               },
               child: Text('Guardar Cambios'),
@@ -59,23 +55,22 @@ class _ActualizarState extends State<Actualizar> {
       ),
     );
   }
-
   void actualizarDatos() {
     String nuevoNombre = nameController.text;
-    String nuevaDescripcion = descripController.text;
-    String nuevoLugar = lugarController.text;
+    String nuevaDescripcion = descripcionController.text;
+    String nuevoPrecio = precioController.text;
     // Ejemplo de actualización de nombre en Firestore
-    FirebaseFirestore.instance.collection('usuario')
-        .doc(widget.usuario['id']).update({
-      'nombre': nuevoNombre,
+    FirebaseFirestore.instance.collection('productos')
+        .doc(widget.producto['id']).update({
+      'titulo': nuevoNombre,
       'descripcion': nuevaDescripcion,
-      'lugar':nuevoLugar,
+      'lugar':nuevoPrecio,
       // Aquí puedes agregar más campos para actualizar según sea necesario
     })
         .then((value) {
       // Éxito al actualizar
       Navigator.pop(context);
-      Fluttertoast.showToast(msg: 'los datos se actualizaron',
+      Fluttertoast.showToast(msg: 'los datos del producto se actualizaron',
           toastLength: Toast.LENGTH_LONG
       );
     })
@@ -86,5 +81,4 @@ class _ActualizarState extends State<Actualizar> {
       );
     });
   }
-
 }

@@ -10,7 +10,10 @@ import 'package:splash/register.dart';
 
 
 class Regis2img extends StatefulWidget{
-  Regis2img();
+  final String uid;
+  final String email;
+
+  Regis2img({required this.uid, required this.email});
   @override
   State<Regis2img> createState() => _Regis2imgState();
 }
@@ -147,8 +150,8 @@ class _Regis2imgState extends State<Regis2img>{
       'descripcion': _descripcion.text,
       'foto':img,
       'lugar':_lugar.text,
-      'uid':currentUser!.uid,
-      'correo':currentUser.email
+      'uid':widget.uid,
+      'correo':widget.email
     }).then((value){
       Fluttertoast.showToast(
         msg: 'los datos guardados.',
