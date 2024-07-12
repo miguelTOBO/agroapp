@@ -58,7 +58,7 @@ class _EditarProductoState extends State<EditarProducto> {
   void actualizarDatos() {
     String nuevoNombre = nameController.text;
     String nuevaDescripcion = descripcionController.text;
-    String nuevoPrecio = precioController.text;
+    int nuevoPrecio =  int.parse(precioController.text);
     // Ejemplo de actualización de nombre en Firestore
     FirebaseFirestore.instance.collection('productos')
         .doc(widget.producto['id']).update({
