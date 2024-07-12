@@ -67,10 +67,7 @@ class _CuentaState extends State<Cuenta> {
           ),
           backgroundColor: Colors.transparent,
           body: StreamBuilder<QuerySnapshot>(
-            stream: FirebaseFirestore.instance
-                .collection('usuario')
-                .where('uid', isEqualTo: _user.uid)
-                .snapshots(),
+            stream: FirebaseFirestore.instance.collection('usuario').where('uid', isEqualTo: _user.uid).snapshots(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: CircularProgressIndicator());
@@ -79,9 +76,15 @@ class _CuentaState extends State<Cuenta> {
                 return Center(child: Text('Error: ${snapshot.error}'));
               }
               if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                return Center(child: Text('No user data found'));
+                return Center(child: Text('Usuario no existente',
+                  style: TextStyle(
+                    fontFamily: 'Barlow',
+                    fontWeight: FontWeight.w500,
+                    fontSize: 20,
+                    color: Colors.black,
+                  ),
+                ));
               }
-
               _usuario = snapshot.data!.docs.first;
 
               return Stack(
