@@ -9,6 +9,13 @@ class Carrito extends StatefulWidget {
 
 class _CarritoState extends State<Carrito> {
   User? usuario=FirebaseAuth.instance.currentUser;
+  double _calculartotal(List<DocumentSnapshot> carros){
+    double total=0;
+    for(var item in carros){
+      total+=item['precio']*item['cantidad'];
+    }
+    return total;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,127 +61,155 @@ class _CarritoState extends State<Carrito> {
               }
               var carritos=snapshot.data!.docs;
 
-              return ListView.builder(
-                  itemCount: carritos.length,
-                  itemBuilder: (context,index){
-                    var item=carritos[index];
-                    return SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          Card(
-                            margin: EdgeInsets.all(10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.all(Radius.circular(15)
-                                  ),
-                                  child: Image.network(
-                                    item['imagen'],
-                                    width: 120,
-                                    height: 120,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    padding: EdgeInsets.all(10),
-                                    height: 100,
-                                    child: Column(
+              return Column(
+                children: [
+                  Expanded(
+                      child: ListView.builder(
+                          itemCount: carritos.length,
+                          itemBuilder: (context,index){
+                            var item=carritos[index];
+                            return SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  Card(
+                                    margin: EdgeInsets.all(10),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(item['titulo']),
-                                        Padding(padding: EdgeInsets.symmetric(vertical: 2)),
-                                        Text("\$. ${item['precio']}"),
-                                        Padding(padding: EdgeInsets.symmetric(vertical: 2)),
-                                        Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Container(
-                                              child: IconButton(
-                                                icon: Icon(Icons.remove,
-                                                  size: 13,
-                                                  color: Colors.white,
-                                                ), onPressed: () {  },
-                                              ),
-                                              width: 50,
-                                              height: 30,
-                                              decoration: BoxDecoration(
-                                                  color: Color.fromARGB(255, 107, 187, 67),
-                                                  borderRadius: BorderRadius.all(
-                                                      Radius.circular(30)
-                                                  )
-                                              ),
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.all(Radius.circular(15)
+                                          ),
+                                          child: Image.network(
+                                            item['imagen'],
+                                            width: 120,
+                                            height: 120,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Container(
+                                            padding: EdgeInsets.all(10),
+                                            height: 100,
+                                            child: Column(
+                                              children: [
+                                                Text(item['titulo']),
+                                                Padding(padding: EdgeInsets.symmetric(vertical: 2)),
+                                                Text("\$. ${item['precio']}"),
+                                                Padding(padding: EdgeInsets.symmetric(vertical: 2)),
+                                                Row(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  children: [
+                                                    Container(
+                                                      child: IconButton(
+                                                        icon: Icon(Icons.remove,
+                                                          size: 13,
+                                                          color: Colors.white,
+                                                        ),
+                                                        onPressed: () {
+                                                          decrementarCantidad(item);
+                                                        },
+                                                      ),
+                                                      width: 50,
+                                                      height: 30,
+                                                      decoration: BoxDecoration(
+                                                          color: Color.fromARGB(255, 107, 187, 67),
+                                                          borderRadius: BorderRadius.all(
+                                                              Radius.circular(30)
+                                                          )
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      width: 20,
+                                                      child: Center(
+                                                        child: Text(item['cantidad'].toString()),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      child: IconButton(
+                                                        icon: Icon(Icons.add,
+                                                          size: 13,
+                                                          color: Colors.white,
+                                                        ),
+                                                        onPressed: () {
+                                                          incrementarCantidad(item);
+                                                        },
+                                                      ),
+                                                      width: 50,
+                                                      height: 30,
+                                                      decoration: BoxDecoration(
+                                                          color: Color.fromARGB(255, 107, 187, 67),
+                                                          borderRadius: BorderRadius.all(
+                                                              Radius.circular(30)
+                                                          )
+                                                      ),
+                                                    )
+                                                  ],
+                                                )
+                                              ],
                                             ),
-                                            Container(
-                                              width: 20,
-                                              child: Center(
-                                                child: Text("2"),
+                                          ),
+                                        ),
+                                        Container(
+                                          height: 120,
+                                          decoration:BoxDecoration(
+                                            color: Color.fromARGB(255, 107, 187, 67),
+                                            borderRadius: BorderRadius.only(bottomRight: Radius.circular(10),topRight: Radius.circular(10) ),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.only(top: 20, bottom: 10),
+                                                child: const Text('Total',
+                                                  style: TextStyle(
+                                                      fontSize: 15,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: Colors.white
+                                                  ),
+                                                ),
                                               ),
-                                            ),
-                                            Container(
-                                              child: IconButton(
-                                                icon: Icon(Icons.add,
-                                                  size: 13,
-                                                  color: Colors.white,
-                                                ), onPressed: () {  },
-                                              ),
-                                              width: 50,
-                                              height: 30,
-                                              decoration: BoxDecoration(
-                                                  color: Color.fromARGB(255, 107, 187, 67),
-                                                  borderRadius: BorderRadius.all(
-                                                      Radius.circular(30)
-                                                  )
-                                              ),
-                                            )
-                                          ],
+
+                                              Container(
+                                                padding: EdgeInsets.symmetric(horizontal: 5),
+                                                child: Text( "\$. ${item['precio'] * item['cantidad']}",
+                                                  style: TextStyle(
+                                                      fontSize: 15,
+                                                      color: Colors.white
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
                                         )
                                       ],
                                     ),
                                   ),
-                                ),
-                                Container(
-                                  height: 120,
-                                  decoration:BoxDecoration(
-                                    color: Color.fromARGB(255, 107, 187, 67),
-                                    borderRadius: BorderRadius.only(bottomRight: Radius.circular(10),topRight: Radius.circular(10) ),
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        padding: EdgeInsets.only(top: 20, bottom: 10),
-                                        child: const Text('Total',
-                                          style: TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white
-                                          ),
-                                        ),
-                                      ),
 
-                                      Container(
-                                        padding: EdgeInsets.symmetric(horizontal: 5),
-                                        child: Text("\$. 12000",
-                                          style: TextStyle(
-                                              fontSize: 15,
-                                              color: Colors.white
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
+                                ],
+                              ),
 
-                        ],
-                      ),
-                    );
-                  }
+                            );
+                          }
+                      )
+                  ),
+                ],
               );
             }
         )
+
     );
+  }
+  void incrementarCantidad(DocumentSnapshot item) async{
+    await FirebaseFirestore.instance.collection('carrito').doc(usuario!.uid).collection('items').doc(item.id).update({
+        'cantidad':item['cantidad']+1
+      }
+    );
+  }
+  void decrementarCantidad(DocumentSnapshot item) async{
+    if(item['cantidad']>1){
+      await FirebaseFirestore.instance.collection('carrito').doc(usuario!.uid).collection('items').doc(item.id).update({
+        'cantidad':item['cantidad']-1
+      }
+      );
+    }
   }
 }

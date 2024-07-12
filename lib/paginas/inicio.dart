@@ -444,7 +444,7 @@ class PrimeraSeccion extends StatelessWidget {
                   Container(
                     margin: EdgeInsets.all(8),
                     child: Text(
-                      '${producto['descripcion']} - ${producto['titulo']}',
+                      '${producto['descripcion']} - ${producto['titulo']} - \$${producto['precio']}',
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -596,7 +596,7 @@ class SegundaSeccion extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.all(8),
                         child: Text(
-                          '${producto['descripcion']} - ${producto['titulo']}',
+                          '${producto['descripcion']} - ${producto['titulo']} -\$${producto['precio']}',
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -740,7 +740,7 @@ class SegundaSeccion extends StatelessWidget {
                   Container(
                     margin: EdgeInsets.all(8),
                     child: Text(
-                      '${producto['descripcion']} - ${producto['titulo']}',
+                      '${producto['descripcion']} - ${producto['titulo']} -\$${producto['precio']}',
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -881,7 +881,7 @@ class TerceraSeccion extends StatelessWidget {
                   Container(
                     margin: EdgeInsets.all(8),
                     child: Text(
-                      '${producto['descripcion']} - ${producto['titulo']}',
+                      '${producto['descripcion']} - ${producto['titulo']} -\$${producto['precio']}',
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -1022,7 +1022,7 @@ class CuartaSeccion extends StatelessWidget {
                   Container(
                     margin: EdgeInsets.all(8),
                     child: Text(
-                      '${producto['descripcion']} - ${producto['titulo']}',
+                      '${producto['descripcion']} - ${producto['titulo']} -\$${producto['precio']}',
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(

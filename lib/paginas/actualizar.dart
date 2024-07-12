@@ -42,10 +42,8 @@ class _ActualizarState extends State<Actualizar> {
               onTap: _imagenactualizar,
               child: CircleAvatar(
                 radius: 100,
-                backgroundImage: _imagen != null
-                    ? NetworkImage(_imagen!)
-                    : AssetImage('assets/placeholder.png') as ImageProvider,
-              ),
+                backgroundImage: NetworkImage(_imagen!),
+              )
             ),
             TextField(
               controller: nameController,
