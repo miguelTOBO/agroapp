@@ -9,13 +9,6 @@ class Carrito extends StatefulWidget {
 
 class _CarritoState extends State<Carrito> {
   User? usuario=FirebaseAuth.instance.currentUser;
-  double _calculartotal(List<DocumentSnapshot> carros){
-    double total=0;
-    for(var item in carros){
-      total+=item['precio']*item['cantidad'];
-    }
-    return total;
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +53,7 @@ class _CarritoState extends State<Carrito> {
                 return Center(child: Text('Error: ${snapshot.error}'));
               }
               var carritos=snapshot.data!.docs;
-
+              double total = _calculartotal(carritos);
               return Column(
                 children: [
                   Expanded(
@@ -191,6 +184,17 @@ class _CarritoState extends State<Carrito> {
                           }
                       )
                   ),
+                  Container(
+                    padding: EdgeInsets.all(20),
+                    alignment: Alignment.center,
+                    height: 70,
+                    width: 400,
+                    child: Text(
+                      'Total: \$${total.toStringAsFixed(0)}',
+                      style: TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  )
                 ],
               );
             }
@@ -200,8 +204,8 @@ class _CarritoState extends State<Carrito> {
   }
   void incrementarCantidad(DocumentSnapshot item) async{
     await FirebaseFirestore.instance.collection('carrito').doc(usuario!.uid).collection('items').doc(item.id).update({
-        'cantidad':item['cantidad']+1
-      }
+      'cantidad':item['cantidad']+1
+    }
     );
   }
   void decrementarCantidad(DocumentSnapshot item) async{
@@ -211,5 +215,12 @@ class _CarritoState extends State<Carrito> {
       }
       );
     }
+  }
+  double _calculartotal(List<DocumentSnapshot> carros){
+    double total=0;
+    for(var item in carros){
+      total+=item['precio']*item['cantidad'];
+    }
+    return total;
   }
 }
