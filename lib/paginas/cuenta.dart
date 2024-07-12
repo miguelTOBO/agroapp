@@ -278,7 +278,7 @@ class _CuentaState extends State<Cuenta> {
                                                   child: Container(
                                                     child: Center(
                                                       child: Text(
-                                                        '${producto['titulo']?? 'Sin Descripción'}',
+                                                        '${producto['titulo']} - ${producto['categoria']}',
                                                         style: TextStyle(
                                                           fontFamily: 'Barlow',
                                                           fontWeight: FontWeight.w500,
@@ -307,7 +307,7 @@ class _CuentaState extends State<Cuenta> {
                                             Container(
                                               margin: EdgeInsets.all(8),
                                               child: Text(
-                                                '${producto['descripcion']?? 'Sin Descripción'} - \$${producto['precio']?? 'Sin Descripción'}',
+                                                '${producto['descripcion']} - \$${producto['precio']}',
                                                 maxLines: 2,
                                                 overflow: TextOverflow.ellipsis,
                                                 style: TextStyle(
@@ -328,7 +328,7 @@ class _CuentaState extends State<Cuenta> {
                                               child: ClipRRect(
                                                 borderRadius: BorderRadius.all(Radius.circular(15)),
                                                 child: Image.network(
-                                                  producto['imagen']?? 'Sin Descripción',
+                                                  producto['imagen'],
                                                   fit: BoxFit.cover,
                                                 ),
                                               ),

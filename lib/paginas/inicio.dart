@@ -510,7 +510,7 @@ class PrimeraSeccion extends StatelessWidget {
   }
 }
 
-/*class SegundaSeccion extends StatelessWidget {
+class SegundaSeccion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
@@ -663,9 +663,9 @@ class PrimeraSeccion extends StatelessWidget {
       },
     );
   }
-}*/
+}
 
-class SegundaSeccion extends StatelessWidget {
+/*class SegundaSeccion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
@@ -805,7 +805,7 @@ class SegundaSeccion extends StatelessWidget {
         },
     );
   }
-}
+}*/
 
 class TerceraSeccion extends StatelessWidget {
 

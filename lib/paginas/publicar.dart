@@ -245,6 +245,8 @@ class _PublicarState extends State<Publicar> {
     );
   }
   void guardar() async{
+    int precio = int.parse(_precio.text);
+    int cantidad = int.parse(_cantidad.text);
     if(imagen_updated==null){
       Fluttertoast.showToast(
         msg: 'seleccione la imagen',
@@ -262,8 +264,8 @@ class _PublicarState extends State<Publicar> {
     FirebaseFirestore.instance.collection('productos').add({
       'titulo': _titulo.text,
       'descripcion': _descripcion.text,
-      'precio': _precio.text,
-      'cantidad': _cantidad.text,
+      'precio': precio,
+      'cantidad': cantidad,
       'categoria': valorCategorias,
       'imagen':imga,
       'uid':currentUser!.uid

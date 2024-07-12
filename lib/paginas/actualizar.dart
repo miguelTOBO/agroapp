@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'dart:io';
 class Actualizar extends StatefulWidget {
   final Map<String, dynamic> usuario;
 
@@ -15,14 +17,15 @@ class _ActualizarState extends State<Actualizar> {
   TextEditingController nameController = TextEditingController();
   TextEditingController descripController = TextEditingController();
   TextEditingController lugarController = TextEditingController();
+  String? _imagen;
 
   @override
   void initState() {
     super.initState();
-    // Inicializar el controlador con el nombre actual del usuario
     nameController.text = widget.usuario['nombre'];
     descripController.text=widget.usuario['descripcion'];
     lugarController.text=widget.usuario['lugar'];
+    _imagen=widget.usuario['foto'];
   }
 
   @override
@@ -35,6 +38,15 @@ class _ActualizarState extends State<Actualizar> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
+            GestureDetector(
+              onTap: _imagenactualizar,
+              child: CircleAvatar(
+                radius: 100,
+                backgroundImage: _imagen != null
+                    ? NetworkImage(_imagen!)
+                    : AssetImage('assets/placeholder.png') as ImageProvider,
+              ),
+            ),
             TextField(
               controller: nameController,
               decoration: InputDecoration(labelText: 'Nombre'),
@@ -59,28 +71,52 @@ class _ActualizarState extends State<Actualizar> {
       ),
     );
   }
+  Future<void> _imagenactualizar() async {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
 
+    if (image != null) {
+      _uploadImage(File(image.path));
+    }
+  }
+
+  Future<void> _uploadImage(File image) async {
+    try {
+      final Reference storageReference = FirebaseStorage.instance.ref().child('imagenes_perfil/${widget.usuario['id']}');
+      final UploadTask uploadTask = storageReference.putFile(image);
+
+      final TaskSnapshot downloadUrl = await uploadTask;
+      final String url = await downloadUrl.ref.getDownloadURL();
+
+      setState(() {
+        _imagen = url;
+      });
+
+      Fluttertoast.showToast(
+        msg: 'Imagen actualizada',
+        toastLength: Toast.LENGTH_SHORT,
+      );
+    } catch (e) {
+      print(e);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error al subir imagen: $e')),
+      );
+    }
+  }
   void actualizarDatos() {
-    String nuevoNombre = nameController.text;
-    String nuevaDescripcion = descripController.text;
-    String nuevoLugar = lugarController.text;
-    // Ejemplo de actualización de nombre en Firestore
     FirebaseFirestore.instance.collection('usuario')
         .doc(widget.usuario['id']).update({
-      'nombre': nuevoNombre,
-      'descripcion': nuevaDescripcion,
-      'lugar':nuevoLugar,
-      // Aquí puedes agregar más campos para actualizar según sea necesario
-    })
-        .then((value) {
-      // Éxito al actualizar
+      'nombre': nameController.text,
+      'descripcion':descripController.text,
+      'lugar': lugarController.text,
+      'foto':_imagen,
+
+    }).then((value) {
       Navigator.pop(context);
       Fluttertoast.showToast(msg: 'los datos se actualizaron',
           toastLength: Toast.LENGTH_LONG
       );
-    })
-        .catchError((error) {
-      // Manejo de errores
+    }).catchError((error) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error al actualizar: $error')),
       );
