@@ -34,37 +34,39 @@ class _ActualizarState extends State<Actualizar> {
       appBar: AppBar(
         title: Text('Editar Perfil'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            GestureDetector(
-              onTap: _imagenactualizar,
-              child: CircleAvatar(
-                radius: 100,
-                backgroundImage: NetworkImage(_imagen!),
-              )
-            ),
-            TextField(
-              controller: nameController,
-              decoration: InputDecoration(labelText: 'Nombre'),
-            ),
-            TextField(
-              controller: descripController,
-              decoration: InputDecoration(labelText: 'Descripcion'),
-            ),
-            TextField(
-              controller: lugarController,
-              decoration: InputDecoration(labelText: 'Lugar'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                // Aquí puedes implementar la lógica para actualizar los datos en Firestore
-                actualizarDatos();
-              },
-              child: Text('Guardar Cambios'),
-            ),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              GestureDetector(
+                onTap: _imagenactualizar,
+                child: CircleAvatar(
+                  radius: 100,
+                  backgroundImage: NetworkImage(_imagen!),
+                )
+              ),
+              TextField(
+                controller: nameController,
+                decoration: InputDecoration(labelText: 'Nombre'),
+              ),
+              TextField(
+                controller: descripController,
+                decoration: InputDecoration(labelText: 'Descripcion'),
+              ),
+              TextField(
+                controller: lugarController,
+                decoration: InputDecoration(labelText: 'Lugar'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  // Aquí puedes implementar la lógica para actualizar los datos en Firestore
+                  actualizarDatos();
+                },
+                child: Text('Guardar Cambios'),
+              ),
+            ],
+          ),
         ),
       ),
     );
