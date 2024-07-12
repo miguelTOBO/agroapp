@@ -248,7 +248,7 @@ class _InicioState extends State<Inicio> {
                                     borderRadius: BorderRadius.all(Radius.circular(50)
                                     ),
                                     child: Image.asset(
-                                      producto['imagen'],
+                                      'imagenes/persona.jpg',
                                       fit: BoxFit.cover,
                                     ),
                                   ),
