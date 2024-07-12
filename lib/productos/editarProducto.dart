@@ -27,7 +27,6 @@ class _EditarProductoState extends State<EditarProducto> {
     nameController.text = widget.producto['titulo'];
     descripcionController.text=widget.producto['descripcion'];
     precioController.text=widget.producto['precio'].toString();
-    cantiController.text=widget.producto['cantidad'];
     _imagen_upda = widget.producto['imagen'];
   }
   Widget build(BuildContext context) {
@@ -60,10 +59,6 @@ class _EditarProductoState extends State<EditarProducto> {
               keyboardType: TextInputType.number,
               controller: precioController,
               decoration: InputDecoration(labelText: 'Precio'),
-            ),
-            TextField(
-              controller: cantiController,
-              decoration: InputDecoration(labelText: 'Cantidad'),
             ),
             ElevatedButton(
               onPressed: () {
@@ -113,7 +108,6 @@ class _EditarProductoState extends State<EditarProducto> {
       'titulo': nameController,
       'descripcion': descripcionController,
       'precio': int.parse(precioController.text),
-      'cantidad': cantiController,
       'imagen': _imagen_upda
     })
         .then((value) {

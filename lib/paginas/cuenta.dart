@@ -125,7 +125,7 @@ class _CuentaState extends State<Cuenta> {
                                 child: Container(
                                   margin: const EdgeInsets.only(left: 20, top: 20),
                                   child: Text(
-                                    _usuario['correo'],
+                                    _usuario['email'],
                                     style: TextStyle(
                                       fontFamily: 'Barlow',
                                       color: Colors.black,
