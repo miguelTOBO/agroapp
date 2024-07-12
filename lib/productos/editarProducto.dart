@@ -18,10 +18,9 @@ class _EditarProductoState extends State<EditarProducto> {
   @override
   void initState() {
     super.initState();
-    // Inicializar el controlador con el nombre actual del usuario
     nameController.text = widget.producto['titulo'];
     descripcionController.text=widget.producto['descripcion'];
-    precioController.text=widget.producto['precio'];
+    precioController.text=widget.producto['precio'].toString();
   }
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,24 +57,19 @@ class _EditarProductoState extends State<EditarProducto> {
   void actualizarDatos() {
     String nuevoNombre = nameController.text;
     String nuevaDescripcion = descripcionController.text;
-    int nuevoPrecio =  int.parse(precioController.text);
-    // Ejemplo de actualización de nombre en Firestore
+    String nuevoPrecio = precioController.text;
     FirebaseFirestore.instance.collection('productos')
         .doc(widget.producto['id']).update({
       'titulo': nuevoNombre,
       'descripcion': nuevaDescripcion,
-      'lugar':nuevoPrecio,
-      // Aquí puedes agregar más campos para actualizar según sea necesario
-    })
-        .then((value) {
-      // Éxito al actualizar
+      'precio':nuevoPrecio,
+
+    }).then((value) {
       Navigator.pop(context);
       Fluttertoast.showToast(msg: 'los datos del producto se actualizaron',
           toastLength: Toast.LENGTH_LONG
       );
-    })
-        .catchError((error) {
-      // Manejo de errores
+    }).catchError((error) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error al actualizar: $error')),
       );

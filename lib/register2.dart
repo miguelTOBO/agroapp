@@ -150,13 +150,13 @@ class _Regis2imgState extends State<Regis2img>{
     String img = await snapshot.ref.getDownloadURL();
     FirebaseAuth auth = FirebaseAuth.instance;
     User? currentUser = auth.currentUser;
-    FirebaseFirestore.instance.collection('usuario').add({
+    FirebaseFirestore.instance.collection('usuario').doc(widget.uid).update({
       'nombre': _nombre.text,
       'descripcion': _descripcion.text,
       'foto':img,
       'lugar':_lugar.text,
       'uid':widget.uid,
-      'correo':widget.email
+      'email':widget.email
     }).then((value){
       Fluttertoast.showToast(
         msg: 'los datos guardados.',
@@ -170,3 +170,8 @@ class _Regis2imgState extends State<Regis2img>{
     });
   }
 }
+
+
+
+
+
