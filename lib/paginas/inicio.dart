@@ -248,7 +248,7 @@ class _InicioState extends State<Inicio> {
                                     borderRadius: BorderRadius.all(Radius.circular(50)
                                     ),
                                     child: Image.asset(
-                                      'imagenes/persona.jpg',
+                                      producto['imagen'],
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -510,6 +510,161 @@ class PrimeraSeccion extends StatelessWidget {
   }
 }
 
+/*class SegundaSeccion extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance.collection('productos').where('categoria', isEqualTo: 'Frutas').snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        }
+        if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        }
+        return ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: snapshot.data!.docs.length,
+          itemBuilder: (context, index) {
+            var producto = snapshot.data!.docs[index];
+            return StreamBuilder<DocumentSnapshot>(
+              stream: FirebaseFirestore.instance.collection('usuario').doc(producto['uid']).snapshots(),
+              builder: (context, userSnapshot) {
+                if (userSnapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                }
+                if (!userSnapshot.hasData || !userSnapshot.data!.exists) {
+                  return Center(child: Text('Producto no encontrado'));
+                }
+                var usuario = userSnapshot.data!;
+                var fotoUrl = usuario.get('foto') ?? '';
+                return Card(
+                  color: Colors.grey[100],
+                  margin: EdgeInsets.all(10),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.all(10),
+                            height: 50,
+                            width: 50,
+                            child: ClipRRect(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(50)),
+                              child: Image.network(
+                                fotoUrl,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              child: Center(
+                                child: Text(
+                                  usuario.get('nombre') ?? 'Usuario',
+                                  style: TextStyle(
+                                    fontFamily: 'Barlow',
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 17,
+                                    color: Color.fromARGB(255, 28, 62, 44),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.scatter_plot,
+                              size: 25,
+                              color: Color.fromARGB(255, 28, 62, 44),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Container(
+                        height: 2,
+                        width: double.infinity,
+                        color: Color.fromARGB(255, 28, 62, 44),
+                      ),
+                      Container(
+                        margin: EdgeInsets.all(8),
+                        child: Text(
+                          '${producto['descripcion']} - ${producto['titulo']}',
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontFamily: 'Barlow',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 17,
+                            color: Color.fromARGB(255, 28, 62, 44),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.all(5),
+                        height: 100,
+                        width: 220,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                          child: Image.network(
+                            producto['imagen'],
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(5),
+                        margin:
+                        EdgeInsets.symmetric(vertical: 5, horizontal: 58),
+                        child: TextButton(
+                          onPressed: () {
+                            _addToCart(context, producto);
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.add_shopping_cart,
+                                color: Colors.white,
+                                size: 22,
+                              ),
+                              Padding(padding: EdgeInsets.all(5)),
+                              Text(
+                                'Añadir al carrito',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ],
+                          ),
+                          style: TextButton.styleFrom(
+                            backgroundColor: Color.fromARGB(255, 107, 187, 67),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          },
+        );
+      },
+    );
+  }
+}*/
+
 class SegundaSeccion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -531,7 +686,8 @@ class SegundaSeccion extends StatelessWidget {
             return Card(
               color: Colors.grey[100],
               margin: EdgeInsets.all(10),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -543,7 +699,8 @@ class SegundaSeccion extends StatelessWidget {
                         height: 50,
                         width: 50,
                         child: ClipRRect(
-                          borderRadius: BorderRadius.all(Radius.circular(50)),
+                          borderRadius:
+                          BorderRadius.all(Radius.circular(50)),
                           child: Image.asset(
                             'imagenes/persona.jpg',
                             fit: BoxFit.cover,
@@ -611,11 +768,12 @@ class SegundaSeccion extends StatelessWidget {
                   ),
                   Container(
                     padding: EdgeInsets.all(5),
-                    margin: EdgeInsets.symmetric(vertical: 5, horizontal: 58),
+                    margin:
+                    EdgeInsets.symmetric(vertical: 5, horizontal: 58),
                     child: TextButton(
                       onPressed: () {
                         _addToCart(context, producto);
-                      },
+                        },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -642,9 +800,9 @@ class SegundaSeccion extends StatelessWidget {
                 ],
               ),
             );
-          },
+            },
         );
-      },
+        },
     );
   }
 }
