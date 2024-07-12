@@ -293,7 +293,6 @@ class _InicioState extends State<Inicio> {
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.all(8),
                               child: Text(
                                 '\$ ${producto['precio']}',
                                 maxLines: 2,
@@ -468,7 +467,6 @@ class PrimeraSeccion extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.all(8),
                     child: Text(
                       '\$ ${producto['precio']}',
                       maxLines: 2,
@@ -631,7 +629,6 @@ class SegundaSeccion extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.all(8),
                       child: Text(
                         '\$ ${producto['precio']}',
                         maxLines: 2,
@@ -784,7 +781,6 @@ class TerceraSeccion extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.all(8),
                     child: Text(
                       '\$ ${producto['precio']}',
                       maxLines: 2,
@@ -934,7 +930,6 @@ class CuartaSeccion extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.all(8),
                     child: Text(
                       '\$ ${producto['precio']}',
                       maxLines: 2,
@@ -1084,7 +1079,6 @@ class QuintaSeccion extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.all(8),
                       child: Text(
                         '\$ ${producto['precio']}',
                         maxLines: 2,
