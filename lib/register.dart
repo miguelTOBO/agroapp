@@ -301,7 +301,7 @@ class _registerState extends State<register> {
                                           }
                                           Fluttertoast.showToast(msg: 'usuario registrado', toastLength: Toast.LENGTH_LONG);
                                           Navigator.pushReplacement(context,
-                                              MaterialPageRoute(builder: (context) => Regis2img(uid:dato,email:_emailController.text,)));
+                                              MaterialPageRoute(builder: (context) => Regis2img(uid:dato, email: _emailController.text,)));
 
                                         }
                                       }

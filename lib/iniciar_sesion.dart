@@ -326,6 +326,7 @@ class _listadosState extends State<listados> {
       ),
     );
   }
+
   void _checkBiometric()async{
     try{
       final bio=await _auth.canCheckBiometrics;

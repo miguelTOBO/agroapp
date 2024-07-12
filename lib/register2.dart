@@ -20,7 +20,7 @@ class Regis2img extends StatefulWidget{
 
 class _Regis2imgState extends State<Regis2img>{
   register mial= register();
-  late io.File? imagen=io.File('img/');
+  late io.File? imagen=io.File('imagenes/');
   final TextEditingController _nombre=TextEditingController();
   final TextEditingController _descripcion=TextEditingController();
   final TextEditingController _lugar=TextEditingController();
@@ -54,6 +54,11 @@ class _Regis2imgState extends State<Regis2img>{
             key: _formKey,
             child: Column(
               children: [
+                Center(
+                  child: imagen !=null?
+                  Image.file(imagen!) :
+                  Image.asset(('img/color.jpeg'), height: 100,),
+                ),
                 ElevatedButton(
                     onPressed: obtenerimagen, child: Text('Seleccionar')
                 ),

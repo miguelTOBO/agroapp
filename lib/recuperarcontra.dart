@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:splash/iniciar_sesion.dart';
-import 'package:splash/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class recuperarcon extends StatefulWidget {
@@ -17,29 +15,29 @@ class _recuperarconState extends State<recuperarcon> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('imagenes/fondoo.jpg'),
-              fit: BoxFit.cover,
-            ),
-          ),
-          child: Column(
-            children: [
-              Center(
-                child:Container(
-                  margin:EdgeInsets.all(30),
-                  height: 200,
-                  width: 200,
-                  child: Image.asset(
-                      'imagenes/logito.png',
+      home:  Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('imagenes/fondoo.jpg'),
+            fit: BoxFit.cover
+          )
+        ),
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          body:SingleChildScrollView(
+            child: Column(
+              children: [
+                Center(
+                  child:Container(
+                    margin:EdgeInsets.all(30),
+                    height: 200,
+                    width: 200,
+                    child: Image.asset('imagenes/logito.png',
                       fit: BoxFit.cover,
                       alignment: Alignment.center
                   ),
                 ),
               ),
-              Spacer(),
               Container(
                 width: double.infinity,
                 height: 560,
@@ -104,7 +102,7 @@ class _recuperarconState extends State<recuperarcon> {
                           ElevatedButton(
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
-                                _enviarcorreo(_emailController.text);
+                                recuperarContrasena(_emailController.text);
                               }
                             },
                             child: Text(
@@ -152,36 +150,50 @@ class _recuperarconState extends State<recuperarcon> {
                         ],
                       ),
                     )
-                  ),
+                ),
               ),
             ],
           ),
         ),
       ),
+      ),
     );
   }
 
-  var acs = ActionCodeSettings(
-    url: 'https://com.example.splash/finishSignUp?cartId=1234',
-    handleCodeInApp: true,
-    iOSBundleId: 'com.example.ios',
-    androidPackageName: 'com.example.splash',
-    androidInstallApp: true,
-    androidMinimumVersion: '12',
-  );
+  Future<void> recuperarContrasena(String _emailController) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
 
-  void _enviarcorreo(String correo) async {
     try {
-      await FirebaseAuth.instance.sendSignInLinkToEmail(email: correo, actionCodeSettings: acs);
-      Fluttertoast.showToast(
-        msg: 'Se ha enviado un correo electrónico de recuperación a $correo',
-        toastLength: Toast.LENGTH_LONG,
+      await auth.sendPasswordResetEmail(email: _emailController);
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Text('Se ha enviado un correo electrónico para restablecer la contraseña.'),
+          );
+        },
       );
-    } catch (e) {
-      Fluttertoast.showToast(
-        msg: 'Error al enviar el correo electrónico de recuperación: $e',
-        toastLength: Toast.LENGTH_LONG,
-      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'email-not-found') {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              content: Text('No se encontró ninguna cuenta con ese correo electrónico.'),
+            );
+          },
+        );
+      } else {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              content: Text('Ocurrió un error al enviar el correo electrónico de restablecimiento: ${e.message}'),
+            );
+          },
+        );
+      }
     }
   }
+
 }
