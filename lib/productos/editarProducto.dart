@@ -40,6 +40,7 @@ class _EditarProductoState extends State<EditarProducto> {
               decoration: InputDecoration(labelText: 'Descripcion'),
             ),
             TextField(
+              keyboardType: TextInputType.number,
               controller: precioController,
               decoration: InputDecoration(labelText: 'Lugar'),
             ),
@@ -57,7 +58,7 @@ class _EditarProductoState extends State<EditarProducto> {
   void actualizarDatos() {
     String nuevoNombre = nameController.text;
     String nuevaDescripcion = descripcionController.text;
-    String nuevoPrecio = precioController.text;
+    int nuevoPrecio = int.parse(precioController.text);
     FirebaseFirestore.instance.collection('productos')
         .doc(widget.producto['id']).update({
       'titulo': nuevoNombre,
