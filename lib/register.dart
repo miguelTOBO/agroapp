@@ -215,7 +215,7 @@ class _registerState extends State<register> {
                                   ),
                                 ),
                                 SizedBox(height: 20),
-                                Container(
+                                /*Container(
                                   height: 60,
                                   width: 300,
                                   child: TextFormField(
@@ -248,7 +248,7 @@ class _registerState extends State<register> {
                                       _rol.text = value!;
                                     },
                                   ),
-                                ),
+                                ),*/
                                 Padding(
                                   padding: EdgeInsets.all(15),
                                   child: Row(
