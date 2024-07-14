@@ -162,7 +162,7 @@ class _PublicarState extends State<Pasarela> {
                 Padding(
                   padding: const EdgeInsets.all(8),
                   child: Text(
-                    'Total a pagar: \$ 152000',
+                    'Total a pagar: \$ ${widget.total.toStringAsFixed(0)}',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ),
