@@ -20,7 +20,7 @@ class Regis2img extends StatefulWidget{
 
 class _Regis2imgState extends State<Regis2img>{
   register mial= register();
-  late io.File? imagen=io.File('imagenes/');
+  late io.File? imagen=null;
   final TextEditingController _nombre=TextEditingController();
   final TextEditingController _descripcion=TextEditingController();
   final TextEditingController _lugar=TextEditingController();
@@ -45,7 +45,16 @@ class _Regis2imgState extends State<Regis2img>{
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        title: Text('Registrar datos'),
+        backgroundColor: Color.fromARGB(255, 28, 62, 44),
+        title: Text('Registrar datos',
+          style: TextStyle(
+              color: Colors.white,
+            fontWeight: FontWeight.w500
+          ),
+        ),
+        iconTheme: IconThemeData(
+            color: Colors.transparent
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -54,13 +63,21 @@ class _Regis2imgState extends State<Regis2img>{
             key: _formKey,
             child: Column(
               children: [
+                SizedBox(height: 50,),
                 Center(
-                  child: imagen !=null?
-                  Image.file(imagen!) :
-                  Image.asset(('img/color.jpeg'), height: 100,),
+                  child: imagen != null
+                      ? Image.file(imagen!)
+                      : Icon(Icons.person, size: 150, color: Colors.grey),
                 ),
                 ElevatedButton(
-                    onPressed: obtenerimagen, child: Text('Seleccionar')
+                    onPressed: obtenerimagen,
+                    child: Text('Seleccionar',
+                      style: TextStyle(
+                        color: Colors.white
+                      ),
+                    ),
+                    style:TextButton.styleFrom(
+                    backgroundColor: Color.fromARGB(255, 28, 62, 44),),
                 ),
                 Padding(
                   padding: EdgeInsets.all(8),
@@ -112,7 +129,8 @@ class _Regis2imgState extends State<Regis2img>{
                 ),
                 Container(
                     height: 45,
-                    width: 300,
+                    width: 250,
+                    margin: EdgeInsets.all(15),
                     child:ElevatedButton(onPressed: () async{
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
@@ -127,7 +145,7 @@ class _Regis2imgState extends State<Regis2img>{
                       child: Text('Terminar el registro',
                         style: TextStyle(
                           color:Colors.white,
-                          fontSize: 20,
+                          fontSize: 17,
                         ),
                       ),
                       style:TextButton.styleFrom(

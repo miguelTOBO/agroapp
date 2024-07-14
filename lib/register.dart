@@ -282,7 +282,7 @@ class _registerState extends State<register> {
                                 ),
                                 Container(
                                     height: 45,
-                                    width: 300,
+                                    width: 260,
                                     child:ElevatedButton(onPressed: () async{
                                       if (_formKey.currentState!.validate()) {
                                         _formKey.currentState!.save();
@@ -309,7 +309,7 @@ class _registerState extends State<register> {
                                       child: Text('Continuar con el registro',
                                         style: TextStyle(
                                           color:Colors.white,
-                                          fontSize: 20,
+                                          fontSize: 16,
                                         ),
                                       ),
                                       style:TextButton.styleFrom(

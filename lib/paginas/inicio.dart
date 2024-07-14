@@ -551,19 +551,6 @@ class SegundaSeccion extends StatelessWidget {
           itemCount: snapshot.data!.docs.length,
           itemBuilder: (context, index) {
             var producto = snapshot.data!.docs[index];
-            /*var userId = producto['uid'];
-            return FutureBuilder<DocumentSnapshot>(
-              future: FirebaseFirestore.instance.collection('usuario').doc(userId).get(),
-              builder: (context, userSnapshot) {
-              if (userSnapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
-              }
-              if (userSnapshot.hasError) {
-              return Center(child: Text('Error fetching user data'));
-              }
-
-              final userData = userSnapshot.data?.data() as Map<String, dynamic>? ?? {}; // Handle null case
-              final userName = userData['nombre'] ?? ' ';*/
               return Card(
                 color: Colors.grey[100],
                 margin: EdgeInsets.all(10),

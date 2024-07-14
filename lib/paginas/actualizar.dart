@@ -32,19 +32,32 @@ class _ActualizarState extends State<Actualizar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Editar Perfil'),
+        backgroundColor: Color.fromARGB(255, 28, 62, 44),
+        title: Text('Editar Perfil',
+            style:TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w500
+          ),
+        ),
+          iconTheme: IconThemeData(
+          color: Colors.white
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(20),
           child: Column(
             children: [
-              GestureDetector(
-                onTap: _imagenactualizar,
-                child: CircleAvatar(
-                  radius: 100,
-                  backgroundImage: NetworkImage(_imagen!),
-                )
+              Padding(
+                padding: EdgeInsets.only(top:50),
+                child: GestureDetector(
+                    onTap: _imagenactualizar,
+                    child: CircleAvatar(
+                      radius: 100,
+                      backgroundColor: Colors.white,
+                      backgroundImage: NetworkImage(_imagen!),
+                    )
+                ),
               ),
               TextField(
                 controller: nameController,
@@ -58,12 +71,21 @@ class _ActualizarState extends State<Actualizar> {
                 controller: lugarController,
                 decoration: InputDecoration(labelText: 'Lugar'),
               ),
+              SizedBox(height: 30,),
               ElevatedButton(
                 onPressed: () {
                   // Aquí puedes implementar la lógica para actualizar los datos en Firestore
                   actualizarDatos();
                 },
-                child: Text('Guardar Cambios'),
+                child: Text('Guardar Cambios',
+                  style: TextStyle(
+                    color: Colors.white,
+                      fontSize: 16
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                ),
               ),
             ],
           ),

@@ -30,16 +30,27 @@ class _EditarProductoState extends State<EditarProducto> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Editar Producto - ${widget.producto['titulo']}'),
+        backgroundColor: Color.fromARGB(255, 28, 62, 44),
+        title: Text('Editar Producto - ${widget.producto['titulo']}',
+          style:TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w500
+          ),
+        ),
+        iconTheme: IconThemeData(
+          color: Colors.white
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(20),
           child: Column(
             children: [
+              SizedBox(height: 40,),
               GestureDetector(
                 onTap: _imageeenedi,
                 child: CircleAvatar(
+                  backgroundColor: Colors.white,
                   radius: 100,
                   backgroundImage: NetworkImage(_imagen_upda!)
                 ),
@@ -57,11 +68,21 @@ class _EditarProductoState extends State<EditarProducto> {
                 controller: precioController,
                 decoration: InputDecoration(labelText: 'Precio'),
               ),
+              SizedBox(height: 30,),
               ElevatedButton(
                 onPressed: () {
+
                   actualizarDatos();
                 },
-                child: Text('Guardar Cambios'),
+                child: Text('Guardar Cambios',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                ),
               ),
             ],
           ),
