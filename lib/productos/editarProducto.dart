@@ -101,22 +101,24 @@ class _EditarProductoState extends State<EditarProducto> {
   }
 
   Future<void> actualizarDatos() async {
-    FirebaseFirestore.instance.collection('productos').doc(widget.producto['id']).update({
-      'titulo': nameController.text,
-      'descripcion': descripcionController.text,
-      'precio': precioController.text,
-      'imagen': _imagen_upda
-    })
-        .then((value) {
+    try {
+      int precio = int.parse(precioController.text);
+      await FirebaseFirestore.instance.collection('productos').doc(widget.producto['id']).update({
+        'titulo': nameController.text,
+        'descripcion': descripcionController.text,
+        'precio': precio,
+        'imagen': _imagen_upda
+      });
+
       Navigator.pop(context);
-      Fluttertoast.showToast(msg: 'los datos del producto se actualizaron',
-          toastLength: Toast.LENGTH_LONG
+      Fluttertoast.showToast(
+        msg: 'Los datos del producto se actualizaron',
+        toastLength: Toast.LENGTH_LONG,
       );
-    })
-        .catchError((error) {
+    } catch (error) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error al actualizar: $error')),
       );
-    });
+    }
   }
 }

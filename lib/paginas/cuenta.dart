@@ -197,30 +197,6 @@ class _CuentaState extends State<Cuenta> {
                                       ),
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(15),
-                                    child: Container(
-                                      height: 30,
-                                      width: 80,
-                                      decoration: const BoxDecoration(
-                                        color: Color.fromARGB(255, 107, 187, 67),
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(15),
-                                        ),
-                                      ),
-                                      child: const Center(
-                                        child: Text(
-                                          '4.1 ⭐',
-                                          style: TextStyle(
-                                            fontFamily: 'Barlow',
-                                            color: Colors.white,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
                                 ],
                               ),
                               Align(
@@ -259,7 +235,7 @@ class _CuentaState extends State<Cuenta> {
                                     physics: NeverScrollableScrollPhysics(),
                                     itemCount: snapshot.data!.docs.length,
                                     itemBuilder: (context, index) {
-                                      producto = snapshot.data!.docs[index];
+                                      var producto = snapshot.data!.docs[index];
                                       return Card(
                                         color: Colors.grey[100],
                                         margin: EdgeInsets.all(10),
@@ -464,14 +440,15 @@ class _CuentaState extends State<Cuenta> {
         return AlertDialog(
           title: Text("Confirmar eliminación",
             style: TextStyle(
-              fontSize: 20
-          ),),
+                fontSize: 20
+            ),
+          ),
           content: Text("¿Estás seguro de que deseas eliminar este producto?"),
           actions: [
             TextButton(
               child: Text("Cancelar",
                 style: TextStyle(
-                  color: Color.fromARGB(255, 28, 62, 44)
+                    color: Color.fromARGB(255, 28, 62, 44)
                 ),
               ),
               onPressed: () {
@@ -508,4 +485,3 @@ class _CuentaState extends State<Cuenta> {
   }
 
 }
-

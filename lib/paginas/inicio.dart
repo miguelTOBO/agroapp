@@ -386,7 +386,6 @@ void _addToCart(BuildContext context, DocumentSnapshot producto) async {
 
 class PrimeraSeccion extends StatelessWidget {
 
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
