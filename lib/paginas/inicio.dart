@@ -18,6 +18,7 @@ class _InicioState extends State<Inicio> {
     'Verduras',
     'Legumbres',
     'Hierbas',
+    'Lacteos'
   ];
   int current = 0;
   bool _isSearching = false;
@@ -31,6 +32,7 @@ class _InicioState extends State<Inicio> {
     TerceraSeccion(),
     CuartaSeccion(),
     QuintaSeccion(),
+    SextaSeccion(),
   ];
   void cerrarSesion()async{
     await FirebaseAuth.instance.signOut();
@@ -1130,4 +1132,153 @@ class QuintaSeccion extends StatelessWidget {
           },
         );
     }
+}
+
+class SextaSeccion extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance.collection('productos').where('categoria', isEqualTo: 'Lacteos').snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        }
+        if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        }
+        return ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: snapshot.data!.docs.length,
+          itemBuilder: (context, index) {
+            var producto = snapshot.data!.docs[index];
+            return Card(
+              color: Colors.grey[100],
+              margin: EdgeInsets.all(10),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.scatter_plot,
+                          size: 25,
+                          color: Color.fromARGB(255, 28, 62, 44),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          child: Center(
+                            child: Text(
+                              '${producto['titulo']}',
+                              style: TextStyle(
+                                fontFamily: 'Barlow',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 17,
+                                color: Color.fromARGB(255, 28, 62, 44),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.scatter_plot,
+                          size: 25,
+                          color: Color.fromARGB(255, 28, 62, 44),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    height: 2,
+                    width: double.infinity,
+                    color: Color.fromARGB(255, 28, 62, 44),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(8),
+                    child: Text(
+                      '${producto['descripcion']}',
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontFamily: 'Barlow',
+                        fontWeight: FontWeight.w500,
+                        fontSize: 17,
+                        color: Color.fromARGB(255, 28, 62, 44),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    child: Text(
+                      '\$ ${producto['precio']}',
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontFamily: 'Barlow',
+                        fontWeight: FontWeight.w500,
+                        fontSize: 17,
+                        color: Color.fromARGB(255, 28, 62, 44),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(5),
+                    height: 150,
+                    width: 220,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      child: Image.network(
+                        producto['imagen'],
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(5),
+                    margin: EdgeInsets.symmetric(vertical: 5, horizontal: 58),
+                    child: TextButton(
+                      onPressed: () {
+                        _addToCart(context, producto);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.add_shopping_cart,
+                            color: Colors.white,
+                            size: 22,
+                          ),
+                          Padding(padding: EdgeInsets.all(5)),
+                          Text(
+                            'Añadir al carrito',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ],
+                      ),
+                      style: TextButton.styleFrom(
+                        backgroundColor: Color.fromARGB(255, 107, 187, 67),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
 }

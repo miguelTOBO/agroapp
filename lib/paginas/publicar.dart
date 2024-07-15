@@ -31,8 +31,9 @@ class _PublicarState extends State<Publicar> {
     'Granos',
     'Frutas',
     'Verduras',
-    'Fertilizantes',
-    'Herramientas'
+    'Legumbres',
+    'Hierbas',
+    'Lacteos',
   ];
   String? valorCategorias;
   @override
