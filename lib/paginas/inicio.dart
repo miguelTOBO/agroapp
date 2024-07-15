@@ -16,8 +16,8 @@ class _InicioState extends State<Inicio> {
     'Granos',
     'Frutas',
     'Verduras',
-    'Fertilizantes',
-    'Herramientas',
+    'Legumbres',
+    'Hierbas',
   ];
   int current = 0;
   bool _isSearching = false;
@@ -307,7 +307,7 @@ class _InicioState extends State<Inicio> {
                             ),
                             Container(
                               margin: EdgeInsets.all(5),
-                              height: 125,
+                              height: 150,
                               width: 220,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -480,7 +480,7 @@ class PrimeraSeccion extends StatelessWidget {
                   ),
                   Container(
                     margin: EdgeInsets.all(5),
-                    height: 100,
+                    height: 150,
                     width: 220,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -629,7 +629,7 @@ class SegundaSeccion extends StatelessWidget {
                     ),
                     Container(
                       margin: EdgeInsets.all(5),
-                      height: 100,
+                      height: 150,
                       width: 220,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -781,7 +781,7 @@ class TerceraSeccion extends StatelessWidget {
                   ),
                   Container(
                     margin: EdgeInsets.all(5),
-                    height: 100,
+                    height: 150,
                     width: 220,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -840,7 +840,7 @@ class CuartaSeccion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection('productos').where('categoria', isEqualTo: 'Fertilizantes').snapshots(),
+      stream: FirebaseFirestore.instance.collection('productos').where('categoria', isEqualTo: 'Legumbres').snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
@@ -930,7 +930,7 @@ class CuartaSeccion extends StatelessWidget {
                   ),
                   Container(
                     margin: EdgeInsets.all(5),
-                    height: 100,
+                    height: 150,
                     width: 220,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -988,7 +988,7 @@ class QuintaSeccion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection('productos').where('categoria', isEqualTo: 'Herramientas').snapshots(),
+        stream: FirebaseFirestore.instance.collection('productos').where('categoria', isEqualTo: 'Hierbas').snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
@@ -1079,7 +1079,7 @@ class QuintaSeccion extends StatelessWidget {
                     ),
                     Container(
                       margin: EdgeInsets.all(5),
-                      height: 100,
+                      height: 150,
                       width: 220,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(15)),

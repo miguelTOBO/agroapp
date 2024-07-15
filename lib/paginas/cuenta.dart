@@ -123,14 +123,16 @@ class _CuentaState extends State<Cuenta> {
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Container(
-                                  margin: const EdgeInsets.only(left: 20, top: 20),
-                                  child: Text(
-                                    _usuario['email'],
-                                    style: TextStyle(
-                                      fontFamily: 'Barlow',
-                                      color: Colors.black,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w800,
+                                  margin: const EdgeInsets.only(top: 20),
+                                  child: Center(
+                                    child: Text(
+                                      _usuario['email'],
+                                      style: TextStyle(
+                                        fontFamily: 'Barlow',
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w800,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -201,18 +203,21 @@ class _CuentaState extends State<Cuenta> {
                               ),
                               Align(
                                 alignment: Alignment.centerLeft,
-                                child: Container(
-                                  margin: const EdgeInsets.only(left: 20, top: 5),
-                                  child: const Text(
-                                    'Publicaciones Recientes',
-                                    style: TextStyle(
-                                      fontFamily: 'Barlow',
-                                      color: Colors.black,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w800,
+                                child: Center(
+                                  child: Container(
+                                    margin: const EdgeInsets.only(top: 5),
+                                    child: const Text(
+                                      'Publicaciones Recientes',
+                                      style: TextStyle(
+                                        fontFamily: 'Barlow',
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w800,
+
+                                      ),
                                     ),
                                   ),
-                                ),
+                                )
                               ),
                               StreamBuilder<QuerySnapshot>(
                                 stream: FirebaseFirestore.instance
@@ -243,75 +248,90 @@ class _CuentaState extends State<Cuenta> {
                                         child: Column(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                              children: [
-                                                IconButton(
-                                                    onPressed: (){},
-                                                    icon: Icon(Icons.scatter_plot,
-                                                      size: 25,
+                                          Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          children: [
+                                            IconButton(
+                                              onPressed: () {},
+                                              icon: Icon(
+                                                Icons.scatter_plot,
+                                                size: 25,
+                                                color: Color.fromARGB(255, 28, 62, 44),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Container(
+                                                child: Center(
+                                                  child: Text(
+                                                    '${producto['titulo']}',
+                                                    style: TextStyle(
+                                                      fontFamily: 'Barlow',
+                                                      fontWeight: FontWeight.w500,
+                                                      fontSize: 17,
                                                       color: Color.fromARGB(255, 28, 62, 44),
-                                                    )
-                                                ),
-                                                Expanded(
-                                                  child: Container(
-                                                    child: Center(
-                                                      child: Text(
-                                                        '${producto['titulo']} - ${producto['categoria']}',
-                                                        style: TextStyle(
-                                                          fontFamily: 'Barlow',
-                                                          fontWeight: FontWeight.w500,
-                                                          fontSize: 17,
-                                                          color: Color.fromARGB(255, 28, 62, 44),
-                                                        ),
-                                                      ),
                                                     ),
                                                   ),
                                                 ),
-                                                IconButton(
-                                                  onPressed: () {},
-                                                  icon: Icon(
-                                                    Icons.scatter_plot,
-                                                    size: 25,
-                                                    color: Color.fromARGB(255, 28, 62, 44),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Container(
-                                              height: 2,
-                                              width: double.infinity,
-                                              color: Color.fromARGB(255, 28, 62, 44),
-                                            ),
-                                            Container(
-                                              margin: EdgeInsets.all(8),
-                                              child: Text(
-                                                '${producto['descripcion']} - \$${producto['precio']}',
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
-                                                  fontFamily: 'Barlow',
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 17,
-                                                  color: Color.fromARGB(255, 28, 62, 44),
-                                                ),
                                               ),
                                             ),
-                                            Container(
-                                              margin: EdgeInsets.all(5),
-                                              height: 100,
-                                              width: 220,
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.all(Radius.circular(15)),
-                                              ),
-                                              child: ClipRRect(
-                                                borderRadius: BorderRadius.all(Radius.circular(15)),
-                                                child: Image.network(
-                                                  producto['imagen'],
-                                                  fit: BoxFit.cover,
-                                                ),
+                                            IconButton(
+                                              onPressed: () {},
+                                              icon: Icon(
+                                                Icons.scatter_plot,
+                                                size: 25,
+                                                color: Color.fromARGB(255, 28, 62, 44),
                                               ),
                                             ),
+                                          ],
+                                        ),
+                                          Container(
+                                            height: 2,
+                                            width: double.infinity,
+                                            color: Color.fromARGB(255, 28, 62, 44),
+                                          ),
+                                          Container(
+                                            margin: EdgeInsets.all(8),
+                                            child: Text(
+                                              '${producto['descripcion']}',
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontFamily: 'Barlow',
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 17,
+                                                color: Color.fromARGB(255, 28, 62, 44),
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              '\$ ${producto['precio']}',
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontFamily: 'Barlow',
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 17,
+                                                color: Color.fromARGB(255, 28, 62, 44),
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            margin: EdgeInsets.all(5),
+                                            height: 150,
+                                            width: 220,
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.all(Radius.circular(15)),
+                                            ),
+                                            child: ClipRRect(
+                                              borderRadius: BorderRadius.all(Radius.circular(15)
+                                              ),
+                                              child: Image.network(
+                                                producto['imagen'],
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
                                             Row(
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
@@ -426,8 +446,11 @@ class _CuentaState extends State<Cuenta> {
                 ),
               );
             },
-            child: Icon(Icons.edit),
+            child: Icon(Icons.edit,
+              color: Colors.white,
+            ),
             backgroundColor: Color.fromARGB(255, 107, 187, 67),
+
           ),
         ),
       ),
